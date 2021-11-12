@@ -5,10 +5,13 @@ from pygame.locals import *
 def affiche(largeur,hauteur,e,color): #e=largeur de la bande présente en haut et en bas de la map , color=color des bodures en RGB
     pg.init()    
     fenetre = pg.display.set_mode((largeur,hauteur))
-    fond=pg.image.load("bazar/etoiles.jpg")
+    fond=pg.image.load("bazar/etoiles.jpg").convert()
+    fond=pg.transform.scale(fond,(largeur,hauteur))    
     fenetre.blit(fond,(0,0))
+    ship=pg.image.load("bazar/ship_simple.png").convert()
+    fenetre.blit(ship,(largeur/2,hauteur/2))
     pg.draw.rect(fenetre,color, pg.Rect(0,0,largeur,e))
-    pg.draw.rect(fenetre,color, pg.Rect(0,hauteur-e,largeur, e ))
+    pg.draw.rect(fenetre,color, pg.Rect(0,hauteur-e,largeur,e))
     pg.display.flip()
     a=1
     while a:
