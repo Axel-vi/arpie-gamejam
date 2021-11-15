@@ -24,15 +24,15 @@ def move_ship(direction):
     if direction == "e":
         x_vaisseau += speed
     if direction == "ne":
-        y_vaisseau -= speed*sqrt(2)
-        x_vaisseau += speed*sqrt(2)
+        y_vaisseau -= speed/sqrt(2)
+        x_vaisseau += speed/sqrt(2)
     if direction == "nw":
-        y_vaisseau -= speed*sqrt(2)
-        x_vaisseau -= speed*sqrt(2)
+        y_vaisseau -= speed/sqrt(2)
+        x_vaisseau -= speed/sqrt(2)
     if direction == "se":
-        y_vaisseau += speed*sqrt(2)
-        x_vaisseau += speed*sqrt(2)
+        y_vaisseau += speed/sqrt(2)
+        x_vaisseau += speed/sqrt(2)
     if direction == "sw":
-        y_vaisseau += speed*sqrt(2)
-        x_vaisseau -= speed*sqrt(2)
+        y_vaisseau += speed/sqrt(2)
+        x_vaisseau -= speed/sqrt(2)
     return x_vaisseau, y_vaisseau

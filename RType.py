@@ -5,6 +5,7 @@ from game.ship import *
 from game.sounds import *
 
 while True:
+    fenetre.fill(black)
     clock.tick(fps)
     direction, touche = detect_control()
     x_vaisseau, y_vaisseau = move_ship(direction)
