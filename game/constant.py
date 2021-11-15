@@ -87,3 +87,8 @@ x_bord_decor = (width_fg-bord_fenetre_decor)*ratio_decor
 
 # Déplacement à chaque avancée du décor (en unité d'abscisse pygame)
 vitesse_decor = 1
+
+
+# chargement image du décor
+image['long_foreground_simple'] = pg.transform.scale(
+    image['long_foreground_simple'], (width_fg*ratio_decor, height))
