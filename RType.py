@@ -3,7 +3,8 @@
 from game.graphics import *
 from game.ship import *
 from game.sounds import *
-
+from game.game import *
+from game.enemy import *
 
 while True:
     while state == 0:
@@ -18,6 +19,15 @@ while True:
         direction, touche = detect_control_game()
         ship.move(direction)
         afficher_vaisseau(ship)
+
+        asteroid.move_rect()
+        afficher_asteroid(asteroid)
+        maskEnemy = pg.mask.from_surface(pg.transform.scale(
+            image["asteroide"].convert_alpha(), (90, 90)))
+
+        if detect_collision(ship, l_enemy, maskShip, maskEnemy):
+            quitter()
+
         defilement_decor()
         ship.shoot(touche)
         afficher_et_update_tir_vaisseau()

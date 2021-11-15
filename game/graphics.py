@@ -131,6 +131,7 @@ def defilement_decor():
         foregrnd = foregrnd.move(-vitesse_decor, 0)
     fenetre.blit(image["long_foreground_simple"], foregrnd)
 
+
     # Initialisation du décor
 global foregrnd
 foregrnd = image["long_foreground_simple"].get_rect()
@@ -152,10 +153,14 @@ def afficher_ecran_demarrage():
     fenetre.blit(titre_ecran_demarrage, rect_titre)
     fenetre.blit(press_start, rect_press_start)
 
+
 def afficher_ecran_fin():
     fenetre.fill(black)
-    fenetre.blit(titre_game_over,rect_game_over)
-    fenetre.blit(play_again,rect_play_again)
-    fenetre.blit(crochets,rect_crochets)
+    fenetre.blit(titre_game_over, rect_game_over)
+    fenetre.blit(play_again, rect_play_again)
+    fenetre.blit(crochets, rect_crochets)
 
 
+def afficher_asteroid(asteroid):
+    afficher_image(image["asteroide"], 90,
+                   90, asteroid.rect.left, asteroid.rect.top)
