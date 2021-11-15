@@ -80,6 +80,8 @@ class Vaisseau:
 
 
 ship = Vaisseau()
+maskShip = pg.mask.from_surface(pg.transform.scale(
+    image["vaisseau"].convert_alpha(), (ship.size, ship.size)))
 
 
 class tir_vaisseau:
