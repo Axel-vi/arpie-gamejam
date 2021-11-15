@@ -32,7 +32,7 @@ volume_musique = 0.2
 volume_bruitage = 0.5
 
 # Création du dictionnaire pour importer les images
-dico_image = {"vaisseau": "resources/images/ship_simple.jpeg"}
+dico_image = {"vaisseau": "resources/images/vaisseau.png"}
 
 
 def chargement_image(dico):
