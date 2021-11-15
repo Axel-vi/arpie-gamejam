@@ -51,13 +51,16 @@ def transition(fenetre, couleur=white):
     # print("transition")
 
 
-def afficher_image(image, long, larg, x, y):
+def afficher_image(image, long, larg, x, y, anchor="ne"):
     """Fonction qui modifie la taille et affiche une image.
     Prend en entrée une image, la dimension à lui donner et la position à laquelle l'afficher.
     """
     img = pg.transform.scale(image, (long, larg))
     rectPos = img.get_rect()
-    rectPos.topleft = (x, y)
+    if anchor == "nw":
+        rectPos.topright = (x, y)
+    else:
+        rectPos.topleft = (x, y)
     fenetre.blit(img, rectPos)
 
 
@@ -73,6 +76,8 @@ def transparent(img, valeur=150):
 
 
 def detect_control():
+    """Fonction qui récupère les inputs de l'utilisateur et renvoie un tuple (direction, touche)
+    """
     touche = False
     direction = False
     for event in pg.event.get():
@@ -103,3 +108,31 @@ def detect_control():
     if key_pressed[K_SPACE]:
         touche = True
     return direction, touche
+
+
+def defilement_decor():
+    """Définition de la boucle qui va faire défiler le décor au premier plan.
+    \nLa vitesse de défilement est ajustable dans le fichier constant.py
+    """
+    global foregrnd
+    if -foregrnd.topleft[0] >= x_bord_decor:
+        foregrnd = foregrnd.move(-foregrnd.topleft[0], 0)
+    else:
+        foregrnd = foregrnd.move(-vitesse_decor, 0)
+    fenetre.blit(image["long_foreground_simple"], foregrnd)
+
+
+    # Initialisation du décor
+global foregrnd
+foregrnd = image["long_foreground_simple"].get_rect()
+
+
+def afficher_vaisseau(ship):
+    afficher_image(image["vaisseau"], ship.size,
+                   ship.size, ship.rect.left, ship.rect.top)
+    if ship.state == "accelerate":
+        afficher_image(image["flamme"], ship.size,
+                       ship.size, ship.rect.left, ship.rect.top, anchor="nw")
+    elif ship.state == "static":
+        afficher_image(image["flamme_faible"], ship.size,
+                       ship.size, ship.rect.left, ship.rect.top, anchor="nw")
