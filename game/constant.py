@@ -4,7 +4,11 @@
 import pygame as pg
 from pygame.locals import *
 from math import sqrt
+from random import random,randint
 from os import listdir
+
+# Démarrage de pygame
+pg.init()
 
 # Les couleurs basiques
 black = 0, 0, 0
@@ -13,6 +17,10 @@ red = 255, 0, 0
 blue = 0, 0, 255
 green = 0, 255, 0
 gray = 100, 100, 100
+couleur_titre = (95, 199, 227)
+
+#Liste d'ennemis
+l_enemy=[]
 
 # Les tailles de police standards
 SMALL = 12
@@ -41,11 +49,26 @@ duree_tir=fps*1   #équivaut à 1seconde
 
 
 # Création du dictionnaire pour importer les images
-#dico_image = {"vaisseau": "resources/images/vaisseau.png","foreground": "resources/images/long_foreground_simple.png"}
 dico_image = {}
 for file in listdir("resources/images/"):
     dico_image[file[:-4]] = "resources/images/" + file
-print(dico_image)
+
+# Chargement de la police du titre
+police_titre = pg.font.Font("resources/font/space_age.ttf", 150)
+# Chargement de la police du press start
+police_press_start = pg.font.Font("resources/font/Open_24_Display.ttf", 50)
+# Génération de la surface du titre
+titre_ecran_demarrage = police_titre.render("ARPIE", True, couleur_titre)
+rect_titre = titre_ecran_demarrage.get_rect()
+rect_titre.center = (width//2, 150)
+# Génération de la surface du press start
+press_start = police_press_start.render(
+    "Appuyez sur espace pour commencer la partie", True, couleur_titre)
+rect_press_start = press_start.get_rect()
+rect_press_start.center = (width//2, 500)
+
+# Initialise l'état du jeu
+state = 0
 
 
 def chargement_image(dico):
