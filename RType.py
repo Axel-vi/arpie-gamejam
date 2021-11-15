@@ -10,4 +10,5 @@ while True:
     x_vaisseau, y_vaisseau = move_ship(direction)
     afficher_image(dico_image["vaisseau"], 200,
                    200, x_vaisseau, y_vaisseau)
+    defilement_decor()
     pg.display.update()

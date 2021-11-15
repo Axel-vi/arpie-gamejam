@@ -32,7 +32,8 @@ volume_musique = 0.2
 volume_bruitage = 0.5
 
 # Création du dictionnaire pour importer les images
-dico_image = {"vaisseau": "resources/images/ship_simple.jpeg"}
+dico_image = {"vaisseau": "resources/images/ship_simple.jpeg",
+              "foreground": "resources\images\long_foreground_simple.png"}
 
 
 def chargement_image(dico):
@@ -81,4 +82,4 @@ x_bord_fenetre = bord_fenetre_decor*ratio_decor
 x_bord_decor = (width_fg-bord_fenetre_decor)*ratio_decor
 
 # Déplacement à chaque avancée du décor (en unité d'abscisse pygame)
-vitesse_decor = 2
+vitesse_decor = 1
