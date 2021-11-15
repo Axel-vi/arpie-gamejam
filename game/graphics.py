@@ -129,12 +129,14 @@ def defilement_decor():
         foregrnd = foregrnd.move(-foregrnd.topleft[0], 0)
     else:
         foregrnd = foregrnd.move(-vitesse_decor, 0)
-    fenetre.blit(image["long_foreground_simple"], foregrnd)
+    fenetre.blit(image["long_foreground_relief"], foregrnd)
 
 
-    # Initialisation du décor
+maskForegrnd = pg.mask.from_surface(image["long_foreground_relief"])
+
+# Initialisation du décor
 global foregrnd
-foregrnd = image["long_foreground_simple"].get_rect()
+foregrnd = image["long_foreground_relief"].get_rect()
 
 
 def afficher_vaisseau(ship):
