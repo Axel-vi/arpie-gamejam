@@ -10,7 +10,7 @@ while True:
         afficher_ecran_demarrage()
         new_state = detect_control_demarrage()
         if new_state == 1:
-            state = 2
+            state = 1
         pg.display.update()
     while state == 1:
         fenetre.fill(black)
