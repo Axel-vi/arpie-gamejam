@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Imports spécifiques
+from os import stat
 from pygame import key
 
 
@@ -9,8 +10,6 @@ if __name__ == "__main__":
     from constant import *
 else:
     from game.constant import *
-
-pg.init()
 
 # Création de la fenêtre
 fenetre = pg.display.set_mode((width, height))
@@ -75,7 +74,7 @@ def transparent(img, valeur=150):
     return res
 
 
-def detect_control():
+def detect_control_game():
     """Fonction qui récupère les inputs de l'utilisateur et renvoie un tuple (direction, touche)
     """
     touche = False
@@ -110,6 +109,17 @@ def detect_control():
     return direction, touche
 
 
+def detect_control_demarrage():
+    for event in pg.event.get():
+        if event.type == QUIT:
+            quitter()
+        elif event.type == KEYDOWN:
+            if event.key == K_ESCAPE:
+                quitter()
+            if event.key == K_SPACE:
+                return 1
+
+
 def defilement_decor():
     """Définition de la boucle qui va faire défiler le décor au premier plan.
     \nLa vitesse de défilement est ajustable dans le fichier constant.py
@@ -128,10 +138,24 @@ foregrnd = image["long_foreground_simple"].get_rect()
 
 def afficher_vaisseau(ship):
     afficher_image(image["vaisseau"], ship.size,
-                   ship.size, ship.x, ship.y)
+                   ship.size, ship.rect.left, ship.rect.top)
     if ship.state == "accelerate":
         afficher_image(image["flamme"], ship.size,
-                       ship.size, ship.x, ship.y, anchor="nw")
+                       ship.size, ship.rect.left, ship.rect.top, anchor="nw")
     elif ship.state == "static":
         afficher_image(image["flamme_faible"], ship.size,
-                       ship.size, ship.x, ship.y, anchor="nw")
+                       ship.size, ship.rect.left, ship.rect.top, anchor="nw")
+
+
+def afficher_ecran_demarrage():
+    fenetre.fill(black)
+    fenetre.blit(titre_ecran_demarrage, rect_titre)
+    fenetre.blit(press_start, rect_press_start)
+
+def afficher_ecran_fin():
+    fenetre.fill(black)
+    fenetre.blit(titre_game_over,rect_game_over)
+    fenetre.blit(play_again,rect_play_again)
+    fenetre.blit(crochets,rect_crochets)
+
+
