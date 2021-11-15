@@ -10,6 +10,3 @@ def detect_collision(ship, L):
             if mask_ship.overlap(mask_enemy, (L[i].left - ship.left, L[i].top - ship.top)) != None:
                 return True
     return False
-
-
-# L[i].x # coordonnée x
