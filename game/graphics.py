@@ -118,7 +118,7 @@ def defilement_decor():
 
 
     # Initialisation du décor
-# decor = pg.transform.scale(pg.image.load(
-#     "resources\images\long_foreground_simple.png").convert_alpha(), (width_fg*ratio_decor, height))  # Attention l'image n'existe pas pour le moment !!
+decor = pg.transform.scale(pg.image.load(
+    "resources\images\long_foreground_simple.png").convert_alpha(), (width_fg*ratio_decor, height))  # Attention l'image n'existe pas pour le moment !!
 global foregrnd
 foregrnd = decor.get_rect()
