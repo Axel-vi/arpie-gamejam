@@ -10,14 +10,6 @@ if __name__ == "__main__":
 else:
     from game.constant import *
 
-
-#IMPORTS A SUPPR-----------------A SUPPR--------------A SUPPR------------------------A SUPPR
-window=pg.display.set_mode((1280,720))
-pg.display.set_caption("yessir")
-saitamos=pg.image.load('opm_head.png')
-saitamos=pg.transform.scale(saitamos,(80,80))
-#IMPORTS A SUPPR-----------------A SUPPR--------------A SUPPR------------------------A SUPPR
-
 # Apparition des astéroides :
 
 def apparition(v):
@@ -32,23 +24,7 @@ def apparition(v):
     # vy_approx=int(vy)
     return (x,y,vx,vy)
 
-def test(v):
-    x,y,vx,vy=apparition(v)
-    aste=pg.Rect(x,y,10,10)
-    clock=pg.time.Clock()
-    run=True
-    while run:
-        clock.tick(fps)
-        window.fill((255,255,255))
-        print(aste.x,aste.y)
-        window.blit(saitamos,(aste.x,aste.y))
-        aste.x+=vx
-        aste.y+=vy
-        for truc in pg.event.get():
-            if truc.type==pg.QUIT:
-                run=False
-        pg.display.update()
-    pg.quit()
-test(30)    
+
+
 
 
