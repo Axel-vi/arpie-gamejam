@@ -1,2 +1,9 @@
+<<<<<<< HEAD
 bazar/
 .gitignore/
+=======
+__pycache__/
+.pytest_cache/
+game2048/__pycache__/
+gauthier_test.py
+>>>>>>> 128919dc679eb1b56bbe100dc8b30738eb0a8637

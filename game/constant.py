@@ -4,6 +4,7 @@
 import pygame as pg
 from pygame.locals import *
 from math import sqrt
+from os import listdir
 
 # Les couleurs basiques
 black = 0, 0, 0
@@ -32,13 +33,19 @@ volume_musique = 0.2
 volume_bruitage = 0.5
 
 # Tirs
-L_tir=[]
+L_tir_vaisseau=[]
 speed_tir=30
-long_tir=100
-larg_tir=100
+long_tir=50
+larg_tir=25
+duree_tir=fps*1   #équivaut à 1seconde
+
 
 # Création du dictionnaire pour importer les images
-dico_image = {"vaisseau": "resources/images/ship_simple.jpeg","tir":"resources/images/tir.png"}
+#dico_image = {"vaisseau": "resources/images/vaisseau.png","foreground": "resources/images/long_foreground_simple.png"}
+dico_image = {}
+for file in listdir("resources/images/"):
+    dico_image[file[:-4]] = "resources/images/" + file
+print(dico_image)
 
 
 def chargement_image(dico):
@@ -62,4 +69,34 @@ def chargement_musique(dico):
 
 
 # Chargement des images
-dico_image = chargement_image(dico_image)
+image = chargement_image(dico_image)
+
+
+# Taille générique des images utilisées:
+width_img = 32
+height_img = 32
+
+# Dimension en pixels de l'image qui sert de décor
+width_fg = 1024
+height_fg = 36
+pixels_decor = 7  # nombre de pixel en hauteur du bandeau du décor
+
+# 'Zoom' sur l'image en décor pour la faire coincider en hauteur avec la fenetre
+ratio_decor = height / height_fg
+
+# Numero du pixel du décor au bord droit de la fenètre
+bord_fenetre_decor = width / ratio_decor
+
+# Abscisse de ce pixel
+x_bord_fenetre = bord_fenetre_decor*ratio_decor
+
+# Abscisse du pixel tout à droite du décor
+x_bord_decor = (width_fg-bord_fenetre_decor)*ratio_decor
+
+# Déplacement à chaque avancée du décor (en unité d'abscisse pygame)
+vitesse_decor = 1
+
+
+# chargement image du décor
+image['long_foreground_simple'] = pg.transform.scale(
+    image['long_foreground_simple'], (width_fg*ratio_decor, height))
