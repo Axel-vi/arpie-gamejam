@@ -129,10 +129,10 @@ foregrnd = image["long_foreground_simple"].get_rect()
 
 def afficher_vaisseau(ship):
     afficher_image(image["vaisseau"], ship.size,
-                   ship.size, ship.x, ship.y)
+                   ship.size, ship.rect.left, ship.rect.top)
     if ship.state == "accelerate":
         afficher_image(image["flamme"], ship.size,
-                       ship.size, ship.x, ship.y, anchor="nw")
+                       ship.size, ship.rect.left, ship.rect.top, anchor="nw")
     elif ship.state == "static":
         afficher_image(image["flamme_faible"], ship.size,
-                       ship.size, ship.x, ship.y, anchor="nw")
+                       ship.size, ship.rect.left, ship.rect.top, anchor="nw")
