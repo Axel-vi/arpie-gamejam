@@ -19,5 +19,6 @@ while True:
         ship.move(direction)
         afficher_vaisseau(ship)
         defilement_decor()
-        afficher_et_update_tir_vaisseau(touche)
+        ship.shoot(touche)
+        afficher_et_update_tir_vaisseau()
         pg.display.update()

@@ -4,7 +4,7 @@
 import pygame as pg
 from pygame.locals import *
 from math import sqrt
-from random import random,randint
+from random import random, randint
 from os import listdir
 
 # Démarrage de pygame
@@ -19,8 +19,8 @@ green = 0, 255, 0
 gray = 100, 100, 100
 couleur_titre = (95, 199, 227)
 
-#Liste d'ennemis
-l_enemy=[]
+# Liste d'ennemis
+l_enemy = []
 
 # Les tailles de police standards
 SMALL = 12
@@ -41,11 +41,12 @@ volume_musique = 0.2
 volume_bruitage = 0.5
 
 # Tirs
-L_tir_vaisseau=[]
-speed_tir=30
-long_tir=50
-larg_tir=25
-duree_tir=fps*1   #équivaut à 1seconde
+L_tir_vaisseau = []
+speed_tir = 30
+delai_tir = 45
+long_tir = 50
+larg_tir = 25
+duree_tir = fps*1  # équivaut à 1seconde
 
 
 # Création du dictionnaire pour importer les images
