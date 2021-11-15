@@ -51,13 +51,16 @@ def transition(fenetre, couleur=white):
     # print("transition")
 
 
-def afficher_image(image, long, larg, x, y):
+def afficher_image(image, long, larg, x, y, anchor="ne"):
     """Fonction qui modifie la taille et affiche une image.
     Prend en entrée une image, la dimension à lui donner et la position à laquelle l'afficher.
     """
     img = pg.transform.scale(image, (long, larg))
     rectPos = img.get_rect()
-    rectPos.topleft = (x, y)
+    if anchor == "nw":
+        rectPos.topright = (x, y)
+    else:
+        rectPos.topleft = (x, y)
     fenetre.blit(img, rectPos)
 
 
@@ -128,3 +131,9 @@ foregrnd = image["long_foreground_simple"].get_rect()
 def afficher_vaisseau(ship):
     afficher_image(image["vaisseau"], ship.size,
                    ship.size, ship.x, ship.y)
+    if ship.state == "accelerate":
+        afficher_image(image["flamme"], ship.size,
+                       ship.size, ship.x, ship.y, anchor="nw")
+    elif ship.state == "static":
+        afficher_image(image["flamme_faible"], ship.size,
+                       ship.size, ship.x, ship.y, anchor="nw")
