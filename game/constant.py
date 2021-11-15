@@ -15,6 +15,9 @@ blue = 0, 0, 255
 green = 0, 255, 0
 gray = 100, 100, 100
 
+#Liste d'ennemis
+l_enemy=[]
+
 # Les tailles de police standards
 SMALL = 12
 MEDIUM = 16
