@@ -103,3 +103,22 @@ def detect_control():
     if key_pressed[K_SPACE]:
         touche = True
     return direction, touche
+
+
+def defilement_decor():
+    """Définition de la boucle qui va faire défiler le décor au premier plan.
+    \nLa vitesse de défilement est ajustable dans le fichier constant.py
+    """
+    global foregrnd
+    if -foregrnd.topleft[0] >= x_bord_decor:
+        foregrnd = foregrnd.move(-foregrnd.topleft[0], 0)
+    else:
+        foregrnd = foregrnd.move(-vitesse_decor, 0)
+    fenetre.blit(decor, foregrnd)
+
+
+    # Initialisation du décor
+decor = pg.transform.scale(pg.image.load(
+    "resources\images\_long_foreground.png").convert_alpha(), (width_fg*ratio_decor, height))  # Attention l'image n'existe pas pour le moment !!
+global foregrnd
+foregrnd = decor.get_rect()
