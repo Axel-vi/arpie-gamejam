@@ -13,19 +13,18 @@ class Vaisseau:
     """
 
     def __init__(self):
-        self.x = width//2
-        self.y = height//2
         self.speed = 4
         self.size = 75
         self.state = "static"
+        self.rect = pg.Rect(width//2, height//2, self.size, self.size)
 
     def move(self, direction):
         """Déplace le vaisseau dans la direction voulue et change l'état des propulseurs en fonction du déplacement.
         """
         # Variables utiles
         sq = sqrt(2)
-        old_x = self.x
-        old_y = self.y
+        x = 0
+        y = 0
         # Changement d'état des propulseurs
         if direction == False:
             self.state = "static"
@@ -37,34 +36,35 @@ class Vaisseau:
             self.state = "static"
         # Application du déplacement
         if direction == "n":
-            self.y -= self.speed
+            y -= self.speed
         if direction == "s":
-            self.y += self.speed
+            y += self.speed
         if direction == "w":
-            self.x -= self.speed
+            x -= self.speed
         if direction == "e":
-            self.x += self.speed
+            x += self.speed
         if direction == "ne":
-            self.y -= self.speed/sq
-            self.x += self.speed/sq
+            y -= self.speed/sq
+            x += self.speed/sq
         if direction == "nw":
-            self.y -= self.speed/sq
-            self.x -= self.speed/sq
+            y -= self.speed/sq
+            x -= self.speed/sq
         if direction == "se":
-            self.y += self.speed/sq
-            self.x += self.speed/sq
+            y += self.speed/sq
+            x += self.speed/sq
         if direction == "sw":
-            self.y += self.speed/sq
-            self.x -= self.speed/sq
+            y += self.speed/sq
+            x -= self.speed/sq
         # Retour à la postion précédente en cas de sortie de la fenetre
-        if self.x > width - self.size:
-            self.x = old_x
-        if self.x < 0:
-            self.x = old_x
-        if self.y > height - self.size:
-            self.y = old_y
-        if self.y < 0:
-            self.y = old_y
+        self.rect = self.rect.move(x, y)
+        if self.rect.right > width:
+            self.rect = self.rect.move(-x, 0)
+        if self.rect.left < 0:
+            self.rect = self.rect.move(-x, 0)
+        if self.rect.bottom > height:
+            self.rect = self.rect.move(0, -y)
+        if self.rect.top < 0:
+            self.rect = self.rect.move(0, -y)
 
 
 ship = Vaisseau()

@@ -4,6 +4,7 @@
 import pygame as pg
 from pygame.locals import *
 from math import sqrt
+from random import random,randint
 from os import listdir
 
 # Les couleurs basiques
