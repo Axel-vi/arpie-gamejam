@@ -151,3 +151,11 @@ def afficher_ecran_demarrage():
     fenetre.fill(black)
     fenetre.blit(titre_ecran_demarrage, rect_titre)
     fenetre.blit(press_start, rect_press_start)
+
+def afficher_ecran_fin():
+    fenetre.fill(black)
+    fenetre.blit(titre_game_over,rect_game_over)
+    fenetre.blit(play_again,rect_play_again)
+    fenetre.blit(crochets,rect_crochets)
+
+

@@ -60,7 +60,17 @@ police_titre = pg.font.Font("resources/font/space_age.ttf", 150)
 police_press_start = pg.font.Font("resources/font/Open_24_Display.ttf", 50)
 # Génération de la surface du titre
 titre_ecran_demarrage = police_titre.render("ARPIE", True, couleur_titre)
+titre_game_over = police_titre.render("GAME OVER", True, red)
+play_again=police_press_start.render("Play again?",True,red)
+crochets=police_press_start.render("[           ]",True,red)
+rect_game_over=titre_game_over.get_rect()
+rect_game_over.center=(width/2,height/3)
+rect_play_again=play_again.get_rect()
+rect_play_again.center=(width/2,2*height/3)
+rect_crochets=crochets.get_rect()
+rect_crochets.center=(width/2,2*height/3)
 rect_titre = titre_ecran_demarrage.get_rect()
+
 rect_titre.center = (width//2, 150)
 # Génération de la surface du press start
 press_start = police_press_start.render(
