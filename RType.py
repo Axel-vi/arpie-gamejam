@@ -4,6 +4,7 @@ from game.graphics import *
 from game.ship import *
 from game.sounds import *
 
+
 while True:
     while state == 0:
         afficher_ecran_demarrage()
@@ -18,4 +19,5 @@ while True:
         ship.move(direction)
         afficher_vaisseau(ship)
         defilement_decor()
+        afficher_et_update_tir_vaisseau(touche)
         pg.display.update()

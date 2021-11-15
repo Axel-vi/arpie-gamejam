@@ -2,6 +2,9 @@
 # -*- coding: utf-8 -*-
 
 # Imports spécifiques
+from game.graphics import afficher_image
+
+
 if __name__ == "__main__":
     from constant import *
 else:
@@ -68,3 +71,30 @@ class Vaisseau:
 
 
 ship = Vaisseau()
+
+class tir_vaisseau:
+    def __init__(self,x,y):
+
+        self.x=x
+        self.y=y
+        self.duree=duree_tir
+        L_tir_vaisseau.append(self)
+    def move(self):
+        self.x+=speed_tir
+    def update_duree(self):
+        self.duree-=1
+        if self.duree<=0:
+            L_tir_vaisseau.pop(0)
+    def afficher(self):
+        afficher_image(dico_image['tir_vaisseau'],long_tir,larg_tir,self.x,self.y)
+
+def afficher_et_update_tir_vaisseau(touche):
+    if len(L_tir_vaisseau)==0:
+        if touche:
+            tir_vaisseau(ship.rect.left+ship.size/2,ship.rect.top+ship.size/2)
+    elif touche and 30-L_tir_vaisseau[-1].duree>=0: #cooldown de 30 frames
+        tir_vaisseau(ship.rect.left+ship.size/2,ship.rect.top+ship.size/2)
+    for l in L_tir_vaisseau:
+        l.move()
+        l.update_duree()
+        l.afficher()

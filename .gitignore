@@ -1,4 +1,6 @@
+bazar/
+.gitignore/
 __pycache__/
 .pytest_cache/
-game2048/__pycache__/
+game/__pycache__/
 gauthier_test.py
