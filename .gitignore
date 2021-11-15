@@ -1,0 +1,3 @@
+__pycache__/
+.pytest_cache/
+game2048/__pycache__/
