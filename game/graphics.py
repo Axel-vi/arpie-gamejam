@@ -73,6 +73,8 @@ def transparent(img, valeur=150):
 
 
 def detect_control():
+    """Fonction qui récupère les inputs de l'utilisateur et renvoie un tuple (direction, touche)
+    """
     touche = False
     direction = False
     for event in pg.event.get():
@@ -114,11 +116,15 @@ def defilement_decor():
         foregrnd = foregrnd.move(-foregrnd.topleft[0], 0)
     else:
         foregrnd = foregrnd.move(-vitesse_decor, 0)
-    fenetre.blit(decor, foregrnd)
-
+    fenetre.blit(image["long_foreground_simple"], foregrnd)
 
     # Initialisation du décor
 # decor = pg.transform.scale(pg.image.load(
 #     "resources\images\long_foreground_simple.png").convert_alpha(), (width_fg*ratio_decor, height))  # Attention l'image n'existe pas pour le moment !!
 global foregrnd
-foregrnd = decor.get_rect()
+foregrnd = image["long_foreground_simple"].get_rect()
+
+
+def afficher_vaisseau(ship):
+    afficher_image(image["vaisseau"], ship.size,
+                   ship.size, ship.x, ship.y)

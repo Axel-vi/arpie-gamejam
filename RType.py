@@ -5,11 +5,10 @@ from game.ship import *
 from game.sounds import *
 
 while True:
-    fenetre.fill(black)
+    fenetre.fill(white)
     clock.tick(fps)
     direction, touche = detect_control()
-    x_vaisseau, y_vaisseau = move_ship(direction)
-    afficher_image(dico_image["vaisseau"], 200,
-                   200, x_vaisseau, y_vaisseau)
+    ship.move(direction)
+    afficher_vaisseau(ship)
     defilement_decor()
     pg.display.update()
