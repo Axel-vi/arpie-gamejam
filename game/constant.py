@@ -71,9 +71,6 @@ rect_press_start.center = (width//2, 500)
 # Initialise l'état du jeu
 state = 0
 
-# Constante pour ne pas faire apparaitre les ennemis dans le décor
-play_height = 560
-
 
 def chargement_image(dico):
     """Fonction pour charger toutes les images d'un coup.
