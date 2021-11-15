@@ -4,6 +4,7 @@
 import pygame as pg
 from pygame.locals import *
 from math import sqrt
+from os import listdir
 
 # Les couleurs basiques
 black = 0, 0, 0
@@ -32,7 +33,11 @@ volume_musique = 0.2
 volume_bruitage = 0.5
 
 # Création du dictionnaire pour importer les images
-dico_image = {"vaisseau": "resources/images/vaisseau.png"}
+#dico_image = {"vaisseau": "resources/images/vaisseau.png","foreground": "resources/images/long_foreground_simple.png"}
+dico_image = {}
+for file in listdir("resources/images/"):
+    dico_image[file[:-4]] = "resources/images/" + file
+print(dico_image)
 
 
 def chargement_image(dico):
@@ -56,7 +61,7 @@ def chargement_musique(dico):
 
 
 # Chargement des images
-dico_image = chargement_image(dico_image)
+image = chargement_image(dico_image)
 
 
 # Taille générique des images utilisées:

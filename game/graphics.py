@@ -51,13 +51,16 @@ def transition(fenetre, couleur=white):
     # print("transition")
 
 
-def afficher_image(image, long, larg, x, y):
+def afficher_image(image, long, larg, x, y, anchor="ne"):
     """Fonction qui modifie la taille et affiche une image.
     Prend en entrée une image, la dimension à lui donner et la position à laquelle l'afficher.
     """
     img = pg.transform.scale(image, (long, larg))
     rectPos = img.get_rect()
-    rectPos.topleft = (x, y)
+    if anchor == "nw":
+        rectPos.topright = (x, y)
+    else:
+        rectPos.topleft = (x, y)
     fenetre.blit(img, rectPos)
 
 
@@ -73,6 +76,8 @@ def transparent(img, valeur=150):
 
 
 def detect_control():
+    """Fonction qui récupère les inputs de l'utilisateur et renvoie un tuple (direction, touche)
+    """
     touche = False
     direction = False
     for event in pg.event.get():
@@ -114,11 +119,21 @@ def defilement_decor():
         foregrnd = foregrnd.move(-foregrnd.topleft[0], 0)
     else:
         foregrnd = foregrnd.move(-vitesse_decor, 0)
-    fenetre.blit(decor, foregrnd)
-
+    fenetre.blit(image["long_foreground_simple"], foregrnd)
 
     # Initialisation du décor
 decor = pg.transform.scale(pg.image.load(
     "resources\images\long_foreground_simple.png").convert_alpha(), (width_fg*ratio_decor, height))  # Attention l'image n'existe pas pour le moment !!
 global foregrnd
-foregrnd = decor.get_rect()
+foregrnd = image["long_foreground_simple"].get_rect()
+
+
+def afficher_vaisseau(ship):
+    afficher_image(image["vaisseau"], ship.size,
+                   ship.size, ship.x, ship.y)
+    if ship.state == "accelerate":
+        afficher_image(image["flamme"], ship.size,
+                       ship.size, ship.x, ship.y, anchor="nw")
+    elif ship.state == "static":
+        afficher_image(image["flamme_faible"], ship.size,
+                       ship.size, ship.x, ship.y, anchor="nw")
