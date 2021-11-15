@@ -16,7 +16,7 @@ class Vaisseau:
     """
 
     def __init__(self):
-        self.speed = 4
+        self.speed = 5
         self.size = 75
         self.state = "static"
         self.rect = pg.Rect(width//2, height//2, self.size, self.size)
@@ -69,31 +69,41 @@ class Vaisseau:
         if self.rect.top < 0:
             self.rect = self.rect.move(0, -y)
 
+    def shoot(self, touche):
+        if len(L_tir_vaisseau) == 0:
+            if touche:
+                tir_vaisseau(self.rect.left+self.size/2,
+                             self.rect.top+self.size/2)
+        # cooldown de 30 frames
+        elif touche and delai_tir - L_tir_vaisseau[-1].duree >= 0:
+            tir_vaisseau(ship.rect.left+self.size/2, self.rect.top+self.size/2)
+
 
 ship = Vaisseau()
 
+
 class tir_vaisseau:
-    def __init__(self,x,y):
+    def __init__(self, x, y):
 
-        self.x=x
-        self.y=y
-        self.duree=duree_tir
+        self.x = x
+        self.y = y
+        self.duree = duree_tir
         L_tir_vaisseau.append(self)
-    def move(self):
-        self.x+=speed_tir
-    def update_duree(self):
-        self.duree-=1
-        if self.duree<=0:
-            L_tir_vaisseau.pop(0)
-    def afficher(self):
-        afficher_image(dico_image['tir_vaisseau'],long_tir,larg_tir,self.x,self.y)
 
-def afficher_et_update_tir_vaisseau(touche):
-    if len(L_tir_vaisseau)==0:
-        if touche:
-            tir_vaisseau(ship.rect.left+ship.size/2,ship.rect.top+ship.size/2)
-    elif touche and 30-L_tir_vaisseau[-1].duree>=0: #cooldown de 30 frames
-        tir_vaisseau(ship.rect.left+ship.size/2,ship.rect.top+ship.size/2)
+    def move(self):
+        self.x += speed_tir
+
+    def update_duree(self):
+        self.duree -= 1
+        if self.duree <= 0:
+            L_tir_vaisseau.pop(0)
+
+    def afficher(self):
+        afficher_image(dico_image['tir_vaisseau'],
+                       long_tir, larg_tir, self.x, self.y)
+
+
+def afficher_et_update_tir_vaisseau():
     for l in L_tir_vaisseau:
         l.move()
         l.update_duree()
