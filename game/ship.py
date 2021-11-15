@@ -57,6 +57,14 @@ class Vaisseau:
             self.y += self.speed/sq
             self.x -= self.speed/sq
         # Retour à la postion précédente en cas de sortie de la fenetre
+        if self.x > width - self.size:
+            self.x = old_x
+        if self.x < 0:
+            self.x = old_x
+        if self.y > height - self.size:
+            self.y = old_y
+        if self.y < 0:
+            self.y = old_y
 
 
 ship = Vaisseau()
