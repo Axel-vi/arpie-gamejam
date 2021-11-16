@@ -4,7 +4,7 @@ from game.enemy import *
 from game.constant import *
 # from tests.test_enemy import *
 
-
+"""
 def test_asteroid():
     asteroid = Asteroide()
     assert asteroid.x == width
@@ -35,7 +35,14 @@ def test_move_rect_asteroid():
 test_asteroid()  # Valide !
 test_move_rect_asteroid()  # Valide !
 
-
+"""
 # SECTION TEST_SHIP
 
 # SECTION TEST_AFFICHAGE
+
+
+# Test des patterns
+t = [i for i in range(301)]
+y = [pattern(12, i, 0)[1] for i in range(301)]
+plt.plot(t, y)
+plt.show()

@@ -3,9 +3,11 @@
 # Penser à modifier les imports une fois le code terminé
 import pygame as pg
 from pygame.locals import *
-from math import sqrt
+from pygame import key
+from math import sqrt, sin, pi
 from random import random, randint
 from os import listdir
+import matplotlib.pyplot as plt
 
 # Démarrage de pygame
 pg.init()
@@ -35,6 +37,7 @@ fps = 60
 # Taille de la fenêtre
 width = 1280
 height = 720
+play_height = 540
 
 # Volume des sons
 volume_musique = 0.2
@@ -47,6 +50,9 @@ delai_tir = 45
 long_tir = 50
 larg_tir = 25
 duree_tir = fps*1  # équivaut à 1seconde
+
+# Constante pour accélerer les calculs
+sq = sqrt(2)
 
 
 # Création du dictionnaire pour importer les images
