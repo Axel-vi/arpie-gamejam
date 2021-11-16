@@ -19,7 +19,7 @@ class Vaisseau:
         """ Initialisation de la classe
         """
         self.speed = 5
-        self.size = 75
+        self.size = scale_size
         self.state = "static"
         self.rect = pg.Rect(width//2, height//2, self.size, self.size)
 
@@ -83,21 +83,18 @@ class Vaisseau:
             tir_vaisseau(self.rect.left+self.size/2, self.rect.top+self.size/2)
 
 
-# Initialisation du vaisseau pour la premiere partie + creation du mask du vaisseau
+# Initialisation du vaisseau pour la premiere partie
 ship = Vaisseau()
-maskShip = pg.mask.from_surface(pg.transform.scale(
-    image["vaisseau"].convert_alpha(), (ship.size, ship.size)))
 
 
 class tir_vaisseau:
     def __init__(self, x, y):
-
-        self.rect = pg.Rect(x, y,larg_tir, long_tir)
+        self.rect = pg.Rect(x, y, larg_tir, long_tir)
         self.duree = duree_tir
         l_tir_vaisseau.append(self)
 
     def move(self):
-        self.rect = pg.Rect.move(self.rect,speed_tir,0)
+        self.rect = self.rect.move(speed_tir, 0)
 
     def update_duree(self):
         self.duree -= 1
@@ -107,5 +104,3 @@ class tir_vaisseau:
     def afficher(self):
         afficher_image(dico_image['tir_vaisseau'],
                        long_tir, larg_tir, self.rect.right, self.rect.top)
-
-
