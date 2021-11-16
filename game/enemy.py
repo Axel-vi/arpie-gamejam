@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Imports spécifiques
+import pygame as pg
 from pygame import key
 
 
@@ -10,10 +11,10 @@ if __name__ == "__main__":
 else:
     from game.constant import *
 
-# Apparition des astéroides :
-
 
 class Asteroide:
+    """Definition de la classe qui va servir a creer les asteroides et gerer leurs comportements"""
+
     def __init__(self):
         speed = randint(6, 10)
         x = width
@@ -81,6 +82,9 @@ def spawn_chromius_fighter():
         Chromius_fighter()
         delai_spawn_enemy=120
 
+# Initialisation d'un objet de la classe Asteroid + creation du mask des asteroid
+
+# Cette ligne est a priori temporaire et devra etre retirer lorsque les asteroides seront vraiment implementes
 asteroid = Asteroide()
 maskEnemy = pg.mask.from_surface(pg.transform.scale(
     image["asteroide"].convert_alpha(), (90, 90)))

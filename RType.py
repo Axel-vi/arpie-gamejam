@@ -15,6 +15,7 @@ while True:
         if new_state == 1:
             state = 1
         pg.display.update()
+
     while state == 1:
         fenetre.fill(black)
         clock.tick(fps)
@@ -31,10 +32,13 @@ while True:
         if detect_collision(ship, l_enemy, maskShip, maskEnemy, maskForegrnd, abs_decor):
             state = 2
         pg.display.update()
+
     while state == 2:
         afficher_ecran_fin()
-        # Attention il faut reset la game aussi !!
         new_state = detect_control_demarrage()
         if new_state == 1:
+            initialiser_decor()
             state = 1
+            ship = Vaisseau()
+
         pg.display.update()
