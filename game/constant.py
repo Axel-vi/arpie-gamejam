@@ -41,9 +41,13 @@ volume_musique = 0.2
 volume_bruitage = 0.5
 
 # Tirs
-L_tir_vaisseau = []
-speed_tir = 30
+l_tir_vaisseau = []
+l_tir_enemy=[]
+speed_tir =30
 delai_tir = 45
+delai_spawn_enemy=120
+speed_tir_enemy=-30
+delai_tir_enemy=45
 long_tir = 50
 larg_tir = 25
 duree_tir = fps*1  # équivaut à 1seconde
