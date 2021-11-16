@@ -30,7 +30,7 @@ while True:
         abs_decor = defilement_decor()
         ship.shoot(touche)
         afficher_et_update_tir_vaisseau()
-        if detect_collision(ship, l_enemy, maskShip, maskEnemy, maskForegrnd, abs_decor):
+        if detect_collision(ship, l_enemy, maskShip, maskAsteroid, maskForegrnd, abs_decor):
             state = 2
         pg.display.update()
 
