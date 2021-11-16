@@ -1,10 +1,6 @@
 # Module graphics du projet R-Type
 # -*- coding: utf-8 -*-
 
-# Imports spécifiques
-from os import stat
-from pygame import key
-
 
 if __name__ == "__main__":
     from constant import *
