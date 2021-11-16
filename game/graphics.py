@@ -110,6 +110,9 @@ def detect_control_game():
 
 
 def detect_control_demarrage():
+    """ Fonction qui sert a gerer les controles de l'utilisateur sur les ecrans de demarrage/fin.
+    \nAppuyer sur la touche ESPACE met dans l'etat "True"
+    """
     for event in pg.event.get():
         if event.type == QUIT:
             quitter()
@@ -123,6 +126,7 @@ def detect_control_demarrage():
 def defilement_decor():
     """Définition de la boucle qui va faire défiler le décor au premier plan.
     \nLa vitesse de défilement est ajustable dans le fichier constant.py
+    \nLa fonction renvoie la valeur de abs_decor (l'entier relatif qui donne la position du bord de l'image de décor par rapport au bord de la fenetre visible)
     """
     global foregrnd
     global abs_decor
@@ -139,16 +143,23 @@ def defilement_decor():
 
 # Initialisation du décor
 def initialiser_decor():
+    """Cette foncion initialise le décor
+    """
     global foregrnd
     global abs_decor
     abs_decor = 0
     foregrnd = image["long_foreground_relief"].get_rect()
 
 
+# initialisation du décor pour la premiere partie
 initialiser_decor()
 
 
 def afficher_vaisseau(ship):
+    """ Cette fonction gere l'affichage du vaisseau sur l'ecran.
+    \nElle prend en argument ship qui est un objet de la classe 'Vaisseau'
+    \nElle ajuste aussi la taille de la flamme en fonction du deplacement relatif du vaisseau par rapport au decor
+    """
     afficher_image(image["vaisseau"], ship.size,
                    ship.size, ship.rect.left, ship.rect.top)
     if ship.state == "accelerate":
@@ -160,12 +171,16 @@ def afficher_vaisseau(ship):
 
 
 def afficher_ecran_demarrage():
+    """Cette fonction affiche l'ecran de demarrage
+    """
     fenetre.fill(black)
     fenetre.blit(titre_ecran_demarrage, rect_titre)
     fenetre.blit(press_start, rect_press_start)
 
 
 def afficher_ecran_fin():
+    """Cette fonctin affiche l'ecran de fin de partie
+    """
     fenetre.fill(black)
     fenetre.blit(titre_game_over, rect_game_over)
     fenetre.blit(play_again, rect_play_again)
@@ -173,10 +188,13 @@ def afficher_ecran_fin():
 
 
 def afficher_asteroid(asteroid):
+    """Cette fonction affiche un asteroid (objet de la classe Asteroide)
+    """
     afficher_image(image["asteroide"], 90,
                    90, asteroid.rect.left, asteroid.rect.top)
 
 
+# Mise a jour de l'image de decor pour la rendre transparente et creer son mask, puis creation du mask
 image['long_foreground_relief'] = pg.transform.scale(
     image['long_foreground_relief'].convert_alpha(), (width_fg*ratio_decor, height))
 maskForegrnd = pg.mask.from_surface(image['long_foreground_relief'])

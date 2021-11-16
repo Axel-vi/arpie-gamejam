@@ -16,6 +16,8 @@ class Vaisseau:
     """
 
     def __init__(self):
+        """ Initialisation de la classe
+        """
         self.speed = 5
         self.size = 75
         self.state = "static"
@@ -70,6 +72,8 @@ class Vaisseau:
             self.rect = self.rect.move(0, -y)
 
     def shoot(self, touche):
+        """ Cette fonctin initialise les tirs du vaisseau
+        """
         if len(L_tir_vaisseau) == 0:
             if touche:
                 tir_vaisseau(self.rect.left+self.size/2,
@@ -79,6 +83,7 @@ class Vaisseau:
             tir_vaisseau(self.rect.left+self.size/2, self.rect.top+self.size/2)
 
 
+# Initialisation du vaisseau pour la premiere partie + creation du mask du vaisseau
 ship = Vaisseau()
 maskShip = pg.mask.from_surface(pg.transform.scale(
     image["vaisseau"].convert_alpha(), (ship.size, ship.size)))
