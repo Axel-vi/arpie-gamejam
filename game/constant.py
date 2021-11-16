@@ -41,6 +41,7 @@ play_height = 540
 
 # Taille du vaisseau et des ennemis
 scale_size = 75
+asteroid_size = 90
 
 # Volume des sons
 volume_musique = 0.2

@@ -188,7 +188,7 @@ def afficher_et_update_enemy():
         enemy.move()
         enemy.shoot()
         afficher_image(image[enemy.type], enemy.size, enemy.size,
-                       enemy.rect.right, enemy.rect.top)
+                       enemy.rect.left, enemy.rect.top)
 
 
 def afficher_et_update_tir():
@@ -197,12 +197,12 @@ def afficher_et_update_tir():
         l.move()
         l.update_duree()
         afficher_image(dico_image['tir_vaisseau'],
-                       long_tir, larg_tir, l.rect.right, l.rect.top)
+                       long_tir, larg_tir, l.rect.left, l.rect.top)
     for l in l_tir_enemy:
         l.move()
         l.update_duree()
         afficher_image(dico_image['tir_ennemi'],
-                       long_tir, larg_tir, l.rect.right, l.rect.top)
+                       long_tir, larg_tir, l.rect.left, l.rect.top)
 
 
 # Mise a jour de l'image de decor pour la rendre transparente
@@ -211,7 +211,7 @@ image['long_foreground_relief'] = pg.transform.scale(
 
 # Dictionnaire des masques pour gérer les collisions
 maskAsteroid = pg.mask.from_surface(pg.transform.scale(
-    image["asteroide"].convert_alpha(), (90, 90)))
+    image["asteroide"].convert_alpha(), (asteroid_size, asteroid_size)))
 maskShip = pg.mask.from_surface(pg.transform.scale(
     image["vaisseau"].convert_alpha(), (scale_size, scale_size)))
 maskForegrnd = pg.mask.from_surface(image['long_foreground_relief'])

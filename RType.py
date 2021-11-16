@@ -23,11 +23,11 @@ while True:
         afficher_vaisseau(ship)
         ship.shoot(touche)
         abs_decor = defilement_decor()
-
         spawn_chromius_fighter()
         afficher_et_update_enemy()
         afficher_et_update_tir()
-        # A l'heure actuelle la collision avec le décor ne marche pas car le masque ne prend pas en compte le deplacement de l'image
+        destroy_old_enemy()
+        print(l_enemy)
         if detect_collision(ship, l_enemy, maskShip, maskAsteroid, maskForegrnd, abs_decor):
             state = 2
         pg.display.update()
@@ -36,8 +36,14 @@ while True:
         afficher_ecran_fin()
         new_state = detect_control_demarrage()
         if new_state == 1:
-            initialiser_decor()
             state = 1
+            initialiser_decor()
             ship = Vaisseau()
+            while len(l_enemy) != 0:
+                l_enemy.pop()
+            while len(l_tir_enemy) != 0:
+                l_tir_enemy.pop()
+            while len(l_tir_vaisseau) != 0:
+                l_tir_vaisseau.pop()
 
         pg.display.update()

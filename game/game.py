@@ -7,7 +7,7 @@ from game.graphics import *
 def detect_collision(ship, l_enemy, maskShip, maskAsteroid, maskForegrnd, abs_decor):
     """ Cette fonction detecte les collisions entre des objets. Elle prend en argument :
     - ship qui est un objet de la classe "Vaisseau" (doit avoir un attribut '.rect' !)
-    - L qui est une liste d'ennemis : objets de la classe "Asteroide" (doit avoir un attribut '.rect' !)
+    - l_enemy qui est une liste d'ennemis : objets de la classe "Asteroide" (doit avoir un attribut '.rect' !)
     - maskShip, maskAsteroid, maskForegrnd, qui sont les mask des images associées (ces objets sont deja crees)
     - abs_decor : l'entier relatif qui donne la position du bord de l'image de décor par rapport au bord de la fenetre visible (pour pouvoir gerer le defilement du decor)
     """

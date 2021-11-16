@@ -15,9 +15,9 @@ class Asteroide:
         """Initialisation"""
         speed = randint(6, 10)
         y = randint(0, play_height)
-        self.size = 90
+        self.size = asteroid_size
         self.rect = pg.Rect(width, y, self.size, self.size)
-        self.rect.center = (width+self.size/2, y+self.size/2)
+        #self.rect.center = (width+self.size/2, y+self.size/2)
         target = randint(0, play_height)
         coeff = (y-target)/width
         self.type = 'asteroide'
@@ -26,7 +26,7 @@ class Asteroide:
         l_enemy.append(self)
 
     def move(self):
-        self.rect = pg.Rect.move(self.rect, self.speed_x, self.speed_y)
+        self.rect = self.rect.move(self.speed_x, self.speed_y)
 
     def shoot(self):
         """Un asteroide ne tire pas"""
@@ -40,7 +40,7 @@ class tir_enemy:
         l_tir_enemy.append(self)
 
     def move(self):
-        self.rect = pg.Rect.move(self.rect, speed_tir_enemy, 0)
+        self.rect = self.rect.move(speed_tir_enemy, 0)
 
     def update_duree(self):
         self.duree -= 1
@@ -54,7 +54,6 @@ class Chromius_fighter():
         # Apparition aléatoire à gauche de l'écran
         x = width
         y = randint(0, int((5/6)*height))
-
         self.type = 'chromius_fighter'
         self.cooldown = 0
         self.rect = pg.Rect(x, y, self.size, self.size)
@@ -82,6 +81,15 @@ def spawn_chromius_fighter():
     else:
         Chromius_fighter()
         delai_spawn_enemy = 120
+
+
+def destroy_old_enemy():
+    to_delete = []
+    for i in range(len(l_enemy)):
+        if l_enemy[i].rect.right < 0:
+            to_delete.append(i)
+    for e in to_delete:
+        l_enemy.pop(e)
 
 # Initialisation d'un objet de la classe Asteroid + creation du mask des asteroid
 
