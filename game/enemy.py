@@ -51,3 +51,14 @@ class Asteroide:
 
 
 
+<<<<<<< HEAD
+=======
+class Chromius_fighter:
+    def __init__(self, pattern, id, nb):
+        self.pattern = pattern
+        # self.id
+        self.size = 75
+        if pattern == 1:
+            y = play_height/nb
+            self.rect = pg.Rect(width, y, self.size, self.size)
+>>>>>>> d
