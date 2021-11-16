@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Imports spécifiques
+import pygame as pg
 from pygame import key
 
 
@@ -16,16 +17,16 @@ class Asteroide:
 
     def __init__(self):
         """Initialisation"""
-        speed = randint(6, 10)
-        x = width
-        y = randint(0, height)
-        size = 90
-        self.rect = pg.Rect(x, y, size, size)
-        self.rect.center = (x+size/2, y+size/2)
-        target = randint(0, height)
-        coeff = (y-target)/width
-        self.speed_x = -(sqrt(1/(1+coeff**2))*speed)
-        self.speed_y = coeff*self.speed_x
+        self.speed = randint(6, 10)
+        self.x = width
+        self.y = randint(0, height)
+        self.size = 90
+        self.rect = pg.Rect(self.x, self.y, self.size, self.size)
+        self.rect.center = (self.x+self.size/2, self.y+self.size/2)
+        self.target = randint(0, height)
+        self.coeff = (self.y-self.target)/width
+        self.speed_x = -(sqrt(1/(1+self.coeff**2))*self.speed)
+        self.speed_y = self.coeff*self.speed_x
         l_enemy.append(self)
 
     def move_rect(self):
@@ -38,5 +39,5 @@ class Asteroide:
 # Cette ligne est a priori temporaire et devra etre retirer lorsque les asteroides seront vraiment implementes
 asteroid = Asteroide()
 
-maskAsteroid = pg.mask.from_surface(pg.transform.scale(
-    image["asteroide"].convert_alpha(), (90, 90)))
+# maskAsteroid = pg.mask.from_surface(pg.transform.scale(
+#     image["asteroide"].convert_alpha(), (90, 90)))
