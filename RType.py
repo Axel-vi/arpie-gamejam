@@ -28,7 +28,6 @@ while True:
         abs_decor = defilement_decor()
         ship.shoot(touche)
         afficher_et_update_tir_vaisseau()
-        # A l'heure actuelle la collision avec le décor ne marche pas car le masque ne prend pas en compte le deplacement de l'image
         if detect_collision(ship, l_enemy, maskShip, maskEnemy, maskForegrnd, abs_decor):
             state = 2
         pg.display.update()
@@ -37,5 +36,8 @@ while True:
         # Attention il faut reset la game aussi !!
         new_state = detect_control_demarrage()
         if new_state == 1:
+            initialiser_decor()
             state = 1
+            ship = Vaisseau()
+
         pg.display.update()

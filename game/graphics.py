@@ -120,9 +120,6 @@ def detect_control_demarrage():
                 return 1
 
 
-abs_decor = 0
-
-
 def defilement_decor():
     """Définition de la boucle qui va faire défiler le décor au premier plan.
     \nLa vitesse de défilement est ajustable dans le fichier constant.py
@@ -141,8 +138,14 @@ def defilement_decor():
 
 
 # Initialisation du décor
-global foregrnd
-foregrnd = image["long_foreground_relief"].get_rect()
+def initialiser_decor():
+    global foregrnd
+    global abs_decor
+    abs_decor = 0
+    foregrnd = image["long_foreground_relief"].get_rect()
+
+
+initialiser_decor()
 
 
 def afficher_vaisseau(ship):
