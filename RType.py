@@ -21,13 +21,12 @@ while True:
         direction, touche = detect_control_game()
         ship.move(direction)
         afficher_vaisseau(ship)
-
-        asteroid.move_rect()
-        afficher_asteroid(asteroid)
-
-        abs_decor = defilement_decor()
         ship.shoot(touche)
-        afficher_et_update_tir_vaisseau()
+        abs_decor = defilement_decor()
+
+        spawn_chromius_fighter()
+        afficher_et_update_enemy()
+        afficher_et_update_tir()
         # A l'heure actuelle la collision avec le décor ne marche pas car le masque ne prend pas en compte le deplacement de l'image
         if detect_collision(ship, l_enemy, maskShip, maskEnemy, maskForegrnd, abs_decor):
             state = 2

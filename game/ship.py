@@ -70,12 +70,12 @@ class Vaisseau:
             self.rect = self.rect.move(0, -y)
 
     def shoot(self, touche):
-        if len(L_tir_vaisseau) == 0:
+        if len(l_tir_vaisseau) == 0:
             if touche:
                 tir_vaisseau(self.rect.left+self.size/2,
                              self.rect.top+self.size/2)
         # cooldown de 30 frames
-        elif touche and delai_tir - L_tir_vaisseau[-1].duree >= 0:
+        elif touche and delai_tir - l_tir_vaisseau[-1].duree >= 0:
             tir_vaisseau(ship.rect.left+self.size/2, self.rect.top+self.size/2)
 
 
@@ -87,26 +87,20 @@ maskShip = pg.mask.from_surface(pg.transform.scale(
 class tir_vaisseau:
     def __init__(self, x, y):
 
-        self.x = x
-        self.y = y
+        self.rect = pg.Rect(x, y,larg_tir, long_tir)
         self.duree = duree_tir
-        L_tir_vaisseau.append(self)
+        l_tir_vaisseau.append(self)
 
     def move(self):
-        self.x += speed_tir
+        self.rect = pg.Rect.move(self.rect,speed_tir,0)
 
     def update_duree(self):
         self.duree -= 1
         if self.duree <= 0:
-            L_tir_vaisseau.pop(0)
+            l_tir_vaisseau.pop(0)
 
     def afficher(self):
         afficher_image(dico_image['tir_vaisseau'],
-                       long_tir, larg_tir, self.x, self.y)
+                       long_tir, larg_tir, self.rect.right, self.rect.top)
 
 
-def afficher_et_update_tir_vaisseau():
-    for l in L_tir_vaisseau:
-        l.move()
-        l.update_duree()
-        l.afficher()
