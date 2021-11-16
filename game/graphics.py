@@ -120,19 +120,25 @@ def detect_control_demarrage():
                 return 1
 
 
+abs_decor = 0
+
+
 def defilement_decor():
     """Définition de la boucle qui va faire défiler le décor au premier plan.
     \nLa vitesse de défilement est ajustable dans le fichier constant.py
     """
     global foregrnd
+    global abs_decor
+
     if -foregrnd.topleft[0] >= x_bord_decor:
         foregrnd = foregrnd.move(-foregrnd.topleft[0], 0)
+        abs_decor = 0
     else:
         foregrnd = foregrnd.move(-vitesse_decor, 0)
+        abs_decor -= vitesse_decor
     fenetre.blit(image["long_foreground_relief"], foregrnd)
+    return abs_decor
 
-
-maskForegrnd = pg.mask.from_surface(image["long_foreground_relief"])
 
 # Initialisation du décor
 global foregrnd
@@ -166,3 +172,8 @@ def afficher_ecran_fin():
 def afficher_asteroid(asteroid):
     afficher_image(image["asteroide"], 90,
                    90, asteroid.rect.left, asteroid.rect.top)
+
+
+image['long_foreground_relief'] = pg.transform.scale(
+    image['long_foreground_relief'].convert_alpha(), (width_fg*ratio_decor, height))
+maskForegrnd = pg.mask.from_surface(image['long_foreground_relief'])

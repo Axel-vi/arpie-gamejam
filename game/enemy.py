@@ -18,7 +18,7 @@ class Asteroide:
         speed = randint(6, 10)
         x = width
         y = randint(0, height)
-        size = 30
+        size = 90
         self.rect = pg.Rect(x, y, size, size)
         self.rect.center = (x+size/2, y+size/2)
         target = randint(0, height)
@@ -32,3 +32,5 @@ class Asteroide:
 
 
 asteroid = Asteroide()
+maskEnemy = pg.mask.from_surface(pg.transform.scale(
+    image["asteroide"].convert_alpha(), (90, 90)))
