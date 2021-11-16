@@ -2,6 +2,7 @@
 
 from game.enemy import *
 from game.constant import *
+from game.game import *
 # from tests.test_enemy import *
 
 """

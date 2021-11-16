@@ -1,7 +1,6 @@
 # Module graphics du projet R-Type
 # -*- coding: utf-8 -*-
 
-
 if __name__ == "__main__":
     from constant import *
 else:
@@ -107,7 +106,7 @@ def detect_control_game():
 
 def detect_control_demarrage():
     """ Fonction qui sert a gerer les controles de l'utilisateur sur les ecrans de demarrage/fin.
-    \nAppuyer sur la touche ESPACE met dans l'etat "True"
+    Appuyer sur la touche ESPACE met dans l'etat "True"
     """
     for event in pg.event.get():
         if event.type == QUIT:
@@ -121,8 +120,8 @@ def detect_control_demarrage():
 
 def defilement_decor():
     """Définition de la boucle qui va faire défiler le décor au premier plan.
-    \nLa vitesse de défilement est ajustable dans le fichier constant.py
-    \nLa fonction renvoie la valeur de abs_decor (l'entier relatif qui donne la position du bord de l'image de décor par rapport au bord de la fenetre visible)
+    La vitesse de défilement est ajustable dans le fichier constant.py
+    La fonction renvoie la valeur de abs_decor (l'entier relatif qui donne la position du bord de l'image de décor par rapport au bord de la fenetre visible)
     """
     global foregrnd
     global abs_decor
@@ -153,8 +152,8 @@ initialiser_decor()
 
 def afficher_vaisseau(ship):
     """ Cette fonction gere l'affichage du vaisseau sur l'ecran.
-    \nElle prend en argument ship qui est un objet de la classe 'Vaisseau'
-    \nElle ajuste aussi la taille de la flamme en fonction du deplacement relatif du vaisseau par rapport au decor
+    Elle prend en argument ship qui est un objet de la classe 'Vaisseau'
+    Elle ajuste aussi la taille de la flamme en fonction du deplacement relatif du vaisseau par rapport au decor
     """
     afficher_image(image["vaisseau"], ship.size,
                    ship.size, ship.rect.left, ship.rect.top)
@@ -183,31 +182,38 @@ def afficher_ecran_fin():
     fenetre.blit(crochets, rect_crochets)
 
 
-
 def afficher_et_update_enemy():
-    #Bouge et affiche les ennemis
+    """La fonction bouge et affiche les ennemis"""
     for enemy in l_enemy:
-        if enemy.type=='asteoide':
-            enemy.move()
-            afficher_image(image["asteroide"], 90,90, enemy.rect.right, enemy.rect.top)
-        if enemy.type=='chromius fighter':
-            enemy.move()
-            enemy.creer_tir_enemy()
-            afficher_image(image["ennemi1"], 90,90, enemy.rect.right,enemy.rect.top)
+        enemy.move()
+        enemy.shoot()
+        afficher_image(image[enemy.type], enemy.size, enemy.size,
+                       enemy.rect.right, enemy.rect.top)
+
 
 def afficher_et_update_tir():
-    #Bouge et affiche les tirs
+    """La fonction bouge et affiche les tirs"""
     for l in l_tir_vaisseau:
         l.move()
         l.update_duree()
-        afficher_image(dico_image['tir_vaisseau'],long_tir, larg_tir, l.rect.right, l.rect.top)
+        afficher_image(dico_image['tir_vaisseau'],
+                       long_tir, larg_tir, l.rect.right, l.rect.top)
     for l in l_tir_enemy:
         l.move()
         l.update_duree()
-        afficher_image(dico_image['tir_ennemi'],long_tir, larg_tir, l.rect.right, l.rect.top)
+        afficher_image(dico_image['tir_ennemi'],
+                       long_tir, larg_tir, l.rect.right, l.rect.top)
 
 
-# Mise a jour de l'image de decor pour la rendre transparente et creer son mask, puis creation du mask
+# Mise a jour de l'image de decor pour la rendre transparente
 image['long_foreground_relief'] = pg.transform.scale(
     image['long_foreground_relief'].convert_alpha(), (width_fg*ratio_decor, height))
+
+# Dictionnaire des masques pour gérer les collisions
+maskAsteroid = pg.mask.from_surface(pg.transform.scale(
+    image["asteroide"].convert_alpha(), (90, 90)))
+maskShip = pg.mask.from_surface(pg.transform.scale(
+    image["vaisseau"].convert_alpha(), (scale_size, scale_size)))
 maskForegrnd = pg.mask.from_surface(image['long_foreground_relief'])
+masks = {"asteroide": maskAsteroid,
+         "vaisseau": maskShip, "foregrnd": maskForegrnd}
