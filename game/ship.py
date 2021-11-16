@@ -76,7 +76,7 @@ class Vaisseau:
                              self.rect.top+self.size/2)
         # cooldown de 30 frames
         elif touche and delai_tir - L_tir_vaisseau[-1].duree >= 0:
-            tir_vaisseau(ship.rect.left+self.size/2, self.rect.top+self.size/2)
+            tir_vaisseau(self.rect.left+self.size/2, self.rect.top+self.size/2)
 
 
 ship = Vaisseau()

@@ -22,6 +22,7 @@ while True:
         ship.move(direction)
         afficher_vaisseau(ship)
 
+        # Ces 2 lignes sont la uniquement pour un test visuel. Il faudra generer proprement les asteroides apres
         asteroid.move_rect()
         afficher_asteroid(asteroid)
 
