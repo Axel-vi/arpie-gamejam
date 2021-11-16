@@ -183,11 +183,28 @@ def afficher_ecran_fin():
     fenetre.blit(crochets, rect_crochets)
 
 
-def afficher_asteroid(asteroid):
-    """Cette fonction affiche un asteroid (objet de la classe Asteroide)
-    """
-    afficher_image(image["asteroide"], 90,
-                   90, asteroid.rect.left, asteroid.rect.top)
+
+def afficher_et_update_enemy():
+    #Bouge et affiche les ennemis
+    for enemy in l_enemy:
+        if enemy.type=='asteoide':
+            enemy.move()
+            afficher_image(image["asteroide"], 90,90, enemy.rect.right, enemy.rect.top)
+        if enemy.type=='chromius fighter':
+            enemy.move()
+            enemy.creer_tir_enemy()
+            afficher_image(image["ennemi1"], 90,90, enemy.rect.right,enemy.rect.top)
+
+def afficher_et_update_tir():
+    #Bouge et affiche les tirs
+    for l in l_tir_vaisseau:
+        l.move()
+        l.update_duree()
+        afficher_image(dico_image['tir_vaisseau'],long_tir, larg_tir, l.rect.right, l.rect.top)
+    for l in l_tir_enemy:
+        l.move()
+        l.update_duree()
+        afficher_image(dico_image['tir_ennemi'],long_tir, larg_tir, l.rect.right, l.rect.top)
 
 
 # Mise a jour de l'image de decor pour la rendre transparente et creer son mask, puis creation du mask
