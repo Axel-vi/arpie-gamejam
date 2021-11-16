@@ -60,7 +60,17 @@ police_titre = pg.font.Font("resources/font/space_age.ttf", 150)
 police_press_start = pg.font.Font("resources/font/Open_24_Display.ttf", 50)
 # Génération de la surface du titre
 titre_ecran_demarrage = police_titre.render("ARPIE", True, couleur_titre)
+titre_game_over = police_titre.render("GAME OVER", True, red)
+play_again = police_press_start.render("Play again?", True, red)
+crochets = police_press_start.render("[           ]", True, red)
+rect_game_over = titre_game_over.get_rect()
+rect_game_over.center = (width/2, height/3)
+rect_play_again = play_again.get_rect()
+rect_play_again.center = (width/2, 2*height/3)
+rect_crochets = crochets.get_rect()
+rect_crochets.center = (width/2, 2*height/3)
 rect_titre = titre_ecran_demarrage.get_rect()
+
 rect_titre.center = (width//2, 150)
 # Génération de la surface du press start
 press_start = police_press_start.render(
@@ -102,7 +112,7 @@ height_img = 32
 
 # Dimension en pixels de l'image qui sert de décor
 width_fg = 1024
-height_fg = 36
+height_fg = 72
 pixels_decor = 7  # nombre de pixel en hauteur du bandeau du décor
 
 # 'Zoom' sur l'image en décor pour la faire coincider en hauteur avec la fenetre
@@ -118,9 +128,4 @@ x_bord_fenetre = bord_fenetre_decor*ratio_decor
 x_bord_decor = (width_fg-bord_fenetre_decor)*ratio_decor
 
 # Déplacement à chaque avancée du décor (en unité d'abscisse pygame)
-vitesse_decor = 1
-
-
-# chargement image du décor
-image['long_foreground_simple'] = pg.transform.scale(
-    image['long_foreground_simple'], (width_fg*ratio_decor, height))
+vitesse_decor = 5
