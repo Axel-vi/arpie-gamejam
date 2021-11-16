@@ -71,7 +71,7 @@ class Chromius_fighter():
             self.cooldown-=1
         else:
             self.cooldown=delai_tir_enemy
-            tir_enemy(self.rect.left-self.size/2, self.rect.top+self.size/2)
+            tir_enemy(self.rect.left+self.size/5, self.rect.top+self.size/3)
     
 def spawn_chromius_fighter():
     #Fait apparaitre un chromius fighter toute les 120 frames

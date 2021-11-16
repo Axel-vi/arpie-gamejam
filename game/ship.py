@@ -74,12 +74,12 @@ class Vaisseau:
     def shoot(self, touche):
         """ Cette fonctin initialise les tirs du vaisseau
         """
-        if len(L_tir_vaisseau) == 0:
+        if len(l_tir_vaisseau) == 0:
             if touche:
                 tir_vaisseau(self.rect.left+self.size/2,
                              self.rect.top+self.size/2)
         # cooldown de 30 frames
-        elif touche and delai_tir - L_tir_vaisseau[-1].duree >= 0:
+        elif touche and delai_tir - l_tir_vaisseau[-1].duree >= 0:
             tir_vaisseau(self.rect.left+self.size/2, self.rect.top+self.size/2)
 
 
