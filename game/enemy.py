@@ -81,7 +81,6 @@ def spawn_chromius_fighter():
 # Initialisation d'un objet de la classe Asteroid + creation du mask des asteroid
 
 # Cette ligne est a priori temporaire et devra etre retirer lorsque les asteroides seront vraiment implementes
-<<<<<<< game/enemy.py
 # asteroid = Asteroide()
 # maskAsteroid = pg.mask.from_surface(pg.transform.scale(image["asteroide"].convert_alpha(), (90, 90)))
 
@@ -136,9 +135,3 @@ def pattern(id_pattern, t, starting_height=0):
         return (x, starting_height + y_offset)
     else:
         raise NotImplementedError
-=======
-asteroid = Asteroide()
-maskEnemy = pg.mask.from_surface(pg.transform.scale(
-    image["asteroide"].convert_alpha(), (90, 90)))
-
->>>>>>> game/enemy.py
