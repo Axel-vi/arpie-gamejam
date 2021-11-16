@@ -27,7 +27,6 @@ while True:
         afficher_et_update_enemy()
         afficher_et_update_tir()
         destroy_old_enemy()
-        print(l_enemy)
         if detect_collision(ship, l_enemy, maskShip, maskAsteroid, maskForegrnd, abs_decor):
             state = 2
         pg.display.update()
