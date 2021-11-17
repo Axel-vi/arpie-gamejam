@@ -21,7 +21,7 @@ while True:
         compt_trans += 1
 
     while state == 1:
-        # Etat de jeu durant lequel l'utilisateur parcoure le niveau
+        # Etat de jeu durant lequel l'utilisateur parcourt le niveau
         fenetre.fill(black)
         clock.tick(fps)
         compteur += 1

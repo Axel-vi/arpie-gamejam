@@ -58,11 +58,11 @@ delai_tir_enemy = 60
 duree_tir = fps*1  # équivaut à 1seconde
 
 
-#Tour
+# Tour
 
-tower_size=300
-speed_tir_tower=12
-l_tir_tower=[]
+tower_size = 300
+speed_tir_tower = 12
+l_tir_tower = []
 # Liste pour stocker les explosions en cours
 l_explosion = []
 
@@ -186,6 +186,7 @@ x_bord_bg = (width_bg-bord_fenetre_bg)*ratio_bg
 # Déplacement à chaque avancée du décor (en unité d'abscisse pygame)
 vitesse_decor = 5
 vitesse_bg = 1
+vitesse_mg = 3
 
 # Nombre d'étoiles dans l'écran de démarrage
 nb_star = 100
