@@ -19,7 +19,7 @@ while True:
     while state == 1:
         fenetre.fill(black)
         clock.tick(fps)
-        compteur +=1
+        compteur += 1
         gestion_event(compteur, id_niveau=0)
         direction, touche = detect_control_game()
         ship.move(direction)
@@ -30,7 +30,7 @@ while True:
         afficher_et_update_enemy()
         afficher_et_update_tir()
         destroy_old_enemy()
-        if detect_collision(ship, l_enemy, l_tir_enemy, l_tir_vaisseau, abs_decor):
+        if detect_collision(ship, l_enemy, l_tir_enemy, l_tir_vaisseau, l_missile_enemy, abs_decor):
             state = 2
         pg.display.update()
 
