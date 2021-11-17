@@ -3,6 +3,7 @@
 
 from game.enemy import Asteroide
 from game.graphics import *
+from game.sounds import *
 
 
 def detect_collision(ship, l_enemy, l_tir_enemy, l_tir_vaisseau, abs_decor):
@@ -85,4 +86,5 @@ def gestion_event(compteur, id_niveau=0):
             Asteroide() 
             liste_event.pop(0) 
     else : 
-        you_won = True 
+        you_won = True
+        musique_de_victoire()
