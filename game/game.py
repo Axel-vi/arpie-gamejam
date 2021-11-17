@@ -1,20 +1,41 @@
 # Module game du projet R-Type
 # -*- coding: utf-8 -*-
 
+from game.enemy import Asteroide
 from game.graphics import *
 
 
-def detect_collision(ship, l_enemy, maskShip, maskAsteroid, maskForegrnd, abs_decor):
+def detect_collision(ship, l_enemy, l_tir_enemy, l_tir_vaisseau, l_missile_enemy, abs_decor):
     """ Cette fonction detecte les collisions entre des objets. Elle prend en argument :
     - ship qui est un objet de la classe "Vaisseau" (doit avoir un attribut '.rect' !)
-    - l_enemy qui est une liste d'ennemis : objets de la classe "Asteroide" (doit avoir un attribut '.rect' !)
-    - maskShip, maskAsteroid, maskForegrnd, qui sont les mask des images associées (ces objets sont deja crees)
+    - l_enemy qui est une liste d'ennemis : objets de la classe "Asteroide" ou "Chromius fighter" (doit avoir un attribut '.rect' !)
+    - l_tir_enemy qui est une liste de tirs d'ennemis : objet de la classe "tir_enemy" (doit avoir un attribut '.rect' !)
     - abs_decor : l'entier relatif qui donne la position du bord de l'image de décor par rapport au bord de la fenetre visible (pour pouvoir gerer le defilement du decor)
     """
+    index = []
+    for i in range(len(l_tir_vaisseau)):
+        for j in range(len(l_enemy)):
+            if l_tir_vaisseau[i].rect.colliderect(l_enemy[j].rect):
+                if masks['tir_vaisseau'].overlap(masks[str(l_enemy[j].type)], (l_enemy[j].rect.left - l_tir_vaisseau[i].rect.left, l_enemy[j].rect.top - l_tir_vaisseau[i].rect.top)) != None:
+                    index.append(l_enemy[j])
+
+    for j in index:
+        l_enemy.remove(j)
+    #                 l_enemy[j] = None
+    # while None in l_enemy:
+    #     l_enemy.remove(None)
+
     for i in range(len(l_enemy)):
         if ship.rect.colliderect(l_enemy[i].rect):
-            return maskShip.overlap(maskAsteroid, (l_enemy[i].rect.left - ship.rect.left, l_enemy[i].rect.top - ship.rect.top)) != None
-    return maskShip.overlap(maskForegrnd, (abs_decor - ship.rect.left, foregrnd.top - ship.rect.top)) != None
+            return masks['vaisseau'].overlap(masks[str(l_enemy[i].type)], (l_enemy[i].rect.left - ship.rect.left, l_enemy[i].rect.top - ship.rect.top)) != None
+    for i in range(len(l_tir_enemy)):
+        if ship.rect.colliderect(l_tir_enemy[i].rect):
+            return masks['vaisseau'].overlap(masks[str(l_tir_enemy[i].type)], (l_tir_enemy[i].rect.left - ship.rect.left, l_tir_enemy[i].rect.top - ship.rect.top)) != None
+    for i in range(len(l_missile_enemy)):
+        if ship.rect.colliderect(l_missile_enemy[i].rect):
+            return masks['vaisseau'].overlap(masks['missile'], (l_missile_enemy[i].rect.left - ship.rect.left, l_missile_enemy[i].rect.top - ship.rect.top)) != None
+
+    return masks['vaisseau'].overlap(masks['foregrnd'], (abs_decor - ship.rect.left, foregrnd.top - ship.rect.top)) != None
 
 
 def pattern(id_pattern, t, starting_height=0):
@@ -67,3 +88,13 @@ def pattern(id_pattern, t, starting_height=0):
         return (x, starting_height + y_offset)
     else:
         raise NotImplementedError
+
+
+def gestion_event(compteur, id_niveau=0):
+    liste_event = liste_niveau[id_niveau][2]
+    if len(liste_event) > 0:
+        if compteur > 60*liste_event[0][0]:
+            Asteroide()
+            liste_event.pop(0)
+    else:
+        you_won = True
