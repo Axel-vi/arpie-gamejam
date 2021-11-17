@@ -224,5 +224,7 @@ maskChromiusFighter = pg.mask.from_surface(pg.transform.scale(
     image["chromius_fighter"].convert_alpha(), (scale_size, scale_size)))
 maskTirEnemy = pg.mask.from_surface(pg.transform.scale(
     image["tir_ennemi"].convert_alpha(), (larg_tir, long_tir)))
+maskTirShip = pg.mask.from_surface(pg.transform.scale(
+    image["tir_vaisseau"].convert_alpha(), (larg_tir, long_tir)))
 masks = {"asteroide": maskAsteroid,
-         "vaisseau": maskShip, "foregrnd": maskForegrnd, "chromius_fighter": maskChromiusFighter, "tir_enemy": maskTirEnemy}
+         "vaisseau": maskShip, "foregrnd": maskForegrnd, "chromius_fighter": maskChromiusFighter, "tir_enemy": maskTirEnemy, 'tir_vaisseau': maskTirShip}

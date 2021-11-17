@@ -30,7 +30,7 @@ while True:
         afficher_et_update_enemy()
         afficher_et_update_tir()
         destroy_old_enemy()
-        if detect_collision(ship, l_enemy, l_tir_enemy, abs_decor):
+        if detect_collision(ship, l_enemy, l_tir_enemy, l_tir_vaisseau, abs_decor):
             state = 2
         pg.display.update()
 
