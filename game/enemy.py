@@ -46,23 +46,76 @@ class tir_enemy:
         self.duree -= 1
         if self.duree <= 0:
             l_tir_enemy.pop(0)
-
+def pattern(id_pattern, t, starting_height=0):
+    if id_pattern == 1:
+        return (width-6*t, starting_height)
+    elif id_pattern == 2 or id_pattern == 3 or id_pattern == 4 or id_pattern == 5 or id_pattern == 6 or id_pattern == 7:
+        if id_pattern == 2:
+            amplitude = 100
+        elif id_pattern == 3:
+            amplitude = -100
+        elif id_pattern == 4:
+            amplitude = 200
+        elif id_pattern == 5:
+            amplitude = -200
+        elif id_pattern == 6:
+            amplitude = 400
+        elif id_pattern == 7:
+            amplitude = -400
+        x = width-6*t/sq
+        pow = 1 - int(x/320) % 2
+        y_offset = (x/320-int(x/320))*amplitude*(-1)**pow + amplitude//2
+        if pow == 0:
+            y_offset = y_offset - amplitude
+        return (x, starting_height + y_offset)
+    elif id_pattern == 8 or id_pattern == 9 or id_pattern == 10 or id_pattern == 11:
+        if id_pattern == 8:
+            amplitude = 100
+        elif id_pattern == 9:
+            amplitude = -100
+        elif id_pattern == 10:
+            amplitude = 400
+        elif id_pattern == 11:
+            amplitude = -400
+        x = width-6*t/sq
+        return (x, starting_height + sin(x*2*pi/1280)*amplitude//2)
+    elif id_pattern == 12 or id_pattern == 13:
+        if id_pattern == 12:
+            amplitude = 400
+        elif id_pattern == 13:
+            amplitude = -400
+        x = width-6*t/sq
+        pow = 1 - int(x/320) % 2
+        y_offset = (x/320-int(x/320))*amplitude*(-1)**pow + amplitude//2
+        if pow == 0:
+            y_offset = y_offset - amplitude
+        if y_offset > 0:
+            y_offset = min(y_offset, 100)
+        else:
+            y_offset = max(y_offset, -100)
+        return (x, starting_height + y_offset)
+    else:
+        raise NotImplementedError
 
 class Chromius_fighter():
-    def __init__(self):
+    def __init__(self, hauteur, id_pattern):
         self.size = scale_size
         # Apparition aléatoire à gauche de l'écran
         x = width
-        y = randint(0, int((5/6)*height))
+        y = hauteur
         self.type = 'chromius_fighter'
         self.cooldown = 0
+        self.id_pattern = id_pattern
+        self.hauteur = hauteur
+        self.t = 0
         self.rect = pg.Rect(x, y, self.size, self.size)
         #self.rect.center = (x+self.size/2, y+self.size/2)
         l_enemy.append(self)
 
     def move(self):
         # Mouvement vers la droite uniquement horizontal
-        self.rect = self.rect.move(-10, 0)
+        self.t += 1
+        self.rect.move_ip(pattern(self.id_pattern, self.t, self.hauteur))
 
     def shoot(self):
         # creer un tir à la position du vaisseau ennemi
@@ -91,11 +144,11 @@ class missile_enemy:
 
 
 class Chromius_warrior():
-    def __init__(self):
+    def __init__(self, hauteur):
         self.size = scale_size
         # Apparition aléatoire à gauche de l'écran
         x = width
-        y = randint(0, int((5/6)*height))
+        y = hauteur
         self.type = 'chromius_warrior'
         self.cooldown = 0
         self.rect = pg.Rect(x, y, self.size, self.size)
@@ -116,7 +169,7 @@ class Chromius_warrior():
                           self.rect.top+self.size/3)
 
 
-Chromius_warrior()
+
 
 
 def spawn_chromius_fighter():
