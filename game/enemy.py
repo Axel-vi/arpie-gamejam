@@ -29,7 +29,7 @@ class Asteroide:
     def move(self):
         self.rect = self.rect.move(self.speed_x, self.speed_y)
 
-    def shoot(self):
+    def shoot(self,ship):
         """Un asteroide ne tire pas"""
 
 

@@ -36,9 +36,9 @@ while True:
         afficher_et_update_tir()
         destroy_old_enemy()
         abs_decor = defilement_decor_foreground()
-        if k>180:
+        if k>300:
             k=0
-            #Chromius_tower()
+            Chromius_tower()
         k+=1
         if detect_collision(ship, l_enemy, l_tir_enemy, l_tir_vaisseau, l_missile_enemy, abs_decor):
             state = 2

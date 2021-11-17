@@ -258,7 +258,6 @@ def afficher_et_update_enemy(ship):
     """La fonction bouge et affiche les ennemis"""
     for enemy in l_enemy:
         enemy.move()
-        print(ship)
         enemy.shoot(ship)
         afficher_image(image[enemy.type], enemy.size, enemy.size,
                        enemy.rect.left, enemy.rect.top)
@@ -284,7 +283,7 @@ def afficher_et_update_tir():
     for l in l_tir_tower:
         l.move()
         l.update_duree()
-        afficher_image(dico_image["missile_ennemi"],
+        afficher_image(dico_image["tir_tower"],
                        tir_size, tir_size, l.rect.left, l.rect.top)
 
 
