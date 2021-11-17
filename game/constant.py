@@ -63,6 +63,11 @@ speed_missile_enemy = -30
 delai_tir_enemy = 60
 duree_tir = fps*1  # équivaut à 1seconde
 
+
+#Tour
+tower_size=300
+speed_tir_tower=20
+l_tir_tower=[]
 # Constante pour accélerer les calculs
 sq = sqrt(2)
 
