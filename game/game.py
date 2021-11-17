@@ -4,17 +4,16 @@
 from game.graphics import *
 
 
-def detect_collision(ship, l_enemy, maskShip, maskAsteroid, maskForegrnd, abs_decor):
+def detect_collision(ship, l_enemy, abs_decor):
     """ Cette fonction detecte les collisions entre des objets. Elle prend en argument :
     - ship qui est un objet de la classe "Vaisseau" (doit avoir un attribut '.rect' !)
-    - l_enemy qui est une liste d'ennemis : objets de la classe "Asteroide" (doit avoir un attribut '.rect' !)
-    - maskShip, maskAsteroid, maskForegrnd, qui sont les mask des images associées (ces objets sont deja crees)
+    - l_enemy qui est une liste d'ennemis : objets de la classe "Asteroide" ou "Chromius fighter" (doit avoir un attribut '.rect' !)
     - abs_decor : l'entier relatif qui donne la position du bord de l'image de décor par rapport au bord de la fenetre visible (pour pouvoir gerer le defilement du decor)
     """
     for i in range(len(l_enemy)):
         if ship.rect.colliderect(l_enemy[i].rect):
-            return maskShip.overlap(maskAsteroid, (l_enemy[i].rect.left - ship.rect.left, l_enemy[i].rect.top - ship.rect.top)) != None
-    return maskShip.overlap(maskForegrnd, (abs_decor - ship.rect.left, foregrnd.top - ship.rect.top)) != None
+            return masks['vaisseau'].overlap(masks[str(l_enemy[i].type)], (l_enemy[i].rect.left - ship.rect.left, l_enemy[i].rect.top - ship.rect.top)) != None
+    return masks['vaisseau'].overlap(masks['foregrnd'], (abs_decor - ship.rect.left, foregrnd.top - ship.rect.top)) != None
 
 
 def pattern(id_pattern, t, starting_height=0):
