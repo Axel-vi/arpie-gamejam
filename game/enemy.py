@@ -13,16 +13,16 @@ class Asteroide:
 
     def __init__(self):
         """Initialisation"""
-        speed = randint(6, 10)
-        y = randint(0, play_height)
+        self.speed = randint(6, 10)
+        self.y = randint(0, play_height)
         self.size = asteroid_size
-        self.rect = pg.Rect(width, y, self.size, self.size)
+        self.rect = pg.Rect(width, self.y, self.size, self.size)
         #self.rect.center = (width+self.size/2, y+self.size/2)
-        target = randint(0, play_height)
-        coeff = (y-target)/width
+        self.target = randint(0, play_height)
+        self.coeff = (self.y-self.target)/width
         self.type = 'asteroide'
-        self.speed_x = -(sqrt(1/(1+coeff**2))*speed)
-        self.speed_y = coeff*self.speed_x
+        self.speed_x = -(sqrt(1/(1+self.coeff**2))*self.speed)
+        self.speed_y = self.coeff*self.speed_x
         l_enemy.append(self)
 
     def move(self):
