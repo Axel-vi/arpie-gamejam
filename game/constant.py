@@ -42,6 +42,7 @@ play_height = 540
 # Taille du vaisseau et des ennemis
 scale_size = 75
 asteroid_size = 90
+speed_chromius_fighter = 10
 
 # Volume des sons
 volume_musique = 0.2
@@ -53,7 +54,7 @@ l_tir_enemy = []
 speed_tir = 30
 delai_tir = 45
 delai_spawn_enemy = 120
-speed_tir_enemy = -30
+speed_tir_enemy = -20
 delai_tir_enemy = 45
 long_tir = 50
 larg_tir = 25

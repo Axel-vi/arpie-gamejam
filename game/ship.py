@@ -18,7 +18,7 @@ class Vaisseau:
     def __init__(self):
         """ Initialisation de la classe
         """
-        self.speed = 5
+        self.speed = 7  # default = 5
         self.size = scale_size
         self.state = "static"
         self.rect = pg.Rect(width//2, height//2, self.size, self.size)

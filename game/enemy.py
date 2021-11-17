@@ -63,7 +63,7 @@ class Chromius_fighter():
 
     def move(self):
         # Mouvement vers la droite uniquement horizontal
-        self.rect = self.rect.move(-10, 0)
+        self.rect = self.rect.move(-speed_chromius_fighter, 0)
 
     def shoot(self):
         # creer un tir à la position du vaisseau ennemi
