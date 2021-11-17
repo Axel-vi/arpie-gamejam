@@ -23,6 +23,7 @@ def detect_collision(ship, l_enemy, l_tir_enemy, l_tir_vaisseau, l_missile_enemy
                     index_tir.append(l_tir_vaisseau[i])
 
     for j in index_enemy:
+        Explosion(j.rect.left, j.rect.top)
         l_enemy.remove(j)
     for j in index_tir:
         if j in l_tir_vaisseau:

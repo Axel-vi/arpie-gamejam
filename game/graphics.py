@@ -12,7 +12,7 @@ fenetre.fill(white)
 rectFenetre = fenetre.get_rect()
 
 # Réglage de la fenetre
-pg.display.set_caption("R-Type")
+pg.display.set_caption("ARPIE")
 # pg.display.set_icon(<icon>)
 
 
@@ -281,6 +281,12 @@ def afficher_et_update_tir():
                        tir_size, tir_size, l.rect.left, l.rect.top)
 
 
+def afficher_et_update_explosion():
+    for e in l_explosion:
+        e.update()
+        e.show()
+
+
 # Mise a jour de l'image de decor pour la rendre transparente
 image['long_foreground_relief'] = pg.transform.scale(
     image['long_foreground_relief'].convert_alpha(), (width_fg*ratio_decor, height))
@@ -311,3 +317,29 @@ masks = {"asteroide": maskAsteroid,
          'tir_vaisseau': maskTirShip,
          'chromius_warrior': maskChromiusWarrior,
          'missile': maskMissile}
+
+
+class Explosion(pg.sprite.Sprite):
+    def __init__(self, x, y):
+        pg.sprite.Sprite.__init__(self)
+        self.rect = pg.Rect(x, y, 16, 16)
+        self.num = 0
+        self.delta_time = 0
+        self.image = spriteSheetExplosion.subsurface(pg.Rect(0, 0, 16, 16))
+        self.numeroImage = 0
+        l_explosion.append(self)
+
+    def update(self):
+        self.delta_time += 1
+        if self.delta_time >= 3:
+            self.delta_time = 0
+            n = self.numeroImage
+            self.image = spriteSheetExplosion.subsurface(
+                pg.Rect(n*16, 0, 16, 16))
+            self.numeroImage = self.numeroImage+1
+            if self.numeroImage > 8:
+                l_explosion.remove(self)
+
+    def show(self):
+        afficher_image(self.image, scale_size, scale_size,
+                       self.rect.left, self.rect.top)

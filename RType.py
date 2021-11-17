@@ -35,6 +35,7 @@ while True:
         # spawn_chromius_fighter()
         afficher_et_update_enemy()
         afficher_et_update_tir()
+        afficher_et_update_explosion()
         destroy_old_enemy()
         if detect_collision(ship, l_enemy, l_tir_enemy, l_tir_vaisseau, l_missile_enemy, abs_decor):
             state = 2
