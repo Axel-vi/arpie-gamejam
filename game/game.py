@@ -12,15 +12,19 @@ def detect_collision(ship, l_enemy, l_tir_enemy, l_tir_vaisseau, l_missile_enemy
     - l_tir_enemy qui est une liste de tirs d'ennemis : objet de la classe "tir_enemy" (doit avoir un attribut '.rect' !)
     - abs_decor : l'entier relatif qui donne la position du bord de l'image de décor par rapport au bord de la fenetre visible (pour pouvoir gerer le defilement du decor)
     """
-    index = []
+    index_enemy = []
+    index_tir = []
     for i in range(len(l_tir_vaisseau)):
         for j in range(len(l_enemy)):
             if l_tir_vaisseau[i].rect.colliderect(l_enemy[j].rect):
                 if masks['tir_vaisseau'].overlap(masks[str(l_enemy[j].type)], (l_enemy[j].rect.left - l_tir_vaisseau[i].rect.left, l_enemy[j].rect.top - l_tir_vaisseau[i].rect.top)) != None:
-                    index.append(l_enemy[j])
+                    index_enemy.append(l_enemy[j])
+                    index_tir.append(l_tir_vaisseau[i])
 
-    for j in index:
+    for j in index_enemy:
         l_enemy.remove(j)
+    for j in index_tir:
+        l_tir_vaisseau.remove(j)
     #                 l_enemy[j] = None
     # while None in l_enemy:
     #     l_enemy.remove(None)
@@ -89,18 +93,19 @@ def pattern(id_pattern, t, starting_height=0):
     else:
         raise NotImplementedError
 
-def gestion_event(niveau, compteur): 
-    liste_event=niveau 
-    if len(liste_event) > 0 : 
-        if compteur > 60*liste_event[0][0] : 
-            if liste_event[0][1] == 'asteroide' :
-                Asteroide() 
-                liste_event.pop(0) 
-            elif liste_event[0][1] == 'chromius_fighter' :
-                Chromius_fighter(liste_event[0][2],liste_event[0][3])
+
+def gestion_event(niveau, compteur):
+    liste_event = niveau
+    if len(liste_event) > 0:
+        if compteur > 60*liste_event[0][0]:
+            if liste_event[0][1] == 'asteroide':
+                Asteroide()
                 liste_event.pop(0)
-            else :
-                Chromius_warrior(liste_event[0][2],liste_event[0][3])
+            elif liste_event[0][1] == 'chromius_fighter':
+                Chromius_fighter(liste_event[0][2], liste_event[0][3])
                 liste_event.pop(0)
-    else : 
-        you_won = True 
+            else:
+                Chromius_warrior(liste_event[0][2], liste_event[0][3])
+                liste_event.pop(0)
+    else:
+        you_won = True
