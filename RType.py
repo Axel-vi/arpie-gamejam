@@ -6,7 +6,7 @@ from game.sounds import *
 from game.game import *
 from game.enemy import *
 
-
+k=0
 while True:
     while state == 0:
         # Ecran de demarrage qui affiche le titre et le bouton play (Appuyer sur espace)
@@ -34,7 +34,12 @@ while True:
         ship.shoot(touche)
         afficher_et_update_enemy(ship)
         afficher_et_update_tir()
+        afficher_et_update_explosion()
         destroy_old_enemy()
+        k+=1
+        if k>300:
+            Chromius_tower()
+            k=0
         abs_decor = defilement_decor_foreground()
         if detect_collision(ship, l_enemy, l_tir_enemy, l_tir_vaisseau, l_missile_enemy, abs_decor):
             state = 2
@@ -42,9 +47,11 @@ while True:
 
     while state == 2:
         # Etat de Game over
-        afficher_ecran_fin()
+        end_trans += 1
+        afficher_ecran_fin(int((1+cos(end_trans/150))/2*255))
         new_state = detect_control_demarrage()
         if new_state == 1:
+            end_trans = 1
             state = 3
         pg.display.update()
 
@@ -61,4 +68,6 @@ while True:
             l_tir_enemy.pop()
         while len(l_tir_vaisseau) != 0:
             l_tir_vaisseau.pop()
+        while len(l_missile_enemy) != 0:
+            l_missile_enemy.pop()
         state = 1

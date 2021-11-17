@@ -179,7 +179,7 @@ class Chromius_warrior():
         if self.cooldown > 0:
             self.cooldown -= 1
         else:
-            self.cooldown = delai_tir_enemy
+            self.cooldown =2*delai_tir_enemy
             missile_enemy(self.rect.left+self.size/5,
                           self.rect.top+self.size/3)
 

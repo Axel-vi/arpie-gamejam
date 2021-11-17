@@ -12,7 +12,7 @@ fenetre.fill(white)
 rectFenetre = fenetre.get_rect()
 
 # Réglage de la fenetre
-pg.display.set_caption("R-Type")
+pg.display.set_caption("ARPIE")
 # pg.display.set_icon(<icon>)
 
 
@@ -221,9 +221,12 @@ def initialiser_decor():
     global foregrnd
     global backgrnd
     global abs_decor
+    global backgrnd
     abs_decor = 0
     backgrnd = image['background'].get_rect()
     foregrnd = image["long_foreground_relief"].get_rect()
+    backgrnd = image["background"].get_rect()
+
 
 
 # initialisation du décor pour la premiere partie
@@ -245,12 +248,12 @@ def afficher_vaisseau(ship):
                        ship.size, ship.rect.left, ship.rect.top, anchor="nw")
 
 
-def afficher_ecran_fin():
+def afficher_ecran_fin(transparence):
     """Cette fonctin affiche l'ecran de fin de partie
     """
     fenetre.fill(black)
     fenetre.blit(titre_game_over, rect_game_over)
-    fenetre.blit(play_again, rect_play_again)
+    fenetre.blit(transparent(play_again,transparence), rect_play_again)
     fenetre.blit(crochets, rect_crochets)
 
 
@@ -287,6 +290,12 @@ def afficher_et_update_tir():
                        tir_size, tir_size, l.rect.left, l.rect.top)
 
 
+def afficher_et_update_explosion():
+    for e in l_explosion:
+        e.update()
+        e.show()
+
+
 # Mise a jour de l'image de decor pour la rendre transparente
 image['long_foreground_relief'] = pg.transform.scale(
     image['long_foreground_relief'].convert_alpha(), (width_fg*ratio_decor, height))
@@ -319,6 +328,33 @@ masks = {"asteroide": maskAsteroid,
          "chromius_fighter": maskChromiusFighter,
          "tir_enemy": maskTirEnemy,
          'tir_vaisseau': maskTirShip,
+         'tir_tower': maskTirTower,
          'chromius_warrior': maskChromiusWarrior,
-         'missile': maskMissile,
-         'chromius_tower': maskChromiusTower}
+         'chromius_tower': maskChromiusTower,
+         'missile': maskMissile}
+
+
+class Explosion(pg.sprite.Sprite):
+    def __init__(self, x, y):
+        pg.sprite.Sprite.__init__(self)
+        self.rect = pg.Rect(x, y, 16, 16)
+        self.num = 0
+        self.delta_time = 0
+        self.image = spriteSheetExplosion.subsurface(pg.Rect(0, 0, 16, 16))
+        self.numeroImage = 0
+        l_explosion.append(self)
+
+    def update(self):
+        self.delta_time += 1
+        if self.delta_time >= 3:
+            self.delta_time = 0
+            n = self.numeroImage
+            self.image = spriteSheetExplosion.subsurface(
+                pg.Rect(n*16, 0, 16, 16))
+            self.numeroImage = self.numeroImage+1
+            if self.numeroImage > 8:
+                l_explosion.remove(self)
+
+    def show(self):
+        afficher_image(self.image, scale_size, scale_size,
+                       self.rect.left, self.rect.top)
