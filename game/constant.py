@@ -98,22 +98,28 @@ rect_press_start.center = (width//2, 500)
 
 # Chargement des niveaux
 
-
-def lire_niveau(id_niveau):
-    fichier = open('./data/niveau_'+str(id_niveau)+'.txt', 'r')
-    nom_niveau = fichier.readline()
-    distance_totale = fichier.readline()
-    liste_event = []
-    for ligne in fichier:
-        ligne = ligne.replace("\n", " ")
-        date, type, arg = ligne.split(";")
-        date = float(date)
-        liste_event.append([date, type, arg])
-    return [nom_niveau, distance_totale, liste_event]
-
-
+def lire_niveau(id_niveau): 
+    fichier = open('./data/niveau_'+str(id_niveau)+'.txt', 'r') 
+    nom_niveau = fichier.readline() 
+    distance_totale = fichier.readline() 
+    liste_event=[] 
+    for ligne in fichier : 
+        ligne = ligne.replace("\n","") 
+        date,type,arg = ligne.split(";") 
+        date=float(date) 
+        if type == 'chromius_fighter' or type == 'chromius_warrior' :
+            hauteur, id_pattern = arg.split(":")
+            hauteur = int(hauteur)
+            id_pattern = int(id_pattern)
+            arg=[hauteur,id_pattern]
+            liste_event.append([date]+[type]+arg)
+        else :
+            liste_event.append([date]+[type])       
+    return [nom_niveau, distance_totale, liste_event]  
 niveau_0 = lire_niveau(0)
-liste_niveau = [niveau_0]
+niveau_1 = lire_niveau(1)
+print(niveau_1)
+liste_niveau = [niveau_0, niveau_1]
 # Initialise l'état du jeu
 state = 0
 
