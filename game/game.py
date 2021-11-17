@@ -1,7 +1,7 @@
 # Module game du projet R-Type
 # -*- coding: utf-8 -*-
 
-from game.enemy import Asteroide, Chromius_fighter
+from game.enemy import Asteroide, Chromius_fighter, Chromius_warrior
 from game.graphics import *
 
 
@@ -72,11 +72,14 @@ def gestion_event(niveau, compteur):
     liste_event=niveau 
     if len(liste_event) > 0 : 
         if compteur > 60*liste_event[0][0] : 
-            if liste_event[0][1] == 'Asteroid' :
+            if liste_event[0][1] == 'asteroide' :
                 Asteroide() 
                 liste_event.pop(0) 
-            else :
+            elif liste_event[0][1] == 'chromius_fighter' :
                 Chromius_fighter(liste_event[0][2],liste_event[0][3])
+                liste_event.pop(0)
+            else :
+                Chromius_warrior(liste_event[0][2],liste_event[0][3])
                 liste_event.pop(0)
     else : 
         you_won = True 

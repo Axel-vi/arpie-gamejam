@@ -104,7 +104,7 @@ def lire_niveau(id_niveau):
         ligne = ligne.replace("\n","") 
         date,type,arg = ligne.split(";") 
         date=float(date) 
-        if type == 'chromius_fighter' :
+        if type == 'chromius_fighter' or type == 'chromius_warrior' :
             hauteur, id_pattern = arg.split(":")
             hauteur = int(hauteur)
             id_pattern = int(id_pattern)

@@ -41,6 +41,7 @@ while True:
         if new_state == 1:
             state = 3
         pg.display.update()
+        
     if state == 3 :
         niveau = [el for el in liste_niveau[id_niveau][2]]
         compteur = 0

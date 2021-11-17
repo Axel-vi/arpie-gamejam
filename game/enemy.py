@@ -115,9 +115,8 @@ class Chromius_fighter():
     def move(self):
         # Mouvement vers la droite uniquement horizontal
         self.t += 1
-        a,b = pattern(self.id_pattern, self.t, self.hauteur)
-        print(a-self.rect.left)
-        self.rect=self.rect.move(a-self.rect.left,b-self.rect.right)
+        x,y = pattern(self.id_pattern, self.t, self.hauteur)
+        self.rect=pg.Rect(x,y,self.size,self.size)
 
     def shoot(self):
         # creer un tir à la position du vaisseau ennemi
@@ -146,20 +145,25 @@ class missile_enemy:
 
 
 class Chromius_warrior():
-    def __init__(self, hauteur):
+    def __init__(self, hauteur, id_pattern):
         self.size = scale_size
         # Apparition aléatoire à gauche de l'écran
         x = width
         y = hauteur
         self.type = 'chromius_warrior'
         self.cooldown = 0
+        self.t = 0
+        self.hauteur = hauteur
+        self.id_pattern = id_pattern
         self.rect = pg.Rect(x, y, self.size, self.size)
         #self.rect.center = (x+self.size/2, y+self.size/2)
         l_enemy.append(self)
 
     def move(self):
         # Mouvement vers la droite uniquement horizontal
-        self.rect = self.rect.move(-10, 0)
+        self.t += 1
+        x,y = pattern(self.id_pattern, self.t, self.hauteur)
+        self.rect=pg.Rect(x,y,self.size,self.size)
 
     def shoot(self):
         # creer un tir à la position du vaisseau ennemi
