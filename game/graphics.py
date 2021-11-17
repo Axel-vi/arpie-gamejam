@@ -197,12 +197,17 @@ def afficher_et_update_tir():
         l.move()
         l.update_duree()
         afficher_image(dico_image['tir_vaisseau'],
-                       long_tir, larg_tir, l.rect.left, l.rect.top)
+                       tir_size, tir_size, l.rect.left, l.rect.top)
     for l in l_tir_enemy:
         l.move()
         l.update_duree()
         afficher_image(dico_image['tir_ennemi'],
-                       long_tir, larg_tir, l.rect.left, l.rect.top)
+                       tir_size, tir_size, l.rect.left, l.rect.top)
+    for l in l_missile_enemy:
+        l.move()
+        l.update_duree()
+        afficher_image(dico_image["missile_ennemi"],
+                       tir_size, tir_size, l.rect.left, l.rect.top)
 
 
 # Mise a jour de l'image de decor pour la rendre transparente

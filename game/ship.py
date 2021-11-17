@@ -89,7 +89,7 @@ ship = Vaisseau()
 
 class tir_vaisseau:
     def __init__(self, x, y):
-        self.rect = pg.Rect(x, y, larg_tir, long_tir)
+        self.rect = pg.Rect(x, y, tir_size, tir_size)
         self.duree = duree_tir
         l_tir_vaisseau.append(self)
 
@@ -100,7 +100,3 @@ class tir_vaisseau:
         self.duree -= 1
         if self.duree <= 0:
             l_tir_vaisseau.pop(0)
-
-    def afficher(self):
-        afficher_image(dico_image['tir_vaisseau'],
-                       long_tir, larg_tir, self.rect.right, self.rect.top)
