@@ -50,7 +50,7 @@ def test_tir_enemy():
 def test_move_tir_enemy():
     tir = tir_enemy(5, 5)
     tir.move()
-    assert tir.rect.left == 5 + speed_tir_enemy
+    assert tir.rect.left == 5 - speed_tir_enemy
     assert tir.rect.top == 5
 
 
@@ -109,6 +109,6 @@ test_detect_collision()  # Valide !
 
 # Test des patterns
 t = [i for i in range(301)]
-y = [pattern(12, i, 0)[1] for i in range(301)]
+y = [pattern(5, i, 0)[1] for i in range(301)]
 plt.plot(t, y)
 plt.show()
