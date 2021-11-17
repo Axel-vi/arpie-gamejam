@@ -194,12 +194,20 @@ def defilement_decor_background():
     La fonction renvoie la valeur de abs_decor (l'entier relatif qui donne la position du bord de l'image de décor par rapport au bord de la fenetre visible)
     """
     global backgrnd
+    global middlegrnd
 
     if -backgrnd.topleft[0] >= x_bord_bg:
         backgrnd = backgrnd.move(-backgrnd.topleft[0], 0)
     else:
         backgrnd = backgrnd.move(-vitesse_bg, 0)
+
+    if -middlegrnd.topleft[0] >= x_bord_decor:
+        middlegrnd = middlegrnd.move(-middlegrnd.topleft[0], 0)
+    else:
+        middlegrnd = middlegrnd.move(-vitesse_mg, 0)
+
     fenetre.blit(image["background"], backgrnd)
+    fenetre.blit(image['long_middleground_relief'], middlegrnd)
 
 
 def defilement_decor_foreground():
@@ -215,18 +223,21 @@ def defilement_decor_foreground():
     fenetre.blit(image["long_foreground_relief"], foregrnd)
     return abs_decor
 # Initialisation du décor
+
+
 def initialiser_decor():
     """Cette foncion initialise le décor
     """
     global foregrnd
+    global middlegrnd
     global backgrnd
     global abs_decor
     global backgrnd
     abs_decor = 0
+    middlegrnd = image['long_middleground_relief'].get_rect()
     backgrnd = image['background'].get_rect()
     foregrnd = image["long_foreground_relief"].get_rect()
     backgrnd = image["background"].get_rect()
-
 
 
 # initialisation du décor pour la premiere partie
@@ -253,7 +264,7 @@ def afficher_ecran_fin(transparence):
     """
     fenetre.fill(black)
     fenetre.blit(titre_game_over, rect_game_over)
-    fenetre.blit(transparent(play_again,transparence), rect_play_again)
+    fenetre.blit(transparent(play_again, transparence), rect_play_again)
     fenetre.blit(crochets, rect_crochets)
 
 
@@ -301,6 +312,8 @@ image['long_foreground_relief'] = pg.transform.scale(
     image['long_foreground_relief'].convert_alpha(), (width_fg*ratio_decor, height))
 image['background'] = pg.transform.scale(
     image['background'].convert_alpha(), (width_bg*ratio_bg, height))
+image['long_middleground_relief'] = pg.transform.scale(
+    image['long_middleground_relief'].convert_alpha(), (width_fg*ratio_decor, height))
 
 # Dictionnaire des masques pour gérer les collisions
 maskAsteroid = pg.mask.from_surface(pg.transform.scale(
@@ -321,7 +334,7 @@ maskMissile = pg.mask.from_surface(pg.transform.scale(
 maskChromiusTower = pg.mask.from_surface(pg.transform.scale(
     image["chromius_tower"].convert_alpha(), (tower_size, tower_size)))
 maskTirTower = pg.mask.from_surface(pg.transform.scale(
-    image["tir_tower"].convert_alpha(), (tir_size,tir_size)))
+    image["tir_tower"].convert_alpha(), (tir_size, tir_size)))
 masks = {"asteroide": maskAsteroid,
          "vaisseau": maskShip,
          "foregrnd": maskForegrnd,
