@@ -174,6 +174,8 @@ bord_fenetre_bg = width / ratio_bg
 x_bord_fenetre = bord_fenetre_decor*ratio_decor
 x_bord_bg = bord_fenetre_bg*ratio_bg
 
+print(bord_fenetre_decor, bord_fenetre_bg)
+
 # Abscisse du pixel tout à droite du décor
 x_bord_decor = (width_fg-bord_fenetre_decor)*ratio_decor
 x_bord_bg = (width_bg-bord_fenetre_bg)*ratio_bg
