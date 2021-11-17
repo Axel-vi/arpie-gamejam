@@ -37,6 +37,7 @@ class tir_enemy:
         """Initialisation"""
         self.rect = pg.Rect(x, y, larg_tir, long_tir)
         self.duree = duree_tir
+        self.type = "tir_enemy"
         l_tir_enemy.append(self)
 
     def move(self):
