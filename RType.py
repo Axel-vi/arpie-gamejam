@@ -25,13 +25,13 @@ while True:
         # Etat de jeu durant lequel l'utilisateur parcoure le niveau
         fenetre.fill(black)
         clock.tick(fps)
-        compteur +=1
+        abs_decor = defilement_decor()
+        compteur += 1
         gestion_event(niveau, compteur)
         direction, touche = detect_control_game()
         ship.move(direction)
         afficher_vaisseau(ship)
         ship.shoot(touche)
-        abs_decor = defilement_decor()
         # spawn_chromius_fighter()
         afficher_et_update_enemy()
         afficher_et_update_tir()
@@ -47,8 +47,8 @@ while True:
         if new_state == 1:
             state = 3
         pg.display.update()
-        
-    if state == 3 :
+
+    if state == 3:
         # Initialisation du niveau
         niveau = [el for el in liste_niveau[id_niveau][2]]
         compteur = 0

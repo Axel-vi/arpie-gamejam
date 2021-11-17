@@ -98,24 +98,27 @@ rect_press_start.center = (width//2, 500)
 
 # Chargement des niveaux
 
-def lire_niveau(id_niveau): 
-    fichier = open('./data/niveau_'+str(id_niveau)+'.txt', 'r') 
-    nom_niveau = fichier.readline() 
-    distance_totale = fichier.readline() 
-    liste_event=[] 
-    for ligne in fichier : 
-        ligne = ligne.replace("\n","") 
-        date,type,arg = ligne.split(";") 
-        date=float(date) 
-        if type == 'chromius_fighter' or type == 'chromius_warrior' :
+
+def lire_niveau(id_niveau):
+    fichier = open('./data/niveau_'+str(id_niveau)+'.txt', 'r')
+    nom_niveau = fichier.readline()
+    distance_totale = fichier.readline()
+    liste_event = []
+    for ligne in fichier:
+        ligne = ligne.replace("\n", "")
+        date, type, arg = ligne.split(";")
+        date = float(date)
+        if type == 'chromius_fighter' or type == 'chromius_warrior':
             hauteur, id_pattern = arg.split(":")
             hauteur = int(hauteur)
             id_pattern = int(id_pattern)
-            arg=[hauteur,id_pattern]
+            arg = [hauteur, id_pattern]
             liste_event.append([date]+[type]+arg)
-        else :
-            liste_event.append([date]+[type])       
-    return [nom_niveau, distance_totale, liste_event]  
+        else:
+            liste_event.append([date]+[type])
+    return [nom_niveau, distance_totale, liste_event]
+
+
 niveau_0 = lire_niveau(0)
 niveau_1 = lire_niveau(1)
 print(niveau_1)
@@ -177,6 +180,7 @@ x_bord_bg = (width_bg-bord_fenetre_bg)*ratio_bg
 
 # Déplacement à chaque avancée du décor (en unité d'abscisse pygame)
 vitesse_decor = 5
+vitesse_bg = 1
 
 # Nombre d'étoiles dans l'écran de démarrage
 nb_star = 100
