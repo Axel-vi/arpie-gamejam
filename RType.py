@@ -6,7 +6,7 @@ from game.sounds import *
 from game.game import *
 from game.enemy import *
 
-k=0
+
 while True:
     while state == 0:
         # Ecran de demarrage qui affiche le titre et le bouton play (Appuyer sur espace)
@@ -36,10 +36,6 @@ while True:
         afficher_et_update_tir()
         destroy_old_enemy()
         abs_decor = defilement_decor_foreground()
-        if k>300:
-            k=0
-            Chromius_tower()
-        k+=1
         if detect_collision(ship, l_enemy, l_tir_enemy, l_tir_vaisseau, l_missile_enemy, abs_decor):
             state = 2
         pg.display.update()
