@@ -118,6 +118,76 @@ def detect_control_demarrage():
                 return 1
 
 
+# Initialisation du décor
+def initialiser_decor():
+    """Cette foncion initialise le décor
+    """
+    global foregrnd
+    global abs_decor
+    global l_star
+    abs_decor = 0
+    l_star = []
+    foregrnd = image["long_foreground_relief"].get_rect()
+    for i in range(nb_star):
+        l_star.append(Star())
+# Objets pour l'écran de démarrage
+
+
+class Star():
+    def __init__(self):
+        self.x = random()*width//2
+        self.y = random()*height//2
+        self.sx = self.x
+        self.sy = self.y
+        self.star_speed = 0.2
+        self.max_radius = 10
+        self.rect = pg.Rect(self.x, self.y, self.max_radius, self.max_radius)
+        self.orient_x = 1 - 2*randint(0, 1)
+        self.orient_y = 1 - 2*randint(0, 1)
+        self.z = 2 + random()*width
+
+    def update(self):
+        self.sx = (width//2)*(self.x/self.z)
+        self.sy = (height//2)*(self.y/self.z)
+        self.r = (self.max_radius)*(1-self.z/width)
+        self.rect = pg.Rect(width//2 - self.sx*self.orient_x, height //
+                            2 - self.sy*self.orient_y, self.r, self.r)
+        self.z -= self.star_speed
+        if self.z < 2:
+            self.x = random()*width//2
+            self.y = random()*height//2
+            self.sx = self.x
+            self.sy = self.y
+            self.rect.move_ip(self.sx, self.sy)
+            self.orient_x = 1 - 2*randint(0, 1)
+            self.orient_y = 1 - 2*randint(0, 1)
+            self.z = 2 + random()*width
+
+    def show(self):
+        pg.draw.ellipse(starfield, white, self.rect)
+
+
+# initialisation du décor pour la premiere partie
+initialiser_decor()
+
+
+def afficher_ecran_demarrage(state_trans):
+    """Cette fonction affiche l'ecran de demarrage
+    """
+    starfield.fill(black)
+    star = l_star[0]
+    for star in l_star:
+        star.update()
+        star.show()
+    fenetre.blit(starfield, (0, 0))
+    fenetre.blit(titre_ecran_demarrage, rect_titre)
+    etape = (1-2*((state_trans//255) % 2))
+    alpha = ((state_trans) % 255) * etape
+    if etape == -1:
+        alpha = 255+alpha
+    fenetre.blit(transparent(press_start, alpha), rect_press_start)
+
+
 def defilement_decor():
     """Définition de la boucle qui va faire défiler le décor au premier plan.
     La vitesse de défilement est ajustable dans le fichier constant.py
@@ -136,20 +206,6 @@ def defilement_decor():
     return abs_decor
 
 
-# Initialisation du décor
-def initialiser_decor():
-    """Cette foncion initialise le décor
-    """
-    global foregrnd
-    global abs_decor
-    abs_decor = 0
-    foregrnd = image["long_foreground_relief"].get_rect()
-
-
-# initialisation du décor pour la premiere partie
-initialiser_decor()
-
-
 def afficher_vaisseau(ship):
     """ Cette fonction gere l'affichage du vaisseau sur l'ecran.
     Elle prend en argument ship qui est un objet de la classe 'Vaisseau'
@@ -163,14 +219,6 @@ def afficher_vaisseau(ship):
     elif ship.state == "static":
         afficher_image(image["flamme_faible"], ship.size,
                        ship.size, ship.rect.left, ship.rect.top, anchor="nw")
-
-
-def afficher_ecran_demarrage():
-    """Cette fonction affiche l'ecran de demarrage
-    """
-    fenetre.fill(black)
-    fenetre.blit(titre_ecran_demarrage, rect_titre)
-    fenetre.blit(press_start, rect_press_start)
 
 
 def afficher_ecran_fin():
