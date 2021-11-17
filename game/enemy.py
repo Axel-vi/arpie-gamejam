@@ -35,7 +35,7 @@ class Asteroide:
 class tir_enemy:
     def __init__(self, x, y):
         """Initialisation"""
-        self.rect = pg.Rect(x, y, larg_tir, long_tir)
+        self.rect = pg.Rect(x, y, tir_size, tir_size)
         self.duree = duree_tir
         self.type = "tir_enemy"
         l_tir_enemy.append(self)
@@ -72,6 +72,52 @@ class Chromius_fighter():
         else:
             self.cooldown = delai_tir_enemy
             tir_enemy(self.rect.left+self.size/5, self.rect.top+self.size/3)
+
+
+class missile_enemy:
+    def __init__(self, x, y):
+        """Initialisation"""
+        self.rect = pg.Rect(x, y, tir_size, tir_size)
+        self.duree = duree_tir
+        l_missile_enemy.append(self)
+
+    def move(self):
+        # à changer pour que le missile suive le personnage
+        self.rect = self.rect.move(speed_missile_enemy, 0)
+
+    def update_duree(self):
+        self.duree -= 1
+        if self.duree <= 0:
+            l_missile_enemy.pop(0)
+
+
+class Chromius_warrior():
+    def __init__(self):
+        self.size = scale_size
+        # Apparition aléatoire à gauche de l'écran
+        x = width
+        y = randint(0, int((5/6)*height))
+        self.type = 'chromius_warrior'
+        self.cooldown = 0
+        self.rect = pg.Rect(x, y, self.size, self.size)
+        #self.rect.center = (x+self.size/2, y+self.size/2)
+        l_enemy.append(self)
+
+    def move(self):
+        # Mouvement vers la droite uniquement horizontal
+        self.rect = self.rect.move(-10, 0)
+
+    def shoot(self):
+        # creer un tir à la position du vaisseau ennemi
+        if self.cooldown > 0:
+            self.cooldown -= 1
+        else:
+            self.cooldown = delai_tir_enemy
+            missile_enemy(self.rect.left+self.size/5,
+                          self.rect.top+self.size/3)
+
+
+Chromius_warrior()
 
 
 def spawn_chromius_fighter():

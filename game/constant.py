@@ -42,7 +42,7 @@ play_height = 540
 # Taille du vaisseau et des ennemis
 scale_size = 75
 asteroid_size = 90
-speed_chromius_fighter = 10
+tir_size = 35
 
 # Volume des sons
 volume_musique = 0.2
@@ -51,13 +51,13 @@ volume_bruitage = 0.5
 # Tirs
 l_tir_vaisseau = []
 l_tir_enemy = []
+l_missile_enemy = []
 speed_tir = 30
 delai_tir = 45
 delai_spawn_enemy = 120
-speed_tir_enemy = -20
+speed_tir_enemy = -30
+speed_missile_enemy = -30
 delai_tir_enemy = 45
-long_tir = 50
-larg_tir = 25
 duree_tir = fps*1  # équivaut à 1seconde
 
 # Constante pour accélerer les calculs
@@ -93,6 +93,21 @@ press_start = police_press_start.render(
 rect_press_start = press_start.get_rect()
 rect_press_start.center = (width//2, 500)
 
+# Chargement des niveaux
+
+def lire_niveau(id_niveau): 
+    fichier = open('./data/niveau_'+str(id_niveau)+'.txt', 'r') 
+    nom_niveau = fichier.readline() 
+    distance_totale = fichier.readline() 
+    liste_event=[] 
+    for ligne in fichier : 
+        ligne = ligne.replace("\n"," ") 
+        date,type,arg = ligne.split(";") 
+        date=float(date) 
+        liste_event.append([date,type,arg]) 
+    return [nom_niveau, distance_totale, liste_event]  
+niveau_0 = lire_niveau(0) 
+liste_niveau = [niveau_0]
 # Initialise l'état du jeu
 state = 0
 

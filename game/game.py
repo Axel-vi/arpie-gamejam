@@ -1,6 +1,7 @@
 # Module game du projet R-Type
 # -*- coding: utf-8 -*-
 
+from game.enemy import Asteroide
 from game.graphics import *
 
 
@@ -76,3 +77,12 @@ def pattern(id_pattern, t, starting_height=0):
         return (x, starting_height + y_offset)
     else:
         raise NotImplementedError
+
+def gestion_event(compteur, id_niveau=0): 
+    liste_event=liste_niveau[id_niveau][2] 
+    if len(liste_event) > 0 : 
+        if compteur > 60*liste_event[0][0] : 
+            Asteroide() 
+            liste_event.pop(0) 
+    else : 
+        you_won = True 
