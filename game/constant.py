@@ -21,6 +21,7 @@ blue = 0, 0, 255
 green = 0, 255, 0
 gray = 100, 100, 100
 couleur_titre = (95, 199, 227)
+couleur_titre = (82, 116, 245)
 
 # Liste d'ennemis
 l_enemy = []
@@ -145,3 +146,11 @@ x_bord_decor = (width_fg-bord_fenetre_decor)*ratio_decor
 
 # Déplacement à chaque avancée du décor (en unité d'abscisse pygame)
 vitesse_decor = 5
+
+# Nombre d'étoiles dans l'écran de démarrage
+nb_star = 100
+starfield = pg.Surface((width, height))
+
+# Compteur de frame pour gérer la transparence dynamique de l'écran de démarrage
+compt_trans = 0
+state_trans = 0

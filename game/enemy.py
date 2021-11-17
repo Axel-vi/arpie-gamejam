@@ -44,7 +44,6 @@ class tir_enemy:
             self.speed = -speed_tir_enemy
         else:
             self.speed = speed_tir_enemy
-        print(self.angle, ship.rect.centerx, ship.rect.centery, x, y)
         l_tir_enemy.append(self)
 
     def move(self):

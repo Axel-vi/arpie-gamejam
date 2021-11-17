@@ -9,11 +9,14 @@ from game.enemy import *
 
 while True:
     while state == 0:
-        afficher_ecran_demarrage()
+        afficher_ecran_demarrage(state_trans)
         new_state = detect_control_demarrage()
         if new_state == 1:
             state = 1
         pg.display.update()
+        if compt_trans % 2 == 0:
+            state_trans += 1
+        compt_trans += 1
 
     while state == 1:
         fenetre.fill(black)
