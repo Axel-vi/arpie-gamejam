@@ -42,9 +42,11 @@ while True:
 
     while state == 2:
         # Etat de Game over
-        afficher_ecran_fin()
+        end_trans+=1
+        afficher_ecran_fin(int((1+cos(end_trans/50))/2*255))
         new_state = detect_control_demarrage()
         if new_state == 1:
+            end_trans=1
             state = 3
         pg.display.update()
 

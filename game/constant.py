@@ -189,3 +189,4 @@ starfield = pg.Surface((width, height))
 # Compteur de frame pour gérer la transparence dynamique de l'écran de démarrage
 compt_trans = 0
 state_trans = 0
+end_trans = 0
