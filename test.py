@@ -1,13 +1,42 @@
-from _typeshed import Self
 import game
 from game.ship import *
+from game.graphics import *
 
-def move_test():
+def move_test(n):
     speed = 4
-    assert ship.move(Self, 'n') == Self.y + speed
-    assert ship.move(Self, 's') == Self.y - speed
-    assert ship.move(Self, 'e') == Self.x + speed
-    assert ship.move(Self, 'w') == Self.x - speed
+    ship.rect.left = 0
+    ship.rect.top = 0
+    if n/4 < width:
+        for i in range(n):
+            ship.move('n')
+        assert ship.rect.top == speed*n
+        ship.rect.left = 0
+        ship.rect.top = 0
+        for j in range(n):
+            ship.move('e')
+        assert ship.rect.left == speed*n
+        ship.rect.left = 0
+        ship.rect.top = 0
+        for i in range(n):
+            ship.move('w')
+        assert ship.rect.left == -(speed*n)
+        ship.rect.left = 0
+        ship.rect.top = 0
+        for j in range(n):
+            ship.move('s')
+        assert ship.rect.top == 0
+        ship.rect.left = 0
+        ship.rect.top = 0
+        for i in range(n):
 
-move_test()
+    else :
+        assert ship.rect.top == 0
+        assert ship.rect.left == 0
+    
+    
+        
+
+    
+    
+
 

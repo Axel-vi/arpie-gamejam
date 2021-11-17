@@ -12,3 +12,7 @@ canal_musique = pg.mixer.Channel(0)
 canal_musique.set_volume(volume_musique)
 canal_son = pg.mixer.Channel(1)
 canal_son.set_volume(volume_bruitage)
+
+def bruit_coup():
+    pg.mixer.music
+
