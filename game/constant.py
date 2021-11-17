@@ -4,10 +4,11 @@
 import pygame as pg
 from pygame.locals import *
 from pygame import key
-from math import sqrt, sin, pi
+from math import sqrt, sin, pi, atan, cos
 from random import random, randint
 from os import listdir
 import matplotlib.pyplot as plt
+from time import sleep
 
 # Démarrage de pygame
 pg.init()
@@ -20,6 +21,7 @@ blue = 0, 0, 255
 green = 0, 255, 0
 gray = 100, 100, 100
 couleur_titre = (95, 199, 227)
+couleur_titre = (82, 116, 245)
 
 # Liste d'ennemis
 l_enemy = []
@@ -43,6 +45,7 @@ play_height = 540
 scale_size = 75
 asteroid_size = 90
 tir_size = 35
+speed_chromius_fighter = 10
 
 # Volume des sons
 volume_musique = 0.2
@@ -55,9 +58,9 @@ l_missile_enemy = []
 speed_tir = 30
 delai_tir = 45
 delai_spawn_enemy = 120
-speed_tir_enemy = -30
+speed_tir_enemy = 30
 speed_missile_enemy = -30
-delai_tir_enemy = 45
+delai_tir_enemy = 60
 duree_tir = fps*1  # équivaut à 1seconde
 
 # Constante pour accélerer les calculs
@@ -168,3 +171,11 @@ x_bord_decor = (width_fg-bord_fenetre_decor)*ratio_decor
 
 # Déplacement à chaque avancée du décor (en unité d'abscisse pygame)
 vitesse_decor = 5
+
+# Nombre d'étoiles dans l'écran de démarrage
+nb_star = 100
+starfield = pg.Surface((width, height))
+
+# Compteur de frame pour gérer la transparence dynamique de l'écran de démarrage
+compt_trans = 0
+state_trans = 0
