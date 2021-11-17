@@ -29,7 +29,7 @@ class Asteroide:
     def move(self):
         self.rect = self.rect.move(self.speed_x, self.speed_y)
 
-    def shoot(self):
+    def shoot(self,ship):
         """Un asteroide ne tire pas"""
 
 
@@ -38,17 +38,18 @@ class tir_enemy:
         """Initialisation"""
         self.rect = pg.Rect(x, y, tir_size, tir_size)
         self.duree = duree_tir
-        self.angle = atan((ship.rect.centery-y) /
-                          (ship.rect.centerx-x))
+        """
+        self.angle = atan((ship.rect.centery-y)/(ship.rect.centerx-x))
         if ship.rect.centerx-x < 0:
             self.speed = -speed_tir_enemy
         else:
             self.speed = speed_tir_enemy
+        """
         l_tir_enemy.append(self)
 
     def move(self):
-        """self.rect = self.rect.move(
-            self.speed*cos(self.angle), self.speed*sin(self.angle))"""
+        #self.rect = self.rect.move(
+        #    self.speed*cos(self.angle), self.speed*sin(self.angle))
         self.rect = self.rect.move(-speed_tir_enemy, 0)
 
     def update_duree(self):
@@ -129,7 +130,7 @@ class Chromius_fighter():
         x, y = pattern(self.id_pattern, self.t, self.hauteur)
         self.rect = pg.Rect(x, y, self.size, self.size)
 
-    def shoot(self):
+    def shoot(self,ship):
         # creer un tir à la position du vaisseau ennemi
         if self.cooldown > 0:
             self.cooldown -= 1
@@ -176,24 +177,55 @@ class Chromius_warrior():
         x, y = pattern(self.id_pattern, self.t, self.hauteur)
         self.rect = pg.Rect(x, y, self.size, self.size)
 
-    def shoot(self):
+    def shoot(self,ship):
         # creer un tir à la position du vaisseau ennemi
         if self.cooldown > 0:
             self.cooldown -= 1
         else:
-            self.cooldown = delai_tir_enemy
+            self.cooldown =2*delai_tir_enemy
             missile_enemy(self.rect.left+self.size/5,
                           self.rect.top+self.size/3)
 
 
-def spawn_chromius_fighter():
-    # Fait apparaitre un chromius fighter toute les 120 frames
-    global delai_spawn_enemy
-    if delai_spawn_enemy > 0:
-        delai_spawn_enemy -= 1
-    else:
-        Chromius_fighter()
-        delai_spawn_enemy = 120
+class tir_tower:
+    def __init__(self, x, y,ship):
+        """Initialisation"""
+        self.rect = pg.Rect(x, y, tir_size, tir_size)
+        self.duree = duree_tir
+        self.angle = atan((ship.rect.centery-y) /
+                          (ship.rect.centerx-x))
+        if ship.rect.centerx-x < 0:
+            self.speed = -speed_tir_tower
+        else:
+            self.speed = speed_tir_tower
+        l_tir_tower.append(self)
+
+    def move(self):
+        # à changer pour que le missile suive le personnage
+        self.rect = self.rect.move(self.speed*cos(self.angle), self.speed*sin(self.angle))
+
+    def update_duree(self):
+        self.duree -= 1
+        if self.duree <= 0:
+            l_tir_tower.pop(0)
+
+class Chromius_tower:
+    def __init__(self):
+        self.type='chromius_tower'
+        self.cooldown=60
+        self.t=0
+        self.size=tower_size
+        self.rect = pg.Rect(width,height-self.size, self.size, self.size)
+        l_enemy.append(self)
+    def move(self):
+        self.rect = self.rect.move(-vitesse_decor, 0)
+    def shoot(self,ship):
+        # creer un tir à la position du vaisseau ennemi
+        if self.cooldown > 0:
+            self.cooldown -= 1
+        else:
+            self.cooldown = 60
+            tir_tower(self.rect.left+self.size/5,self.rect.top,ship)
 
 
 def destroy_old_enemy():

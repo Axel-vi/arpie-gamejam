@@ -26,12 +26,6 @@ couleur_titre = (82, 116, 245)
 # Liste d'ennemis
 l_enemy = []
 
-# Les tailles de police standards
-SMALL = 12
-MEDIUM = 16
-LARGE = 34
-TITLE = 50
-
 # Réglage du nombre de fps
 clock = pg.time.Clock()
 fps = 60
@@ -62,6 +56,15 @@ speed_tir_enemy = 20
 speed_missile_enemy = -30
 delai_tir_enemy = 60
 duree_tir = fps*1  # équivaut à 1seconde
+
+
+#Tour
+
+tower_size=300
+speed_tir_tower=12
+l_tir_tower=[]
+# Liste pour stocker les explosions en cours
+l_explosion = []
 
 # Constante pour accélerer les calculs
 sq = sqrt(2)
@@ -191,3 +194,7 @@ starfield = pg.Surface((width, height))
 # Compteur de frame pour gérer la transparence dynamique de l'écran de démarrage
 compt_trans = 0
 state_trans = 0
+end_trans = 0
+
+# Chargement des frames de l'explosion
+spriteSheetExplosion = pg.image.load("resources/images/explosion_ss.png")
