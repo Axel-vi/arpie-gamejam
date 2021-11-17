@@ -18,16 +18,15 @@ def detect_collision(ship, l_enemy, l_tir_enemy, l_tir_vaisseau, l_missile_enemy
         for j in range(len(l_enemy)):
             if l_tir_vaisseau[i].rect.colliderect(l_enemy[j].rect):
                 if masks['tir_vaisseau'].overlap(masks[str(l_enemy[j].type)], (l_enemy[j].rect.left - l_tir_vaisseau[i].rect.left, l_enemy[j].rect.top - l_tir_vaisseau[i].rect.top)) != None:
-                    index_enemy.append(l_enemy[j])
+                    if l_enemy[j].type != "asteroide":
+                        index_enemy.append(l_enemy[j])
                     index_tir.append(l_tir_vaisseau[i])
 
     for j in index_enemy:
         l_enemy.remove(j)
     for j in index_tir:
-        l_tir_vaisseau.remove(j)
-    #                 l_enemy[j] = None
-    # while None in l_enemy:
-    #     l_enemy.remove(None)
+        if j in l_tir_vaisseau:
+            l_tir_vaisseau.remove(j)
 
     for i in range(len(l_enemy)):
         if ship.rect.colliderect(l_enemy[i].rect):
