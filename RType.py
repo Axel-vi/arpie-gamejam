@@ -12,9 +12,8 @@ while True:
         # Ecran de demarrage qui affiche le titre et le bouton play (Appuyer sur espace)
         afficher_ecran_demarrage(state_trans)
         new_state = detect_control_demarrage()
-        compteur = 0
-        id_niveau = 1
         if new_state == 1:
+            id_niveau = 1
             state = 3
         pg.display.update()
         if compt_trans % 2 == 0:
@@ -38,6 +37,8 @@ while True:
         destroy_old_enemy()
         if detect_collision(ship, l_enemy, l_tir_enemy, l_tir_vaisseau, l_missile_enemy, abs_decor):
             state = 2
+        if compteur > 60*liste_niveau[id_niveau][1] :
+            state = 4
         pg.display.update()
 
     while state == 2:
@@ -52,7 +53,6 @@ while True:
         # Initialisation du niveau
         niveau = [el for el in liste_niveau[id_niveau][2]]
         compteur = 0
-        niveau_1 = lire_niveau(id_niveau)
         initialiser_decor()
         ship = Vaisseau()
         while len(l_enemy) != 0:
@@ -62,3 +62,12 @@ while True:
         while len(l_tir_vaisseau) != 0:
             l_tir_vaisseau.pop()
         state = 1
+
+
+    while state == 4 :
+        afficher_ecran_victoire() 
+        new_state = detect_control_demarrage()
+        if new_state == 1 :
+            id_niveau+=1
+            state = 3
+        pg.display.update()

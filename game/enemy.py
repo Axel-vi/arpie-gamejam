@@ -200,9 +200,9 @@ def destroy_old_enemy():
     to_delete = []
     for i in range(len(l_enemy)):
         if l_enemy[i].rect.right < 0:
-            to_delete.append(i)
+            to_delete.append(l_enemy[i])
     for e in to_delete:
-        l_enemy.pop(e)
+        l_enemy.remove(e)
 
 # Initialisation d'un objet de la classe Asteroid + creation du mask des asteroid
 

@@ -77,17 +77,29 @@ police_titre = pg.font.Font("resources/font/space_age.ttf", 150)
 # Chargement de la police du press start
 police_press_start = pg.font.Font("resources/font/Open_24_Display.ttf", 50)
 # Génération de la surface du titre
-titre_ecran_demarrage = police_titre.render("ARPIE", True, couleur_titre)
-titre_game_over = police_titre.render("GAME OVER", True, red)
-play_again = police_press_start.render("Play again?", True, red)
-crochets = police_press_start.render("[           ]", True, red)
-rect_game_over = titre_game_over.get_rect()
-rect_game_over.center = (width/2, height/3)
-rect_play_again = play_again.get_rect()
-rect_play_again.center = (width/2, 2*height/3)
-rect_crochets = crochets.get_rect()
-rect_crochets.center = (width/2, 2*height/3)
+titre_ecran_demarrage = police_titre.render("ARPIE", True, couleur_titre) 
+titre_game_over = police_titre.render("GAME OVER", True, red) 
+play_again = police_press_start.render("Play again?", True, red) 
+titre_victory = police_titre.render("VICTORY", True, green) 
+next_level = police_press_start.render("SPACE TO NEXT LEVEL >>>", True, green) 
+crochets = police_press_start.render("[           ]", True, red) 
+score = police_press_start.render("Score", True, green) 
+return_to_menu = police_press_start.render("Return to menu", True, green) 
+rect_game_over = titre_game_over.get_rect() 
+rect_game_over.center = (width/2, height/3) 
+rect_victory = titre_victory.get_rect() 
+rect_victory.center = (width/2, height/3) 
+rect_play_again = play_again.get_rect() 
+rect_play_again.center = (width/2, 2*height/3) 
+rect_next_level = next_level.get_rect() 
+rect_next_level.center = (3*width/4, 5*height/6) 
+rect_crochets = crochets.get_rect() 
+rect_crochets.center = (width/2, 2*height/3) 
 rect_titre = titre_ecran_demarrage.get_rect()
+rect_score = score.get_rect()
+rect_score.center = (width/2, 4*height/7)
+
+
 
 rect_titre.center = (width//2, 150)
 # Génération de la surface du press start
@@ -102,7 +114,7 @@ rect_press_start.center = (width//2, 500)
 def lire_niveau(id_niveau):
     fichier = open('./data/niveau_'+str(id_niveau)+'.txt', 'r')
     nom_niveau = fichier.readline()
-    distance_totale = fichier.readline()
+    distance_totale = int(fichier.readline().replace("\n",""))
     liste_event = []
     for ligne in fichier:
         ligne = ligne.replace("\n", "")
@@ -119,10 +131,10 @@ def lire_niveau(id_niveau):
     return [nom_niveau, distance_totale, liste_event]
 
 
-niveau_0 = lire_niveau(0)
 niveau_1 = lire_niveau(1)
-print(niveau_1)
-liste_niveau = [niveau_0, niveau_1]
+niveau_2 = lire_niveau(2)
+niveau_3 = lire_niveau(3)
+liste_niveau = [niveau_1, niveau_2, niveau_3]
 # Initialise l'état du jeu
 state = 0
 

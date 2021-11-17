@@ -311,3 +311,11 @@ masks = {"asteroide": maskAsteroid,
          'tir_vaisseau': maskTirShip,
          'chromius_warrior': maskChromiusWarrior,
          'missile': maskMissile}
+
+
+def afficher_ecran_victoire() : 
+    fenetre.fill(black) 
+    fenetre.blit(titre_victory, rect_victory) 
+    fenetre.blit(next_level, rect_next_level) 
+    fenetre.blit(score,rect_score)
+
