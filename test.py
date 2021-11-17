@@ -42,7 +42,7 @@ def test_tir_enemy():
     tir = tir_enemy(5, 5)
     assert tir.rect.left == 5
     assert tir.rect.top == 5
-    assert tir.rect.size == (larg_tir, long_tir)
+    assert tir.rect.size == (tir_size, tir_size)
     assert tir.duree == duree_tir
     assert tir in l_tir_enemy
 
