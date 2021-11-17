@@ -63,6 +63,9 @@ speed_missile_enemy = -30
 delai_tir_enemy = 60
 duree_tir = fps*1  # équivaut à 1seconde
 
+# Liste pour stocker les explosions en cours
+l_explosion = []
+
 # Constante pour accélerer les calculs
 sq = sqrt(2)
 
@@ -190,3 +193,7 @@ starfield = pg.Surface((width, height))
 compt_trans = 0
 state_trans = 0
 end_trans = 0
+
+# Chargement des frames de l'explosion
+spriteSheetExplosion = pg.image.load("resources/images/explosion_ss.png")
+
