@@ -20,12 +20,12 @@ while True:
         fenetre.fill(black)
         clock.tick(fps)
         compteur += 1
+        abs_decor = defilement_decor()
         gestion_event(compteur, id_niveau=0)
         direction, touche = detect_control_game()
         ship.move(direction)
         afficher_vaisseau(ship)
         ship.shoot(touche)
-        abs_decor = defilement_decor()
         spawn_chromius_fighter()
         afficher_et_update_enemy()
         afficher_et_update_tir()

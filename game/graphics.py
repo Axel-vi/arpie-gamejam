@@ -125,6 +125,7 @@ def defilement_decor():
     """
     global foregrnd
     global abs_decor
+    global backgrnd
 
     if -foregrnd.topleft[0] >= x_bord_decor:
         foregrnd = foregrnd.move(-foregrnd.topleft[0], 0)
@@ -132,6 +133,12 @@ def defilement_decor():
     else:
         foregrnd = foregrnd.move(-vitesse_decor, 0)
         abs_decor -= vitesse_decor
+
+    if -backgrnd.topleft[0] >= x_bord_bg:
+        backgrnd = backgrnd.move(-backgrnd.topleft[0], 0)
+    else:
+        backgrnd = backgrnd.move(-vitesse_bg, 0)
+    fenetre.blit(image["background"], backgrnd)
     fenetre.blit(image["long_foreground_relief"], foregrnd)
     return abs_decor
 
@@ -141,8 +148,10 @@ def initialiser_decor():
     """Cette foncion initialise le décor
     """
     global foregrnd
+    global backgrnd
     global abs_decor
     abs_decor = 0
+    backgrnd = image['background'].get_rect()
     foregrnd = image["long_foreground_relief"].get_rect()
 
 
@@ -213,6 +222,8 @@ def afficher_et_update_tir():
 # Mise a jour de l'image de decor pour la rendre transparente
 image['long_foreground_relief'] = pg.transform.scale(
     image['long_foreground_relief'].convert_alpha(), (width_fg*ratio_decor, height))
+image['background'] = pg.transform.scale(
+    image['background'].convert_alpha(), (width_bg*ratio_bg, height))
 
 # Dictionnaire des masques pour gérer les collisions
 maskAsteroid = pg.mask.from_surface(pg.transform.scale(
