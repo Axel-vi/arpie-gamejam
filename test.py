@@ -130,9 +130,6 @@ def test_update_duree_missile_enemy():
     for k in range(d-1):
         m.update_duree()
     assert l_missile_enemy == K[1:]
-    # assert
-    # if self.duree <= 0:
-    #     l_missile_enemy.pop(0)
 
 
 test_asteroid()  # Valide !
