@@ -33,32 +33,52 @@ def test_move_asteroid():
     assert asteroid.rect.top == y1 + int(asteroid.speed_y)
 
 
+def test_shoot_asteroid():
+    asteroid = Asteroide()
+    assert asteroid.shoot() == None
+
+
+def test_tir_enemy():
+    tir = tir_enemy(5, 5)
+    assert tir.rect.left == 5
+    assert tir.rect.top == 5
+    assert tir.rect.size == (larg_tir, long_tir)
+    assert tir.duree == duree_tir
+    assert tir in l_tir_enemy
+
+
 test_asteroid()  # Valide !
 test_move_asteroid()  # Valide !
+test_shoot_asteroid()  # Valide !
 
+test_tir_enemy()
 
 # SECTION TEST_SHIP
 
-def test_detect_collision():
+
+def test_detect_collision():  # A upgrade un peu peut etre?
     ship = Vaisseau()
-    ship = ship.rect.move((-ship.rect.left, -ship.rect.top))
+    ship.rect = ship.rect.move((-ship.rect.left, -ship.rect.top))
     asteroid = Asteroide()
-    asteroid.move_rect((-asteroid.x+500, -asteroid.y+500))
+    asteroid.rect = asteroid.rect.move(
+        (-asteroid.rect.left+500, -asteroid.rect.top+500))
+    # print(ship.rect)
+    assert detect_collision(
+        ship, [asteroid], abs_decor) == False
+    ship.rect = ship.rect.move((-ship.rect.left+640, -ship.rect.top+335))
+    asteroid.rect = asteroid.rect.move(
+        (-asteroid.rect.left+1280, -asteroid.rect.top+539))
+    assert detect_collision(
+        ship, [asteroid], abs_decor) == False
+    ship.rect = ship.rect.move((-ship.rect.left, -ship.rect.top))
+    asteroid.rect = asteroid.rect.move(
+        (-asteroid.rect.left, -asteroid.rect.top))
 
     assert detect_collision(
-        ship, [asteroid], maskShip, maskAsteroid, maskForegrnd, abs_decor) == False
-    ship = ship.move((-ship.rect.left+640, -ship.rect.top+335))
-    asteroid.move_rect((-asteroid.x+1280, -asteroid.y+539))
-    assert detect_collision(
-        ship, [asteroid], maskShip, maskAsteroid, maskForegrnd, abs_decor) == False
-    ship = ship.move((-ship.rect.left, -ship.rect.top))
-    asteroid.move_rect((-asteroid.x, -asteroid.y))
-
-    assert detect_collision(
-        ship, [asteroid], maskShip, maskAsteroid, maskForegrnd, abs_decor) == True
+        ship, [asteroid], abs_decor) == True
 
 
-# test_detect_collision()
+test_detect_collision()  # Valide !
 
 # SECTION TEST_AFFICHAGE
 
