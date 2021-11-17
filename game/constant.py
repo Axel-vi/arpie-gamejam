@@ -58,7 +58,7 @@ l_missile_enemy = []
 speed_tir = 30
 delai_tir = 45
 delai_spawn_enemy = 120
-speed_tir_enemy = 30
+speed_tir_enemy = 20
 speed_missile_enemy = -30
 delai_tir_enemy = 60
 duree_tir = fps*1  # équivaut à 1seconde
@@ -121,7 +121,7 @@ def lire_niveau(id_niveau):
 
 niveau_0 = lire_niveau(0)
 niveau_1 = lire_niveau(1)
-print(niveau_1)
+# print(niveau_1)
 liste_niveau = [niveau_0, niveau_1]
 # Initialise l'état du jeu
 state = 0
