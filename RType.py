@@ -43,11 +43,11 @@ while True:
 
     while state == 2:
         # Etat de Game over
-        end_trans+=1
-        afficher_ecran_fin(int((1+cos(end_trans/50))/2*255))
+        end_trans += 1
+        afficher_ecran_fin(int((1+cos(end_trans/150))/2*255))
         new_state = detect_control_demarrage()
         if new_state == 1:
-            end_trans=1
+            end_trans = 1
             state = 3
         pg.display.update()
 
@@ -64,4 +64,6 @@ while True:
             l_tir_enemy.pop()
         while len(l_tir_vaisseau) != 0:
             l_tir_vaisseau.pop()
+        while len(l_missile_enemy) != 0:
+            l_missile_enemy.pop()
         state = 1

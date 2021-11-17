@@ -26,12 +26,6 @@ couleur_titre = (82, 116, 245)
 # Liste d'ennemis
 l_enemy = []
 
-# Les tailles de police standards
-SMALL = 12
-MEDIUM = 16
-LARGE = 34
-TITLE = 50
-
 # Réglage du nombre de fps
 clock = pg.time.Clock()
 fps = 60
@@ -196,4 +190,3 @@ end_trans = 0
 
 # Chargement des frames de l'explosion
 spriteSheetExplosion = pg.image.load("resources/images/explosion_ss.png")
-
