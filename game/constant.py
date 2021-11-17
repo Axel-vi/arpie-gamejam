@@ -4,10 +4,11 @@
 import pygame as pg
 from pygame.locals import *
 from pygame import key
-from math import sqrt, sin, pi
+from math import sqrt, sin, pi, atan, cos
 from random import random, randint
 from os import listdir
 import matplotlib.pyplot as plt
+from time import sleep
 
 # Démarrage de pygame
 pg.init()
@@ -20,6 +21,7 @@ blue = 0, 0, 255
 green = 0, 255, 0
 gray = 100, 100, 100
 couleur_titre = (95, 199, 227)
+couleur_titre = (82, 116, 245)
 
 # Liste d'ennemis
 l_enemy = []
@@ -56,9 +58,9 @@ l_missile_enemy = []
 speed_tir = 30
 delai_tir = 45
 delai_spawn_enemy = 120
-speed_tir_enemy = -30
+speed_tir_enemy = 20
 speed_missile_enemy = -30
-delai_tir_enemy = 45
+delai_tir_enemy = 60
 duree_tir = fps*1  # équivaut à 1seconde
 
 # Constante pour accélerer les calculs
@@ -103,15 +105,24 @@ def lire_niveau(id_niveau):
     distance_totale = fichier.readline()
     liste_event = []
     for ligne in fichier:
-        ligne = ligne.replace("\n", " ")
+        ligne = ligne.replace("\n", "")
         date, type, arg = ligne.split(";")
         date = float(date)
-        liste_event.append([date, type, arg])
+        if type == 'chromius_fighter' or type == 'chromius_warrior':
+            hauteur, id_pattern = arg.split(":")
+            hauteur = int(hauteur)
+            id_pattern = int(id_pattern)
+            arg = [hauteur, id_pattern]
+            liste_event.append([date]+[type]+arg)
+        else:
+            liste_event.append([date]+[type])
     return [nom_niveau, distance_totale, liste_event]
 
 
 niveau_0 = lire_niveau(0)
-liste_niveau = [niveau_0]
+niveau_1 = lire_niveau(1)
+# print(niveau_1)
+liste_niveau = [niveau_0, niveau_1]
 # Initialise l'état du jeu
 state = 0
 
@@ -147,19 +158,34 @@ height_img = 32
 # Dimension en pixels de l'image qui sert de décor
 width_fg = 1024
 height_fg = 72
+width_bg = 2048
+height_bg = 360
 pixels_decor = 7  # nombre de pixel en hauteur du bandeau du décor
 
 # 'Zoom' sur l'image en décor pour la faire coincider en hauteur avec la fenetre
 ratio_decor = height / height_fg
+ratio_bg = height / height_bg
 
 # Numero du pixel du décor au bord droit de la fenètre
 bord_fenetre_decor = width / ratio_decor
+bord_fenetre_bg = width / ratio_bg
 
 # Abscisse de ce pixel
 x_bord_fenetre = bord_fenetre_decor*ratio_decor
+x_bord_bg = bord_fenetre_bg*ratio_bg
 
 # Abscisse du pixel tout à droite du décor
 x_bord_decor = (width_fg-bord_fenetre_decor)*ratio_decor
+x_bord_bg = (width_bg-bord_fenetre_bg)*ratio_bg
 
 # Déplacement à chaque avancée du décor (en unité d'abscisse pygame)
 vitesse_decor = 5
+vitesse_bg = 1
+
+# Nombre d'étoiles dans l'écran de démarrage
+nb_star = 100
+starfield = pg.Surface((width, height))
+
+# Compteur de frame pour gérer la transparence dynamique de l'écran de démarrage
+compt_trans = 0
+state_trans = 0
