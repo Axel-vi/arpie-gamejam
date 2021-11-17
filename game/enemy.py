@@ -6,6 +6,7 @@ if __name__ == "__main__":
     from constant import *
 else:
     from game.constant import *
+    from game.ship import ship
 
 
 class Asteroide:
@@ -37,10 +38,19 @@ class tir_enemy:
         """Initialisation"""
         self.rect = pg.Rect(x, y, tir_size, tir_size)
         self.duree = duree_tir
+        self.angle = atan((ship.rect.centery-y) /
+                          (ship.rect.centerx-x))
+        if ship.rect.centerx-x < 0:
+            self.speed = -speed_tir_enemy
+        else:
+            self.speed = speed_tir_enemy
+        print(self.angle, ship.rect.centerx, ship.rect.centery, x, y)
         l_tir_enemy.append(self)
 
     def move(self):
-        self.rect = self.rect.move(speed_tir_enemy, 0)
+        """self.rect = self.rect.move(
+            self.speed*cos(self.angle), self.speed*sin(self.angle))"""
+        self.rect = self.rect.move(-speed_tir_enemy, 0)
 
     def update_duree(self):
         self.duree -= 1
@@ -57,7 +67,6 @@ class Chromius_fighter():
         self.type = 'chromius_fighter'
         self.cooldown = 0
         self.rect = pg.Rect(x, y, self.size, self.size)
-        #self.rect.center = (x+self.size/2, y+self.size/2)
         l_enemy.append(self)
 
     def move(self):

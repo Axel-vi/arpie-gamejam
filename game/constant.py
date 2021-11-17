@@ -4,10 +4,11 @@
 import pygame as pg
 from pygame.locals import *
 from pygame import key
-from math import sqrt, sin, pi
+from math import sqrt, sin, pi, atan, cos
 from random import random, randint
 from os import listdir
 import matplotlib.pyplot as plt
+from time import sleep
 
 # Démarrage de pygame
 pg.init()
@@ -55,9 +56,9 @@ l_missile_enemy = []
 speed_tir = 30
 delai_tir = 45
 delai_spawn_enemy = 120
-speed_tir_enemy = -30
+speed_tir_enemy = 30
 speed_missile_enemy = -30
-delai_tir_enemy = 45
+delai_tir_enemy = 60
 duree_tir = fps*1  # équivaut à 1seconde
 
 # Constante pour accélerer les calculs
