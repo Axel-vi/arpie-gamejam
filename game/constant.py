@@ -43,6 +43,7 @@ play_height = 540
 scale_size = 75
 asteroid_size = 90
 tir_size = 35
+speed_chromius_fighter = 10
 
 # Volume des sons
 volume_musique = 0.2
@@ -95,18 +96,21 @@ rect_press_start.center = (width//2, 500)
 
 # Chargement des niveaux
 
-def lire_niveau(id_niveau): 
-    fichier = open('./data/niveau_'+str(id_niveau)+'.txt', 'r') 
-    nom_niveau = fichier.readline() 
-    distance_totale = fichier.readline() 
-    liste_event=[] 
-    for ligne in fichier : 
-        ligne = ligne.replace("\n"," ") 
-        date,type,arg = ligne.split(";") 
-        date=float(date) 
-        liste_event.append([date,type,arg]) 
-    return [nom_niveau, distance_totale, liste_event]  
-niveau_0 = lire_niveau(0) 
+
+def lire_niveau(id_niveau):
+    fichier = open('./data/niveau_'+str(id_niveau)+'.txt', 'r')
+    nom_niveau = fichier.readline()
+    distance_totale = fichier.readline()
+    liste_event = []
+    for ligne in fichier:
+        ligne = ligne.replace("\n", " ")
+        date, type, arg = ligne.split(";")
+        date = float(date)
+        liste_event.append([date, type, arg])
+    return [nom_niveau, distance_totale, liste_event]
+
+
+niveau_0 = lire_niveau(0)
 liste_niveau = [niveau_0]
 # Initialise l'état du jeu
 state = 0
