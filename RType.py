@@ -11,6 +11,7 @@ while True:
     while state == 0:
         afficher_ecran_demarrage()
         new_state = detect_control_demarrage()
+        compteur = 0
         if new_state == 1:
             state = 1
         pg.display.update()
@@ -18,6 +19,8 @@ while True:
     while state == 1:
         fenetre.fill(black)
         clock.tick(fps)
+        compteur +=1
+        gestion_event(compteur, id_niveau=0)
         direction, touche = detect_control_game()
         ship.move(direction)
         afficher_vaisseau(ship)
@@ -36,6 +39,7 @@ while True:
         new_state = detect_control_demarrage()
         if new_state == 1:
             state = 1
+            compteur = 0
             initialiser_decor()
             ship = Vaisseau()
             while len(l_enemy) != 0:
