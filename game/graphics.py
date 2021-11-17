@@ -220,9 +220,12 @@ def initialiser_decor():
     global foregrnd
     global backgrnd
     global abs_decor
+    global backgrnd
     abs_decor = 0
     backgrnd = image['background'].get_rect()
     foregrnd = image["long_foreground_relief"].get_rect()
+    backgrnd = image["background"].get_rect()
+
 
 
 # initialisation du décor pour la premiere partie
@@ -244,12 +247,12 @@ def afficher_vaisseau(ship):
                        ship.size, ship.rect.left, ship.rect.top, anchor="nw")
 
 
-def afficher_ecran_fin():
+def afficher_ecran_fin(transparence):
     """Cette fonctin affiche l'ecran de fin de partie
     """
     fenetre.fill(black)
     fenetre.blit(titre_game_over, rect_game_over)
-    fenetre.blit(play_again, rect_play_again)
+    fenetre.blit(transparent(play_again,transparence), rect_play_again)
     fenetre.blit(crochets, rect_crochets)
 
 
