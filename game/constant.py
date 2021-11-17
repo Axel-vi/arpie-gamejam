@@ -3,9 +3,14 @@
 # Penser à modifier les imports une fois le code terminé
 import pygame as pg
 from pygame.locals import *
-from math import sqrt
-from random import random,randint
+from pygame import key
+from math import sqrt, sin, pi
+from random import random, randint
 from os import listdir
+import matplotlib.pyplot as plt
+
+# Démarrage de pygame
+pg.init()
 
 # Les couleurs basiques
 black = 0, 0, 0
@@ -14,6 +19,10 @@ red = 255, 0, 0
 blue = 0, 0, 255
 green = 0, 255, 0
 gray = 100, 100, 100
+couleur_titre = (95, 199, 227)
+
+# Liste d'ennemis
+l_enemy = []
 
 # Les tailles de police standards
 SMALL = 12
@@ -28,17 +37,83 @@ fps = 60
 # Taille de la fenêtre
 width = 1280
 height = 720
+play_height = 540
+
+# Taille du vaisseau et des ennemis
+scale_size = 75
+asteroid_size = 90
+tir_size = 35
+speed_chromius_fighter = 10
 
 # Volume des sons
 volume_musique = 0.2
 volume_bruitage = 0.5
 
+# Tirs
+l_tir_vaisseau = []
+l_tir_enemy = []
+l_missile_enemy = []
+speed_tir = 30
+delai_tir = 45
+delai_spawn_enemy = 120
+speed_tir_enemy = -30
+speed_missile_enemy = -30
+delai_tir_enemy = 45
+duree_tir = fps*1  # équivaut à 1seconde
+
+# Constante pour accélerer les calculs
+sq = sqrt(2)
+
+
 # Création du dictionnaire pour importer les images
-#dico_image = {"vaisseau": "resources/images/vaisseau.png","foreground": "resources/images/long_foreground_simple.png"}
 dico_image = {}
 for file in listdir("resources/images/"):
     dico_image[file[:-4]] = "resources/images/" + file
-print(dico_image)
+
+# Chargement de la police du titre
+police_titre = pg.font.Font("resources/font/space_age.ttf", 150)
+# Chargement de la police du press start
+police_press_start = pg.font.Font("resources/font/Open_24_Display.ttf", 50)
+# Génération de la surface du titre
+titre_ecran_demarrage = police_titre.render("ARPIE", True, couleur_titre)
+titre_game_over = police_titre.render("GAME OVER", True, red)
+play_again = police_press_start.render("Play again?", True, red)
+crochets = police_press_start.render("[           ]", True, red)
+rect_game_over = titre_game_over.get_rect()
+rect_game_over.center = (width/2, height/3)
+rect_play_again = play_again.get_rect()
+rect_play_again.center = (width/2, 2*height/3)
+rect_crochets = crochets.get_rect()
+rect_crochets.center = (width/2, 2*height/3)
+rect_titre = titre_ecran_demarrage.get_rect()
+
+rect_titre.center = (width//2, 150)
+# Génération de la surface du press start
+press_start = police_press_start.render(
+    "Appuyez sur espace pour commencer la partie", True, couleur_titre)
+rect_press_start = press_start.get_rect()
+rect_press_start.center = (width//2, 500)
+
+# Chargement des niveaux
+
+
+def lire_niveau(id_niveau):
+    fichier = open('./data/niveau_'+str(id_niveau)+'.txt', 'r')
+    nom_niveau = fichier.readline()
+    distance_totale = fichier.readline()
+    liste_event = []
+    for ligne in fichier:
+        ligne = ligne.replace("\n", " ")
+        date, type, arg = ligne.split(";")
+        date = float(date)
+        liste_event.append([date, type, arg])
+    return [nom_niveau, distance_totale, liste_event]
+
+
+niveau_0 = lire_niveau(0)
+liste_niveau = [niveau_0]
+# Initialise l'état du jeu
+state = 0
 
 
 def chargement_image(dico):
@@ -71,7 +146,7 @@ height_img = 32
 
 # Dimension en pixels de l'image qui sert de décor
 width_fg = 1024
-height_fg = 36
+height_fg = 72
 pixels_decor = 7  # nombre de pixel en hauteur du bandeau du décor
 
 # 'Zoom' sur l'image en décor pour la faire coincider en hauteur avec la fenetre
@@ -87,9 +162,4 @@ x_bord_fenetre = bord_fenetre_decor*ratio_decor
 x_bord_decor = (width_fg-bord_fenetre_decor)*ratio_decor
 
 # Déplacement à chaque avancée du décor (en unité d'abscisse pygame)
-vitesse_decor = 1
-
-
-# chargement image du décor
-image['long_foreground_simple'] = pg.transform.scale(
-    image['long_foreground_simple'], (width_fg*ratio_decor, height))
+vitesse_decor = 5

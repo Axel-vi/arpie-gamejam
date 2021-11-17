@@ -2,6 +2,9 @@
 # -*- coding: utf-8 -*-
 
 # Imports spécifiques
+from game.graphics import afficher_image
+
+
 if __name__ == "__main__":
     from constant import *
 else:
@@ -13,8 +16,10 @@ class Vaisseau:
     """
 
     def __init__(self):
-        self.speed = 4
-        self.size = 75
+        """ Initialisation de la classe
+        """
+        self.speed = 7  # default = 5
+        self.size = scale_size
         self.state = "static"
         self.rect = pg.Rect(width//2, height//2, self.size, self.size)
 
@@ -66,5 +71,32 @@ class Vaisseau:
         if self.rect.top < 0:
             self.rect = self.rect.move(0, -y)
 
+    def shoot(self, touche):
+        """ Cette fonctin initialise les tirs du vaisseau
+        """
+        if len(l_tir_vaisseau) == 0:
+            if touche:
+                tir_vaisseau(self.rect.left+self.size/2,
+                             self.rect.top+self.size/2)
+        # cooldown de 30 frames
+        elif touche and delai_tir - l_tir_vaisseau[-1].duree >= 0:
+            tir_vaisseau(self.rect.left+self.size/2, self.rect.top+self.size/2)
 
+
+# Initialisation du vaisseau pour la premiere partie
 ship = Vaisseau()
+
+
+class tir_vaisseau:
+    def __init__(self, x, y):
+        self.rect = pg.Rect(x, y, tir_size, tir_size)
+        self.duree = duree_tir
+        l_tir_vaisseau.append(self)
+
+    def move(self):
+        self.rect = self.rect.move(speed_tir, 0)
+
+    def update_duree(self):
+        self.duree -= 1
+        if self.duree <= 0:
+            l_tir_vaisseau.pop(0)

@@ -12,7 +12,8 @@ canal_musique = pg.mixer.Channel(0)
 canal_musique.set_volume(volume_musique)
 canal_son = pg.mixer.Channel(1)
 canal_son.set_volume(volume_bruitage)
+explo_missile = pg.mixer.Sound("explosion.wav")
+tir_laser = pg.mixer.Sound("tir_laser.mp3")
+coup = pg.mixer.Sound("hit.wav")
 
-def bruit_coup():
-    pg.mixer.music
 
