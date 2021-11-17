@@ -9,6 +9,7 @@ from game.enemy import *
 
 while True:
     while state == 0:
+        # Ecran de demarrage qui affiche le titre et le bouton play (Appuyer sur espace)
         afficher_ecran_demarrage(state_trans)
         new_state = detect_control_demarrage()
         compteur = 0
@@ -21,6 +22,7 @@ while True:
         compt_trans += 1
 
     while state == 1:
+        # Etat de jeu durant lequel l'utilisateur parcoure le niveau
         fenetre.fill(black)
         clock.tick(fps)
         compteur +=1
@@ -39,6 +41,7 @@ while True:
         pg.display.update()
 
     while state == 2:
+        # Etat de Game over
         afficher_ecran_fin()
         new_state = detect_control_demarrage()
         if new_state == 1:
@@ -46,6 +49,7 @@ while True:
         pg.display.update()
         
     if state == 3 :
+        # Initialisation du niveau
         niveau = [el for el in liste_niveau[id_niveau][2]]
         compteur = 0
         niveau_1 = lire_niveau(id_niveau)

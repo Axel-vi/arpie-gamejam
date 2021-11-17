@@ -30,7 +30,7 @@ def detect_collision(ship, l_enemy, l_tir_enemy, l_tir_vaisseau, l_missile_enemy
             return masks['vaisseau'].overlap(masks[str(l_enemy[i].type)], (l_enemy[i].rect.left - ship.rect.left, l_enemy[i].rect.top - ship.rect.top)) != None
     for i in range(len(l_tir_enemy)):
         if ship.rect.colliderect(l_tir_enemy[i].rect):
-            return masks['vaisseau'].overlap(masks[str(l_tir_enemy[i].type)], (l_tir_enemy[i].rect.left - ship.rect.left, l_tir_enemy[i].rect.top - ship.rect.top)) != None
+            return masks['vaisseau'].overlap(masks['tir_enemy'], (l_tir_enemy[i].rect.left - ship.rect.left, l_tir_enemy[i].rect.top - ship.rect.top)) != None
     for i in range(len(l_missile_enemy)):
         if ship.rect.colliderect(l_missile_enemy[i].rect):
             return masks['vaisseau'].overlap(masks['missile'], (l_missile_enemy[i].rect.left - ship.rect.left, l_missile_enemy[i].rect.top - ship.rect.top)) != None
