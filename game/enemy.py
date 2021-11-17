@@ -55,7 +55,9 @@ class tir_enemy:
         self.duree -= 1
         if self.duree <= 0:
             l_tir_enemy.pop(0)
-def pattern(id_pattern, t, starting_height=0):
+
+
+def pattern(id_pattern, t, starting_height=0):  # A tester
     if id_pattern == 1:
         return (width-6*t, starting_height)
     elif id_pattern == 2 or id_pattern == 3 or id_pattern == 4 or id_pattern == 5 or id_pattern == 6 or id_pattern == 7:
@@ -106,6 +108,7 @@ def pattern(id_pattern, t, starting_height=0):
     else:
         raise NotImplementedError
 
+
 class Chromius_fighter():
     def __init__(self, hauteur, id_pattern):
         self.size = scale_size
@@ -123,8 +126,8 @@ class Chromius_fighter():
     def move(self):
         # Mouvement vers la droite uniquement horizontal
         self.t += 1
-        x,y = pattern(self.id_pattern, self.t, self.hauteur)
-        self.rect=pg.Rect(x,y,self.size,self.size)
+        x, y = pattern(self.id_pattern, self.t, self.hauteur)
+        self.rect = pg.Rect(x, y, self.size, self.size)
 
     def shoot(self):
         # creer un tir à la position du vaisseau ennemi
@@ -170,8 +173,8 @@ class Chromius_warrior():
     def move(self):
         # Mouvement vers la droite uniquement horizontal
         self.t += 1
-        x,y = pattern(self.id_pattern, self.t, self.hauteur)
-        self.rect=pg.Rect(x,y,self.size,self.size)
+        x, y = pattern(self.id_pattern, self.t, self.hauteur)
+        self.rect = pg.Rect(x, y, self.size, self.size)
 
     def shoot(self):
         # creer un tir à la position du vaisseau ennemi
@@ -181,9 +184,6 @@ class Chromius_warrior():
             self.cooldown = delai_tir_enemy
             missile_enemy(self.rect.left+self.size/5,
                           self.rect.top+self.size/3)
-
-
-
 
 
 def spawn_chromius_fighter():
