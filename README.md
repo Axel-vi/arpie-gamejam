@@ -13,6 +13,7 @@ Les différentes étapes du projet sont disponibles dans le fichier TO_DO.txt <b
 - Robin GONDEAU
 - Paul CREUSY
 
+
 <u> Instructions pour lancer le jeu et jouer: <u>
         Prérequis : - Avoir installé le module pygame (Voir https://www.pygame.org/wiki/GettingStarted "Pygame Installation")
                     - Disposer du fichier du jeu (le fichier "team-arpie-gamejam")
@@ -23,9 +24,10 @@ Les différentes étapes du projet sont disponibles dans le fichier TO_DO.txt <b
                     - Déplacez le vaisseau en utilisant les flèches directionnelles ( ↑, ↓, ← ou →) ou les touches "z,q,s,d".
                     - Vous pouvez tirer en appuyant sur la barre espace.
                     - Pour survivre : évitez les collisions avec les éléments du décor et les ennemis (autres vaisseaux,astéroides,tours) et évitez les tirs des ennemis. Vous pouvez détruire les vaisseaux ennemis avec vos tirs mais pas les astéroides et éléments du décor.
-                    -Si vous survivez assez longtemps vous passez au niveau suivant.
+                    - Si vous survivez assez longtemps vous passez au niveau suivant.
                     - Pour gagner : Atteignez la fin du niveau 5, dans ce cas le jeu est gagné et un écran de victoire apparait.
                     - En cas de mort : un écran "game over" s'affiche, vous pouvez reprendre au début de votre niveau en appuyant sur la barre espace ou quitter en appuyant sur la touche "échap" (ou en fermant la fenêtre de jeu).
+
 
 <u> Structure du fichier:  <u>
 -Le dossier game contient les fichiers python essentiels au lancement du jeu.
