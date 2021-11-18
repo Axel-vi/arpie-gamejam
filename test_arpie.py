@@ -1,6 +1,7 @@
 # SECTION TEST_ENEMY
 
 from pygame.transform import scale
+import matplotlib.pyplot as plt
 from game.enemy import *
 from game.constant import *
 from game.game import *

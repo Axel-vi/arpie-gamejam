@@ -7,7 +7,6 @@ from pygame import key
 from math import sqrt, sin, pi, atan, cos
 from random import random, randint
 from os import listdir
-import matplotlib.pyplot as plt
 from time import sleep
 
 # Démarrage de pygame
@@ -99,7 +98,7 @@ speed_missile_enemy = -30
 delai_tir_enemy = 60
 duree_tir = fps*1  # équivaut à 1seconde
 
-#tour
+# tour
 tower_height = 300
 tower_width = 150
 speed_tir_tower = 8
@@ -139,7 +138,7 @@ rect_crochets.center = (width/2, 2*height/3)
 rect_titre = titre_ecran_demarrage.get_rect()
 
 # Initialise l'état du jeu
-state = 0
+STATE = 0
 
 # Chargement des niveaux
 
@@ -205,6 +204,7 @@ def chargement_image(dico):
     for nom_image in dico:
         dico[nom_image] = pg.image.load(dico[nom_image])
     return dico
+
 
 def chargement_musique(dico):
     """Fonction pour charger toutes les musiques d'un coup.
