@@ -3,6 +3,7 @@
 
 from game.enemy import Asteroide, Chromius_fighter, Chromius_warrior, Chromius_tower
 from game.graphics import *
+from game.sounds import *
 
 
 def detect_collision(ship, l_enemy, l_tir_enemy, l_tir_vaisseau, l_missile_enemy, abs_decor):
@@ -29,7 +30,7 @@ def detect_collision(ship, l_enemy, l_tir_enemy, l_tir_vaisseau, l_missile_enemy
     for j in index_enemy:
         Explosion(j.rect.left, j.rect.top)
         l_enemy.remove(j)
-    # Suppression des tirs ayant touché des ennemis
+        explosion()
     for j in index_tir:
         if j in l_tir_vaisseau:
             l_tir_vaisseau.remove(j)

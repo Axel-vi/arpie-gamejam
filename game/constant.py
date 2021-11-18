@@ -87,8 +87,8 @@ state_trans = 0
 end_trans = 0
 
 # Volume des sons
-volume_musique = 0.2
-volume_bruitage = 0.5
+volume_musique = 0.7
+volume_bruitage = 0.3
 
 # Tirs
 speed_tir = 30
@@ -99,10 +99,44 @@ speed_missile_enemy = -30
 delai_tir_enemy = 60
 duree_tir = fps*1  # équivaut à 1seconde
 
-# Tour
+#tour
 tower_height = 300
 tower_width = 150
 speed_tir_tower = 8
+
+# Constante pour accélerer les calculs
+sq = sqrt(2)
+
+
+# Création du dictionnaire pour importer les images
+dico_image = {}
+for file in listdir("resources/images/"):
+    dico_image[file[:-4]] = "resources/images/" + file
+
+dico_musique = {}
+for file in listdir("resources/sounds/musics/"):
+    dico_musique[file[:-4]] = "resources/sounds/musics/" + file
+
+dico_bruitages = {}
+for file in listdir("resources/sounds/sound_effects/"):
+    dico_bruitages[file[:-4]] = "resources/sounds/sound_effects/" + file
+
+# Chargement de la police du titre
+police_titre = pg.font.Font("resources/font/space_age.ttf", 150)
+# Chargement de la police du press start
+police_press_start = pg.font.Font("resources/font/Open_24_Display.ttf", 50)
+# Génération de la surface du titre
+titre_ecran_demarrage = police_titre.render("ARPIE", True, couleur_titre)
+titre_game_over = police_titre.render("GAME OVER", True, red)
+play_again = police_press_start.render("Play again?", True, red)
+crochets = police_press_start.render("[           ]", True, red)
+rect_game_over = titre_game_over.get_rect()
+rect_game_over.center = (width/2, height/3)
+rect_play_again = play_again.get_rect()
+rect_play_again.center = (width/2, 2*height/3)
+rect_crochets = crochets.get_rect()
+rect_crochets.center = (width/2, 2*height/3)
+rect_titre = titre_ecran_demarrage.get_rect()
 
 # Initialise l'état du jeu
 state = 0
@@ -172,7 +206,6 @@ def chargement_image(dico):
         dico[nom_image] = pg.image.load(dico[nom_image])
     return dico
 
-
 def chargement_musique(dico):
     """Fonction pour charger toutes les musiques d'un coup.
     Prend en entrée un dictionnaire avec le nom de chaque musique et sa position.
@@ -188,6 +221,8 @@ dico_image = {}
 for file in listdir("resources/images/"):
     dico_image[file[:-4]] = "resources/images/" + file
 image = chargement_image(dico_image)
+musique = chargement_musique(dico_musique)
+bruitages = chargement_musique(dico_bruitages)
 
 # Chargement des frames de l'explosion
 spriteSheetExplosion = pg.image.load("resources/images/explosion_ss.png")
