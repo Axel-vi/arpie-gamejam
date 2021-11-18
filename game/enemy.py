@@ -191,7 +191,7 @@ class tir_tower:
     def __init__(self, x, y,ship):
         """Initialisation"""
         self.rect = pg.Rect(x, y, tir_size, tir_size)
-        self.duree = duree_tir
+        self.duree =2*duree_tir
         self.angle = atan((ship.rect.centery-y) /
                           (ship.rect.centerx-x))
         if ship.rect.centerx-x < 0:
@@ -214,8 +214,7 @@ class Chromius_tower:
         self.type='chromius_tower'
         self.cooldown=60
         self.t=0
-        self.size=tower_size
-        self.rect = pg.Rect(width,height-self.size, self.size, self.size)
+        self.rect = pg.Rect(width,height-tower_height, tower_width,tower_height)
         l_enemy.append(self)
     def move(self):
         self.rect = self.rect.move(-vitesse_decor, 0)
@@ -225,7 +224,7 @@ class Chromius_tower:
             self.cooldown -= 1
         else:
             self.cooldown = 60
-            tir_tower(self.rect.left+self.size/5,self.rect.top,ship)
+            tir_tower(self.rect.left+tower_width/5,self.rect.top,ship)
 
 
 def destroy_old_enemy():

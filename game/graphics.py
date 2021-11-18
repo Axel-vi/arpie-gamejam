@@ -273,8 +273,10 @@ def afficher_et_update_enemy(ship):
     for enemy in l_enemy:
         enemy.move()
         enemy.shoot(ship)
-        afficher_image(image[enemy.type], enemy.size, enemy.size,
-                       enemy.rect.left, enemy.rect.top)
+        if enemy.type=='chromius_tower':
+            afficher_image(image[enemy.type],tower_width,tower_height,enemy.rect.left, enemy.rect.top)
+        else:
+            afficher_image(image[enemy.type], enemy.size, enemy.size,enemy.rect.left, enemy.rect.top)
 
 
 def afficher_et_update_tir():
@@ -332,7 +334,7 @@ maskChromiusWarrior = pg.mask.from_surface(pg.transform.scale(
 maskMissile = pg.mask.from_surface(pg.transform.scale(
     image["missile_ennemi"].convert_alpha(), (tir_size, tir_size)))
 maskChromiusTower = pg.mask.from_surface(pg.transform.scale(
-    image["chromius_tower"].convert_alpha(), (tower_size, tower_size)))
+    image["chromius_tower"].convert_alpha(), (tower_width, tower_height)))
 maskTirTower = pg.mask.from_surface(pg.transform.scale(
     image["tir_tower"].convert_alpha(), (tir_size, tir_size)))
 masks = {"asteroide": maskAsteroid,

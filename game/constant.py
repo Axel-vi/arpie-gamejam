@@ -60,8 +60,9 @@ duree_tir = fps*1  # équivaut à 1seconde
 
 # Tour
 
-tower_size = 300
-speed_tir_tower = 12
+tower_height = 300
+tower_width=150
+speed_tir_tower = 8
 l_tir_tower = []
 # Liste pour stocker les explosions en cours
 l_explosion = []
