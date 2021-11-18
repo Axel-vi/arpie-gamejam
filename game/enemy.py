@@ -1,12 +1,8 @@
 # Module enemy du projet R-Type
 # -*- coding: utf-8 -*-
 
-
-if __name__ == "__main__":
-    from constant import *
-else:
-    from game.constant import *
-    from game.ship import ship
+from game.constant import *
+from game.ship import ship
 
 
 class Asteroide:
@@ -18,44 +14,51 @@ class Asteroide:
         self.y = randint(0, play_height)
         self.size = asteroid_size
         self.rect = pg.Rect(width, self.y, self.size, self.size)
-        #self.rect.center = (width+self.size/2, y+self.size/2)
-        self.target = randint(0, play_height)
-        self.coeff = (self.y-self.target)/width
+        self.coeff = (self.y-randint(0, play_height))/width
         self.type = 'asteroide'
         self.speed_x = -(sqrt(1/(1+self.coeff**2))*self.speed)
         self.speed_y = self.coeff*self.speed_x
         l_enemy.append(self)
 
     def move(self):
+        """Déplace l'astéroide selon sa vitesse horizontale et verticale"""
         self.rect = self.rect.move(self.speed_x, self.speed_y)
 
-    def shoot(self):
+    def shoot(self, ship):
         """Un asteroide ne tire pas"""
 
 
 class tir_enemy:
+    """La classe pour les tirs des chromius fighter"""
+
     def __init__(self, x, y):
         """Initialisation"""
         self.rect = pg.Rect(x, y, tir_size, tir_size)
         self.duree = duree_tir
-        self.angle = atan((ship.rect.centery-y) /
-                          (ship.rect.centerx-x))
+        """
+        self.angle = atan((ship.rect.centery-y)/(ship.rect.centerx-x))
         if ship.rect.centerx-x < 0:
             self.speed = -speed_tir_enemy
         else:
             self.speed = speed_tir_enemy
+        """
         l_tir_enemy.append(self)
 
     def move(self):
-        """self.rect = self.rect.move(
-            self.speed*cos(self.angle), self.speed*sin(self.angle))"""
+        """Déplace le tir vers la gauche à vitesse constante"""
         self.rect = self.rect.move(-speed_tir_enemy, 0)
 
     def update_duree(self):
+        """Décrèmente un compteur, quand celui-ci atteint 0, le tir est supprimé"""
         self.duree -= 1
         if self.duree <= 0:
             l_tir_enemy.pop(0)
+
+
 def pattern(id_pattern, t, starting_height=0):
+    """Fonction pour gérer les patterns des ennemis.
+    Prend en entrée l'id du pattern, le temps que l'ennemi' a passé à l'écran et sa hauteur d'entrée à l'écran.
+    Renvoie un tuple représentant les coordonnées de l'ennemi."""
     if id_pattern == 1:
         return (width-6*t, starting_height)
     elif id_pattern == 2 or id_pattern == 3 or id_pattern == 4 or id_pattern == 5 or id_pattern == 6 or id_pattern == 7:
@@ -106,10 +109,13 @@ def pattern(id_pattern, t, starting_height=0):
     else:
         raise NotImplementedError
 
+
 class Chromius_fighter():
+    """Classe pour gérer les chromius fighter"""
+
     def __init__(self, hauteur, id_pattern):
+        """Initialisation"""
         self.size = scale_size
-        # Apparition aléatoire à gauche de l'écran
         x = width
         y = hauteur
         self.type = 'chromius_fighter'
@@ -121,13 +127,13 @@ class Chromius_fighter():
         l_enemy.append(self)
 
     def move(self):
-        # Mouvement vers la droite uniquement horizontal
+        """Déplace le chromius fighter selon son pattern"""
         self.t += 1
-        x,y = pattern(self.id_pattern, self.t, self.hauteur)
-        self.rect=pg.Rect(x,y,self.size,self.size)
+        x, y = pattern(self.id_pattern, self.t, self.hauteur)
+        self.rect = pg.Rect(x, y, self.size, self.size)
 
-    def shoot(self):
-        # creer un tir à la position du vaisseau ennemi
+    def shoot(self, ship):
+        """Gère la création des tirs des chromius fighter et le cooldown entre chaque tir."""
         if self.cooldown > 0:
             self.cooldown -= 1
         else:
@@ -136,6 +142,8 @@ class Chromius_fighter():
 
 
 class missile_enemy:
+    """Classe pour gérer les missiles tirés par les chromius warrior."""
+
     def __init__(self, x, y):
         """Initialisation"""
         self.rect = pg.Rect(x, y, tir_size, tir_size)
@@ -143,19 +151,22 @@ class missile_enemy:
         l_missile_enemy.append(self)
 
     def move(self):
-        # à changer pour que le missile suive le personnage
+        """Déplace le missile vers la gauche"""
         self.rect = self.rect.move(speed_missile_enemy, 0)
 
     def update_duree(self):
+        """Décrèmente un compteur, quand celui-ci atteint 0, le missile est supprimé"""
         self.duree -= 1
         if self.duree <= 0:
             l_missile_enemy.pop(0)
 
 
 class Chromius_warrior():
+    """Classe pour gérer les chromius fighter"""
+
     def __init__(self, hauteur, id_pattern):
+        """Initialisation"""
         self.size = scale_size
-        # Apparition aléatoire à gauche de l'écran
         x = width
         y = hauteur
         self.type = 'chromius_warrior'
@@ -164,48 +175,74 @@ class Chromius_warrior():
         self.hauteur = hauteur
         self.id_pattern = id_pattern
         self.rect = pg.Rect(x, y, self.size, self.size)
-        #self.rect.center = (x+self.size/2, y+self.size/2)
         l_enemy.append(self)
 
     def move(self):
-        # Mouvement vers la droite uniquement horizontal
+        """Déplace le chromius warrior selon son pattern"""
         self.t += 1
-        x,y = pattern(self.id_pattern, self.t, self.hauteur)
-        self.rect=pg.Rect(x,y,self.size,self.size)
+        x, y = pattern(self.id_pattern, self.t, self.hauteur)
+        self.rect = pg.Rect(x, y, self.size, self.size)
 
-    def shoot(self):
-        # creer un tir à la position du vaisseau ennemi
+    def shoot(self, ship):
+        """Gère la création des missiles des chromius warrior et le cooldown entre chaque tir."""
         if self.cooldown > 0:
             self.cooldown -= 1
         else:
-            self.cooldown = delai_tir_enemy
+            self.cooldown = 2*delai_tir_enemy
             missile_enemy(self.rect.left+self.size/5,
                           self.rect.top+self.size/3)
 
 
+class tir_tower:
+    def __init__(self, x, y, ship):
+        """Initialisation"""
+        self.rect = pg.Rect(x, y, tir_size, tir_size)
+        self.duree = 2*duree_tir
+        self.angle = atan((ship.rect.centery-y) /
+                          (ship.rect.centerx-x))
+        if ship.rect.centerx-x < 0:
+            self.speed = -speed_tir_tower
+        else:
+            self.speed = speed_tir_tower
+        l_tir_tower.append(self)
+
+    def move(self):
+        # à changer pour que le missile suive le personnage
+        self.rect = self.rect.move(
+            self.speed*cos(self.angle), self.speed*sin(self.angle))
+
+    def update_duree(self):
+        self.duree -= 1
+        if self.duree <= 0:
+            l_tir_tower.pop(0)
 
 
+class Chromius_tower:
+    def __init__(self):
+        self.type = 'chromius_tower'
+        self.cooldown = 60
+        self.t = 0
+        self.rect = pg.Rect(width, height-tower_height,
+                            tower_width, tower_height)
+        l_enemy.append(self)
 
-def spawn_chromius_fighter():
-    # Fait apparaitre un chromius fighter toute les 120 frames
-    global delai_spawn_enemy
-    if delai_spawn_enemy > 0:
-        delai_spawn_enemy -= 1
-    else:
-        Chromius_fighter()
-        delai_spawn_enemy = 120
+    def move(self):
+        self.rect = self.rect.move(-vitesse_decor, 0)
+
+    def shoot(self, ship):
+        # creer un tir à la position du vaisseau ennemi
+        if self.cooldown > 0:
+            self.cooldown -= 1
+        else:
+            self.cooldown = 60
+            tir_tower(self.rect.left+tower_width/5, self.rect.top, ship)
 
 
 def destroy_old_enemy():
+    """Fonction qui supprime les ennemis en dehors de l'écran"""
     to_delete = []
     for i in range(len(l_enemy)):
         if l_enemy[i].rect.right < 0:
             to_delete.append(i)
     for e in to_delete:
         l_enemy.pop(e)
-
-# Initialisation d'un objet de la classe Asteroid + creation du mask des asteroid
-
-
-# Cette ligne est a priori temporaire et devra etre retirer lorsque les asteroides seront vraiment implementes
-asteroide = Asteroide()
