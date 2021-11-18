@@ -57,8 +57,8 @@ while True:
                             l_tir_vaisseau, l_missile_enemy, l_tir_tower, abs_decor):
             son_game_over()
             STATE = 2
-            if COMPTEUR > 60*liste_niveau[id_niveau-1][1]:
-                STATE = 4
+        if COMPTEUR > 60*liste_niveau[id_niveau-1][1]:
+            STATE = 4
         pg.display.update()
 
     while STATE == 2:
