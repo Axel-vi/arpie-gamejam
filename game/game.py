@@ -65,8 +65,11 @@ def gestion_event(niveau, compteur):
             elif liste_event[0][1] == 'chromius_fighter':
                 Chromius_fighter(liste_event[0][2], liste_event[0][3])
                 liste_event.pop(0)
-            else:
+            elif liste_event[0][1] == 'chromius_warrior':
                 Chromius_warrior(liste_event[0][2], liste_event[0][3])
+                liste_event.pop(0)
+            else :
+                Chromius_tower()
                 liste_event.pop(0)
     else:
         you_won = True

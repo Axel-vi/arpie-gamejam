@@ -355,6 +355,23 @@ masks = {"asteroide": maskAsteroid,
          'chromius_tower': maskChromiusTower,
          'missile': maskMissile}
 
+def afficher_niveau_en_cours(id_niveau) :
+    if id_niveau == 1 :
+        fenetre.blit(niveau1,rect_niveau1)
+    elif id_niveau == 2 :
+        fenetre.blit(niveau2,rect_niveau2)
+    elif id_niveau == 3 :
+        fenetre.blit(niveau3,rect_niveau3)
+    elif id_niveau == 4 :
+        fenetre.blit(niveau4,rect_niveau4)
+    elif id_niveau == 5 :
+        fenetre.blit(niveau5,rect_niveau5)
+
+def afficher_ecran_victoire() : 
+    fenetre.fill(black) 
+    fenetre.blit(titre_victory, rect_victory) 
+    fenetre.blit(next_level, rect_next_level) 
+    fenetre.blit(score,rect_score)
 
 class Explosion(pg.sprite.Sprite):
     def __init__(self, x, y):

@@ -21,7 +21,7 @@ Les différentes étapes du projet sont disponibles dans le fichier TO_DO.txt </
 <li>Disposer du dossier contenant le jeu (le dossier "team-arpie-gamejam")</li>
 </ul>
 <h3>Pour lancer le jeu:</h3>
-<ul><li>Exécutez le script python RType.py</li></ul>
+<ul><li>Exécutez le script python r_type.py</li></ul>
 
 <h3>Pour jouer:</h3>
 <p>Un écran de démarrage apparait, pour jouer presser la barre espace.
@@ -46,7 +46,7 @@ Les différentes étapes du projet sont disponibles dans le fichier TO_DO.txt </
 <li>Le dossier data contient les éléments qui sont amenés à être stockés par le joueur (comme des scores/highscores).</li>
 <li>Le dossier ressources contient les éléments annexes nécéssaires au jeu (images,niveaux,sons).</li>
 <li>Le fichier test.py contient les tests de différentes fonction du coverage.</li>
-<li>Le fichier RType.py est le fichier principal qui permet de lancer le jeu et de gérer les différents états (écran d'accueil,jeu,écran de fin).</li>
+<li>Le fichier r_type.py est le fichier principal qui permet de lancer le jeu et de gérer les différents états (écran d'accueil,jeu,écran de fin).</li>
 </ul>
 
 <h2>Propriété intellectuelle</h2>
