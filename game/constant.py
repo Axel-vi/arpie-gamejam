@@ -213,7 +213,6 @@ press_start = police_press_start.render(
 rect_press_start = press_start.get_rect()
 rect_press_start.center = (width//2, 500)
 
-print(liste_niveau[3][1])
 def chargement_image(dico):
     """Fonction pour charger toutes les images d'un coup.
     Prend en entrée un dictionnaire avec le nom de chaque image et sa position.
@@ -244,3 +243,16 @@ bruitages = chargement_musique(dico_bruitages)
 
 # Chargement des frames de l'explosion
 spriteSheetExplosion = pg.image.load("resources/images/explosion_ss.png")
+
+# Chargement de l'affichage en jeu
+
+niveau1 = police_press_start.render("Niveau 1", True, white)
+rect_niveau1 = niveau1.get_rect()
+niveau2 = police_press_start.render("Niveau 2", True, white)
+rect_niveau2 = niveau2.get_rect()
+niveau3 = police_press_start.render("Niveau 3", True, white)
+rect_niveau3 = niveau3.get_rect()
+niveau4 = police_press_start.render("Niveau 4", True, white)
+rect_niveau4 = niveau4.get_rect()
+niveau5 = police_press_start.render("Niveau 5", True, white)
+rect_niveau5 = niveau5.get_rect()

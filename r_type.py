@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 from game.ship import Vaisseau
 from game.game import gestion_event, detect_collision
-from game.graphics import afficher_ecran_demarrage, detect_control_demarrage, fenetre,\
+from game.graphics import afficher_ecran_demarrage, afficher_ecran_victoire, afficher_niveau_en_cours, detect_control_demarrage, fenetre,\
     defilement_decor_background, detect_control_game, afficher_vaisseau, \
     afficher_et_update_enemy, afficher_et_update_tir, afficher_et_update_explosion, \
     defilement_decor_foreground, afficher_ecran_fin, initialiser_decor
@@ -39,6 +39,7 @@ with power_meter(
             # Etat de jeu durant lequel l'utilisateur parcourt le niveau
             fenetre.fill(black)
             clock.tick(fps)
+            afficher_niveau_en_cours(id_niveau)
             COMPTEUR += 1
             gestion_event(niveau, COMPTEUR)
             defilement_decor_background()
@@ -55,6 +56,8 @@ with power_meter(
                                 l_tir_vaisseau, l_missile_enemy, abs_decor):
                 son_game_over()
                 STATE = 2
+            if COMPTEUR > 60*liste_niveau[id_niveau-1][1] :
+                STATE = 4
             pg.display.update()
 
         while STATE == 2:
@@ -69,7 +72,7 @@ with power_meter(
 
         if STATE == 3:
             # Initialisation du niveau
-            niveau = [el for el in liste_niveau[id_niveau][2]]
+            niveau = [el for el in liste_niveau[id_niveau-1][2]]
             COMPTEUR = 0
             niveau_1 = lire_niveau(id_niveau)
             initialiser_decor()
@@ -88,3 +91,12 @@ with power_meter(
                 l_tir_tower.pop()
             STATE = 1
             musique_jeu()
+    
+        while STATE == 4 :
+            afficher_ecran_victoire() 
+            new_state = detect_control_demarrage()
+            if new_state == 1 :
+                id_niveau+=1
+                STATE = 3
+            pg.display.update()
+
