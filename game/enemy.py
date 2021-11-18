@@ -245,4 +245,5 @@ def destroy_old_enemy():
         if l_enemy[i].rect.right < 0:
             to_delete.append(l_enemy[i])
     for e in to_delete:
-        l_enemy.pop(e)
+        if e in l_enemy:
+            l_enemy.remove(e)
