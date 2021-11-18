@@ -4,7 +4,7 @@ Niveau 1:
 4.5;asteroide;  
 5.8;asteroide;  
 6.5;asteroide;  
-7;asteroide;  
+7;asteroide;
 7.1;asteroide;  
 8.5;asteroide;  
 9.7;asteroide;  
