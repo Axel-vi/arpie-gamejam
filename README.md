@@ -47,3 +47,14 @@ Les différentes étapes du projet sont disponibles dans le fichier TO_DO.txt </
 <li>Le dossier ressources contient les éléments annexes nécéssaires au jeu (images,niveaux,sons).</li>
 <li>Le fichier test.py contient les tests de différentes fonction du coverage.</li>
 <li>Le fichier RType.py est le fichier principal qui permet de lancer le jeu et de gérer les différents états (écran d'accueil,jeu,écran de fin).</li>
+
+<h2>Propriété intellectuelle</h2>
+<p>
+Tous les éléments de ce jeu, qu'il s'agisse du code, des graphismes ou de la musique ont été créés par les membres de l'équipe mentionnés plus haut à l'exception des éléments suivants:
+<ul>
+<li>La bibliothèque <a href='https://www.pygame.org/news'>pygame</a></li>
+<li>Les modules os, random, math et matplotib</li>
+<li>Les polices <a href=''>Open_24_Display</a> et <a href=''>Space Age</a></li>
+<li>Les sons de tir, d'explosion, de game over et de victoire</li>
+</ul>
+</p>
