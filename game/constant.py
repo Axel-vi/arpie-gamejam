@@ -29,6 +29,7 @@ blue = 0, 0, 255
 green = 0, 255, 0
 gray = 100, 100, 100
 couleur_titre = (82, 116, 245)
+couleur_affichage_niveau = (84, 122, 226)
 
 # Listes pour stocker les éléments du jeu
 l_enemy = []
@@ -111,28 +112,27 @@ police_titre = pg.font.Font("resources/font/space_age.ttf", 150)
 # Chargement de la police du press start
 police_press_start = pg.font.Font("resources/font/Open_24_Display.ttf", 50)
 # Génération de la surface du titre
-titre_ecran_demarrage = police_titre.render("ARPIE", True, couleur_titre) 
-titre_game_over = police_titre.render("GAME OVER", True, red) 
-play_again = police_press_start.render("Play again?", True, red) 
-titre_victory = police_titre.render("VICTORY", True, green) 
-next_level = police_press_start.render("SPACE TO NEXT LEVEL >>>", True, green) 
-crochets = police_press_start.render("[           ]", True, red) 
-score = police_press_start.render("Score", True, green) 
-return_to_menu = police_press_start.render("Return to menu", True, green) 
-rect_game_over = titre_game_over.get_rect() 
-rect_game_over.center = (width/2, height/3) 
-rect_victory = titre_victory.get_rect() 
-rect_victory.center = (width/2, height/3) 
-rect_play_again = play_again.get_rect() 
-rect_play_again.center = (width/2, 2*height/3) 
-rect_next_level = next_level.get_rect() 
-rect_next_level.center = (3*width/4, 5*height/6) 
-rect_crochets = crochets.get_rect() 
-rect_crochets.center = (width/2, 2*height/3) 
+titre_ecran_demarrage = police_titre.render("ARPIE", True, couleur_titre)
+titre_game_over = police_titre.render("GAME OVER", True, red)
+play_again = police_press_start.render("Play again?", True, red)
+titre_victory = police_titre.render("VICTORY", True, green)
+next_level = police_press_start.render("SPACE TO NEXT LEVEL >>>", True, green)
+crochets = police_press_start.render("[           ]", True, red)
+score = police_press_start.render("Score", True, green)
+return_to_menu = police_press_start.render("Return to menu", True, green)
+rect_game_over = titre_game_over.get_rect()
+rect_game_over.center = (width/2, height/3)
+rect_victory = titre_victory.get_rect()
+rect_victory.center = (width/2, height/3)
+rect_play_again = play_again.get_rect()
+rect_play_again.center = (width/2, 2*height/3)
+rect_next_level = next_level.get_rect()
+rect_next_level.center = (3*width/4, 5*height/6)
+rect_crochets = crochets.get_rect()
+rect_crochets.center = (width/2, 2*height/3)
 rect_titre = titre_ecran_demarrage.get_rect()
 rect_score = score.get_rect()
 rect_score.center = (width/2, 4*height/7)
-
 
 
 # Initialise l'état du jeu
@@ -144,7 +144,7 @@ STATE = 0
 def lire_niveau(id_niveau):
     fichier = open('./data/niveau_'+str(id_niveau)+'.txt', 'r')
     nom_niveau = fichier.readline()
-    distance_totale = int(fichier.readline().replace("\n",""))
+    distance_totale = int(fichier.readline().replace("\n", ""))
     liste_event = []
     for ligne in fichier:
         ligne = ligne.replace("\n", "")
@@ -156,7 +156,7 @@ def lire_niveau(id_niveau):
             id_pattern = int(id_pattern)
             arg = [hauteur, id_pattern]
             liste_event.append([date]+[type]+arg)
-        else :
+        else:
             liste_event.append([date]+[type])
     return [nom_niveau, distance_totale, liste_event]
 
@@ -198,6 +198,7 @@ press_start = police_press_start.render(
     "Appuyez sur espace pour commencer la partie", True, couleur_titre)
 rect_press_start = press_start.get_rect()
 rect_press_start.center = (width//2, 500)
+
 
 def chargement_image(dico):
     """Fonction pour charger toutes les images d'un coup.
@@ -242,13 +243,13 @@ spriteSheetExplosion = pg.image.load("resources/images/explosion_ss.png")
 
 # Chargement de l'affichage en jeu
 
-niveau1 = police_press_start.render("Niveau 1", True, white)
+niveau1 = police_press_start.render("Niveau 1", True, couleur_affichage_niveau)
 rect_niveau1 = niveau1.get_rect()
-niveau2 = police_press_start.render("Niveau 2", True, white)
+niveau2 = police_press_start.render("Niveau 2", True, couleur_affichage_niveau)
 rect_niveau2 = niveau2.get_rect()
-niveau3 = police_press_start.render("Niveau 3", True, white)
+niveau3 = police_press_start.render("Niveau 3", True, couleur_affichage_niveau)
 rect_niveau3 = niveau3.get_rect()
-niveau4 = police_press_start.render("Niveau 4", True, white)
+niveau4 = police_press_start.render("Niveau 4", True, couleur_affichage_niveau)
 rect_niveau4 = niveau4.get_rect()
-niveau5 = police_press_start.render("Niveau 5", True, white)
+niveau5 = police_press_start.render("Niveau 5", True, couleur_affichage_niveau)
 rect_niveau5 = niveau5.get_rect()

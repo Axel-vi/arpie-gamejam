@@ -7,7 +7,9 @@ from game.constant import pg, white, width, height, image, clock, fps, BLEND_RGB
     rect_crochets, rect_game_over, rect_play_again, x_bord_bg, vitesse_decor, l_enemy, x_bord_decor, \
     vitesse_bg, vitesse_mg, spriteSheetExplosion, l_explosion, titre_game_over, play_again, crochets, \
     tower_height, tower_width, l_missile_enemy, l_tir_enemy, l_tir_tower, l_tir_vaisseau, tir_size, \
-    asteroid_size, scale_size, width_fg, width_bg, ratio_bg, ratio_decor
+    asteroid_size, scale_size, width_fg, width_bg, ratio_bg, ratio_decor, niveau1, niveau2, niveau3, niveau4, \
+    niveau5, titre_victory, rect_next_level, rect_niveau1, rect_niveau2, rect_niveau3, rect_niveau4, \
+    rect_niveau5, rect_score, rect_victory, next_level, score
 
 # Création de la fenêtre
 fenetre = pg.display.set_mode((width, height))
@@ -355,23 +357,26 @@ masks = {"asteroide": maskAsteroid,
          'chromius_tower': maskChromiusTower,
          'missile': maskMissile}
 
-def afficher_niveau_en_cours(id_niveau) :
-    if id_niveau == 1 :
-        fenetre.blit(niveau1,rect_niveau1)
-    elif id_niveau == 2 :
-        fenetre.blit(niveau2,rect_niveau2)
-    elif id_niveau == 3 :
-        fenetre.blit(niveau3,rect_niveau3)
-    elif id_niveau == 4 :
-        fenetre.blit(niveau4,rect_niveau4)
-    elif id_niveau == 5 :
-        fenetre.blit(niveau5,rect_niveau5)
 
-def afficher_ecran_victoire() : 
-    fenetre.fill(black) 
-    fenetre.blit(titre_victory, rect_victory) 
-    fenetre.blit(next_level, rect_next_level) 
-    fenetre.blit(score,rect_score)
+def afficher_niveau_en_cours(id_niveau):
+    if id_niveau == 1:
+        fenetre.blit(niveau1, rect_niveau1)
+    elif id_niveau == 2:
+        fenetre.blit(niveau2, rect_niveau2)
+    elif id_niveau == 3:
+        fenetre.blit(niveau3, rect_niveau3)
+    elif id_niveau == 4:
+        fenetre.blit(niveau4, rect_niveau4)
+    elif id_niveau == 5:
+        fenetre.blit(niveau5, rect_niveau5)
+
+
+def afficher_ecran_victoire():
+    fenetre.fill(black)
+    fenetre.blit(titre_victory, rect_victory)
+    fenetre.blit(next_level, rect_next_level)
+    fenetre.blit(score, rect_score)
+
 
 class Explosion(pg.sprite.Sprite):
     def __init__(self, x, y):
