@@ -19,8 +19,8 @@ Les différentes étapes du projet sont disponibles dans le fichier TO_DO.txt <b
         
         Pour lancer le jeu: -Exécutez le script python RType.py
 
-        Pour jouer: - Un écran de démarrage apparait, pour jouer presser la barre espace.
-                    - Déplacer le vaisseau en utilisant les flèches directionnelles ( ↑, ↓, ← ou →) ou les touches "z,q,s,d".
+        Pour jouer: - Un écran de démarrage apparait, pour jouer pressez la barre espace.
+                    - Déplacez le vaisseau en utilisant les flèches directionnelles ( ↑, ↓, ← ou →) ou les touches "z,q,s,d".
                     - Vous pouvez tirer en appuyant sur la barre espace.
                     - Pour survivre : évitez les collisions avec les éléments du décor et les ennemis (autres vaisseaux,astéroides,tours) et évitez les tirs des ennemis. Vous pouvez détruire les vaisseaux ennemis avec vos tirs mais pas les astéroides et éléments du décor.
                     -Si vous survivez assez longtemps vous passez au niveau suivant.
