@@ -1,11 +1,12 @@
 # SECTION TEST_ENEMY
 
-from pygame.transform import scale
-import matplotlib.pyplot as plt
 from game.enemy import *
 from game.constant import *
 from game.game import *
 from game.ship import *
+from game.graphics import *
+import matplotlib.pyplot as plt
+#from r_type import *
 
 
 def test_asteroid():
@@ -161,7 +162,7 @@ def test_shoot_chromius_warrior():
 def test_tir_tower():
     self = tir_tower(3, 4, ship)
     assert self.rect == pg.Rect(3, 4, tir_size, tir_size)
-    assert self.duree == duree_tir
+    assert self.duree == duree_tir*2
     assert self.angle == atan((ship.rect.centery-4) / (ship.rect.centerx-3))
 
     if ship.rect.centerx-3 < 0:
@@ -198,7 +199,8 @@ def test_chromius_tower():
     assert self.type == 'chromius_tower'
     assert self.cooldown == 60
     assert self.t == 0
-    assert self.rect == pg.Rect(width, height-self.size, self.size, self.size)
+    assert self.rect == pg.Rect(
+        width, height-self.ysize, self.xsize, self.ysize)
     assert self in l_enemy
 
 
@@ -215,7 +217,7 @@ def test_shoot_chromius_tower():
     assert self.cooldown == 59
     for k in range(60):
         self.shoot(ship)
-    assert tir_tower(self.rect.left+self.size/5,
+    assert tir_tower(self.rect.left+self.xsize/5,
                      self.rect.top, ship) in l_tir_tower
     assert self.cooldown == 60
 
@@ -271,9 +273,9 @@ def test_detect_collision():  # Ce code ne fonctionne plus car la fonction a bea
         (-tir.rect.left+500, -tir.rect.top+500))
 
     assert detect_collision(
-        ship, [asteroid], [], [], [], abs_decor) == False
+        ship, [asteroid], [], [], [], [], abs_decor) == False
     assert detect_collision(
-        ship, [], [tir], [], [], abs_decor) == False
+        ship, [], [tir], [], [], [], abs_decor) == False
 
     ship.rect = ship.rect.move((-ship.rect.left+640, -ship.rect.top+335))
     asteroid.rect = asteroid.rect.move(
@@ -282,9 +284,9 @@ def test_detect_collision():  # Ce code ne fonctionne plus car la fonction a bea
         (-tir.rect.left+1280, -tir.rect.top+539))
 
     assert detect_collision(
-        ship, [asteroid], [], [], [], abs_decor) == False
+        ship, [asteroid], [], [], [], [], abs_decor) == False
     assert detect_collision(
-        ship, [], [tir], [], [], abs_decor) == False
+        ship, [], [tir], [], [], [], abs_decor) == False
 
     ship.rect = ship.rect.move((-ship.rect.left, -ship.rect.top))
     asteroid.rect = asteroid.rect.move(
@@ -293,15 +295,28 @@ def test_detect_collision():  # Ce code ne fonctionne plus car la fonction a bea
         (-tir.rect.left, -tir.rect.top))
 
     assert detect_collision(
-        ship, [], [tir], [], [], abs_decor) == True
+        ship, [], [tir], [], [], [], abs_decor) == True
     detect_collision(
-        ship, [asteroid], [], [], [], abs_decor) == True
+        ship, [asteroid], [], [], [], [], abs_decor) == True
 
 
-# test_detect_collision()  # Valide !
+def test_vaisseau_move():
+    ship.rect.topleft = (100, 100)
+    ship.move("n")
+    assert ship.rect.topleft == (100, 100 - ship.speed)
+    ship.rect.topleft = (100, 100)
+    ship.move("e")
+    assert ship.rect.topleft == (100 + ship.speed, 100)
+    ship.rect.topleft = (100, 100)
+    ship.move("w")
+    assert ship.rect.topleft == (100 - ship.speed, 100)
+    ship.rect.topleft = (100, 100)
+    ship.move("s")
+    assert ship.rect.topleft == (100, 100 + ship.speed)
 
-# Test des patterns
-# t = [i for i in range(301)]
-# y = [pattern(12, i, 0)[1] for i in range(301)]
-# plt.plot(t, y)
-# plt.show()
+
+def test_pattern():
+    t = [i for i in range(301)]
+    y = [pattern(12, i, 0)[1] for i in range(301)]
+    plt.plot(t, y)
+    plt.show()

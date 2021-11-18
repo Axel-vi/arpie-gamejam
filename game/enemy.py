@@ -1,8 +1,9 @@
-# Module enemy du projet R-Type
+"Module enemy du projet R-Type"
 # -*- coding: utf-8 -*-
 
-from game.constant import *
-from game.ship import ship
+from game.constant import l_tir_tower, l_enemy, l_missile_enemy, randint, play_height, asteroid_size,  \
+    width, height, pg, sqrt, tir_size, duree_tir, l_tir_enemy, speed_missile_enemy, speed_tir_enemy, \
+    speed_tir_tower, sq, sin, pi, scale_size, delai_tir_enemy, cos, atan, vitesse_decor, tower_height, tower_width
 
 
 class Asteroide:
@@ -207,30 +208,37 @@ class tir_tower:
         l_tir_tower.append(self)
 
     def move(self):
-        # à changer pour que le missile suive le personnage
+        """Déplace le tir selon l'angle précisé"""
         self.rect = self.rect.move(
             self.speed*cos(self.angle), self.speed*sin(self.angle))
 
     def update_duree(self):
+        """Décrèmente un compteur, quand celui-ci atteint 0, le tir est supprimé"""
         self.duree -= 1
         if self.duree <= 0:
             l_tir_tower.pop(0)
 
 
 class Chromius_tower:
+    """Classe pour gérer les chromius tower"""
+
     def __init__(self):
+        """Initialisation"""
         self.type = 'chromius_tower'
         self.cooldown = 60
         self.t = 0
         self.rect = pg.Rect(width, height-tower_height,
                             tower_width, tower_height)
         l_enemy.append(self)
+        self.xsize = tower_width
+        self.ysize = tower_height
 
     def move(self):
+        """Déplace le chromius warrior selon son pattern"""
         self.rect = self.rect.move(-vitesse_decor, 0)
 
     def shoot(self, ship):
-        # creer un tir à la position du vaisseau ennemi
+        """Gère la création des missiles des chromius warrior et le cooldown entre chaque tir."""
         if self.cooldown > 0:
             self.cooldown -= 1
         else:

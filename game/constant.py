@@ -1,13 +1,13 @@
-# Module constant du projet R-Type
+"Module constant du projet R-Type"
 # -*- coding: utf-8 -*-
 # Penser à modifier les imports une fois le code terminé
+from os import listdir
 import pygame as pg
-from pygame.locals import *
+from pygame.locals import BLEND_RGBA_MULT, QUIT, KEYDOWN, K_ESCAPE, K_UP, K_DOWN, K_LEFT, K_RIGHT, K_SPACE, K_z, K_s, K_q, K_d
 from pygame import key
 from math import sqrt, sin, pi, atan, cos
 from random import random, randint
-from os import listdir
-from time import sleep
+
 
 # Démarrage de pygame
 pg.init()
@@ -92,7 +92,7 @@ volume_bruitage = 0.3
 # Tirs
 speed_tir = 30
 delai_tir = 45
-delai_spawn_enemy = 120
+#delai_spawn_enemy = 120
 speed_tir_enemy = 20
 speed_missile_enemy = -30
 delai_tir_enemy = 60
@@ -105,20 +105,6 @@ speed_tir_tower = 8
 
 # Constante pour accélerer les calculs
 sq = sqrt(2)
-
-
-# Création du dictionnaire pour importer les images
-dico_image = {}
-for file in listdir("resources/images/"):
-    dico_image[file[:-4]] = "resources/images/" + file
-
-dico_musique = {}
-for file in listdir("resources/sounds/musics/"):
-    dico_musique[file[:-4]] = "resources/sounds/musics/" + file
-
-dico_bruitages = {}
-for file in listdir("resources/sounds/sound_effects/"):
-    dico_bruitages[file[:-4]] = "resources/sounds/sound_effects/" + file
 
 # Chargement de la police du titre
 police_titre = pg.font.Font("resources/font/space_age.ttf", 150)
@@ -238,6 +224,16 @@ dico_image = {}
 for file in listdir("resources/images/"):
     dico_image[file[:-4]] = "resources/images/" + file
 image = chargement_image(dico_image)
+
+# Chargement des musiques
+dico_musique = {}
+for file in listdir("resources/sounds/musics/"):
+    dico_musique[file[:-4]] = "resources/sounds/musics/" + file
+
+# Chargement des bruitages
+dico_bruitages = {}
+for file in listdir("resources/sounds/sound_effects/"):
+    dico_bruitages[file[:-4]] = "resources/sounds/sound_effects/" + file
 musique = chargement_musique(dico_musique)
 bruitages = chargement_musique(dico_bruitages)
 

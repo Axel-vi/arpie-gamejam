@@ -1,11 +1,7 @@
-# Module sounds du projet R-Type
+"Module sounds du projet R-Type"
 # -*- coding: utf-8 -*-
 
-# Imports spécifiques
-if __name__ == "__main__":
-    from constant import *
-else:
-    from game.constant import *
+from game.constant import pg, volume_bruitage, volume_musique, dico_musique, dico_bruitages
 
 # Création des objets liés au son
 canal_musique = pg.mixer.Channel(0)
