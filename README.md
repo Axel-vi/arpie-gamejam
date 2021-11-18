@@ -47,6 +47,7 @@ Les différentes étapes du projet sont disponibles dans le fichier TO_DO.txt </
 <li>Le dossier ressources contient les éléments annexes nécéssaires au jeu (images,niveaux,sons).</li>
 <li>Le fichier test.py contient les tests de différentes fonction du coverage.</li>
 <li>Le fichier RType.py est le fichier principal qui permet de lancer le jeu et de gérer les différents états (écran d'accueil,jeu,écran de fin).</li>
+</ul>
 
 <h2>Propriété intellectuelle</h2>
 <p>
