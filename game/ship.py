@@ -1,7 +1,6 @@
 # Module ship du projet R-Type
 # -*- coding: utf-8 -*-
 
-<<<<<<< HEAD
 # Imports spécifiques
 from game.graphics import afficher_image
 from game.sounds import *
@@ -10,9 +9,6 @@ if __name__ == "__main__":
     from constant import *
 else:
     from game.constant import *
-=======
-from game.constant import *
->>>>>>> ad62b13eb7d8f250c93e4754712bb729fbffa18b
 
 
 class Vaisseau:
@@ -77,12 +73,8 @@ class Vaisseau:
             if touche:
                 tir_vaisseau(self.rect.left+self.size/2,
                              self.rect.top+self.size/2)
-<<<<<<< HEAD
                 tir_laser()
-        # cooldown de 30 frames
-=======
         # Temps de rechargement d'une demi seconde
->>>>>>> ad62b13eb7d8f250c93e4754712bb729fbffa18b
         elif touche and delai_tir - l_tir_vaisseau[-1].duree >= 0:
             tir_vaisseau(self.rect.left+self.size/2, self.rect.top+self.size/2)
             tir_laser()

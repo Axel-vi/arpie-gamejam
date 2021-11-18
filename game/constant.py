@@ -99,7 +99,6 @@ speed_missile_enemy = -30
 delai_tir_enemy = 60
 duree_tir = fps*1  # équivaut à 1seconde
 
-<<<<<<< HEAD
 # Constante pour accélerer les calculs
 sq = sqrt(2)
 
@@ -133,12 +132,6 @@ rect_play_again.center = (width/2, 2*height/3)
 rect_crochets = crochets.get_rect()
 rect_crochets.center = (width/2, 2*height/3)
 rect_titre = titre_ecran_demarrage.get_rect()
-=======
-# Tour
-tower_height = 300
-tower_width = 150
-speed_tir_tower = 8
->>>>>>> ad62b13eb7d8f250c93e4754712bb729fbffa18b
 
 # Initialise l'état du jeu
 state = 0

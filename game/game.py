@@ -30,11 +30,7 @@ def detect_collision(ship, l_enemy, l_tir_enemy, l_tir_vaisseau, l_missile_enemy
     for j in index_enemy:
         Explosion(j.rect.left, j.rect.top)
         l_enemy.remove(j)
-<<<<<<< HEAD
         explosion()
-=======
-    # Suppression des tirs ayant touché des ennemis
->>>>>>> ad62b13eb7d8f250c93e4754712bb729fbffa18b
     for j in index_tir:
         if j in l_tir_vaisseau:
             l_tir_vaisseau.remove(j)
