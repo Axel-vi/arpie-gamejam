@@ -51,10 +51,10 @@ Les différentes étapes du projet sont disponibles dans le fichier TO_DO.txt </
 <h2>Propriété intellectuelle</h2>
 <p>
 Tous les éléments de ce jeu, qu'il s'agisse du code, des graphismes ou de la musique ont été créés par les membres de l'équipe mentionnés plus haut à l'exception des éléments suivants:
+</p>
 <ul>
 <li>La bibliothèque <a href='https://www.pygame.org/news'>pygame</a></li>
 <li>Les modules os, random, math et matplotib</li>
-<li>Les polices <a href=''>Open_24_Display</a> et <a href=''>Space Age</a></li>
-<li>Les sons de tir, d'explosion, de game over et de victoire</li>
+<li>Les polices <a href='https://www.dafont.com/fr/open-24-display-st.font'>Open_24_Display</a> et <a href='https://www.dafont.com/fr/space-age.font'>Space Age</a></li>
+<li>Les sons de tir, d'explosion, de game over et de victoire provenant du site <a href='https://www.sound-fishing.net/'>Sound Fishing</a></li>
 </ul>
-</p>
