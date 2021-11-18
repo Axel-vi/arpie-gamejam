@@ -66,4 +66,6 @@ while True:
             l_tir_vaisseau.pop()
         while len(l_missile_enemy) != 0:
             l_missile_enemy.pop()
+        while len(l_explosion) != 0:
+            l_explosion.pop()
         state = 1

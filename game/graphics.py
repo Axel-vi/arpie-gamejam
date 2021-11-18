@@ -1,10 +1,7 @@
 # Module graphics du projet R-Type
 # -*- coding: utf-8 -*-
 
-if __name__ == "__main__":
-    from constant import *
-else:
-    from game.constant import *
+from game.constant import *
 
 # Création de la fenêtre
 fenetre = pg.display.set_mode((width, height))
@@ -13,24 +10,13 @@ rectFenetre = fenetre.get_rect()
 
 # Réglage de la fenetre
 pg.display.set_caption("ARPIE")
-# pg.display.set_icon(<icon>)
+pg.display.set_icon(image["chromius_lord"])
 
 
 def quitter():
     """Fonction qui ferme pygame et python."""
     pg.quit()
     quit()
-
-
-def detect_quitter():
-    """Fonction qui détecte l'ordre de fermeture de la fenêtre et quitte.
-    """
-    for event in pg.event.get():
-        if event.type == QUIT:
-            quitter()
-        elif event.type == KEYDOWN:
-            if event.key == K_ESCAPE:
-                quitter()
 
 
 def transition(fenetre, couleur=white):
@@ -42,7 +28,6 @@ def transition(fenetre, couleur=white):
         time_left -= 1
         fenetre.fill(couleur)
         pg.display.update()
-    # print("transition")
 
 
 def afficher_image(image, long, larg, x, y, anchor="ne"):
@@ -118,23 +103,14 @@ def detect_control_demarrage():
                 return 1
 
 
-# Initialisation du décor
-def initialiser_decor():
-    """Cette foncion initialise le décor
-    """
-    global foregrnd
-    global abs_decor
-    global l_star
-    abs_decor = 0
-    l_star = []
-    foregrnd = image["long_foreground_relief"].get_rect()
-    for i in range(nb_star):
-        l_star.append(Star())
-# Objets pour l'écran de démarrage
+# Etoiles pour l'écran de démarrage
 
 
 class Star():
+    """Classe pour gérer les étoiles du fond de l'écran de démarrage"""
+
     def __init__(self):
+        """Initialisation"""
         self.x = random()*width//2
         self.y = random()*height//2
         self.sx = self.x
@@ -147,12 +123,14 @@ class Star():
         self.z = 2 + random()*width
 
     def update(self):
+        """Met à jour la position des étoiles et réintialise celles en dehors de l'écran"""
         self.sx = (width//2)*(self.x/self.z)
         self.sy = (height//2)*(self.y/self.z)
         self.r = (self.max_radius)*(1-self.z/width)
         self.rect = pg.Rect(width//2 - self.sx*self.orient_x, height //
                             2 - self.sy*self.orient_y, self.r, self.r)
         self.z -= self.star_speed
+        # Reset de la position des étoiles lointaines
         if self.z < 2:
             self.x = random()*width//2
             self.y = random()*height//2
@@ -164,7 +142,27 @@ class Star():
             self.z = 2 + random()*width
 
     def show(self):
+        """Gère l'affichage des étoiles sur la surface starfield"""
         pg.draw.ellipse(starfield, white, self.rect)
+
+# Initialisation du décor
+
+
+def initialiser_decor():
+    """Fonction qui initialise le décor"""
+    global foregrnd
+    global abs_decor
+    global l_star
+    global foregrnd
+    global abs_decor
+    global backgrnd
+    abs_decor = 0
+    foregrnd = image["long_foreground_relief"].get_rect()
+    backgrnd = image["background"].get_rect()
+    l_star = []
+    foregrnd = image["long_foreground_relief"].get_rect()
+    for i in range(nb_star):
+        l_star.append(Star())
 
 
 # initialisation du décor pour la premiere partie
@@ -181,6 +179,7 @@ def afficher_ecran_demarrage(state_trans):
         star.show()
     fenetre.blit(starfield, (0, 0))
     fenetre.blit(titre_ecran_demarrage, rect_titre)
+    # Transparence du press start
     etape = (1-2*((state_trans//255) % 2))
     alpha = ((state_trans) % 255) * etape
     if etape == -1:
@@ -196,7 +195,6 @@ def defilement_decor():
     global foregrnd
     global abs_decor
     global backgrnd
-
     if -foregrnd.topleft[0] >= x_bord_decor:
         foregrnd = foregrnd.move(-foregrnd.topleft[0], 0)
         abs_decor = 0
@@ -211,25 +209,6 @@ def defilement_decor():
     fenetre.blit(image["background"], backgrnd)
     fenetre.blit(image["long_foreground_relief"], foregrnd)
     return abs_decor
-
-
-# Initialisation du décor
-def initialiser_decor():
-    """Cette foncion initialise le décor
-    """
-    global foregrnd
-    global backgrnd
-    global abs_decor
-    global backgrnd
-    abs_decor = 0
-    backgrnd = image['background'].get_rect()
-    foregrnd = image["long_foreground_relief"].get_rect()
-    backgrnd = image["background"].get_rect()
-
-
-
-# initialisation du décor pour la premiere partie
-initialiser_decor()
 
 
 def afficher_vaisseau(ship):
@@ -252,7 +231,7 @@ def afficher_ecran_fin(transparence):
     """
     fenetre.fill(black)
     fenetre.blit(titre_game_over, rect_game_over)
-    fenetre.blit(transparent(play_again,transparence), rect_play_again)
+    fenetre.blit(transparent(play_again, transparence), rect_play_again)
     fenetre.blit(crochets, rect_crochets)
 
 
