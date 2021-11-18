@@ -1,5 +1,4 @@
 bazar/
-.gitignore/
 __pycache__/
 .pytest_cache/
 game/__pycache__/
