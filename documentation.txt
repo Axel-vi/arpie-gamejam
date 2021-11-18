@@ -1,5 +1,11 @@
+# Documentation
 
-Le seul module utilisé est pygame.
-Documentation pygame:
+<h3>Documentation pygame:</h3>
     https://www.pygame.org/docs/
     Tutoriel basique : https://pub.phyks.me/sdz/sdz/interface-graphique-pygame-pour-python.html
+
+<h3>Documentation CarbonAI:</h3>
+    https://capgemini-invent-france.github.io/CarbonAI/
+
+<h3>Documentation matplotlib:</h3>
+    https://matplotlib.org/stable/index.html
