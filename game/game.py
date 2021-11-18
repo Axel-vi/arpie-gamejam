@@ -1,7 +1,7 @@
 # Module game du projet R-Type
 # -*- coding: utf-8 -*-
 
-from game.enemy import Asteroide, Chromius_fighter, Chromius_warrior,Chromius_tower
+from game.enemy import Asteroide, Chromius_fighter, Chromius_warrior, Chromius_tower
 from game.graphics import *
 
 
@@ -27,6 +27,7 @@ def detect_collision(ship, l_enemy, l_tir_enemy, l_tir_vaisseau, l_missile_enemy
                     index_tir.append(l_tir_vaisseau[i])
     # Suppression des ennemis touchés et création des explosions
     for j in index_enemy:
+        Explosion(j.rect.left, j.rect.top)
         l_enemy.remove(j)
     # Suppression des tirs ayant touché des ennemis
     for j in index_tir:
@@ -47,7 +48,7 @@ def detect_collision(ship, l_enemy, l_tir_enemy, l_tir_vaisseau, l_missile_enemy
     for i in range(len(l_tir_tower)):
         if ship.rect.colliderect(l_tir_tower[i].rect):
             return masks['vaisseau'].overlap(masks['tir_tower'], (l_tir_tower[i].rect.left - ship.rect.left, l_tir_tower[i].rect.top - ship.rect.top)) != None
-    
+
     return masks['vaisseau'].overlap(masks['foregrnd'], (abs_decor - ship.rect.left, foregrnd.top - ship.rect.top)) != None
 
 
