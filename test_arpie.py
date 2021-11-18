@@ -15,9 +15,6 @@ def test_asteroid():
     assert asteroid.y <= height
     assert asteroid.size == 90
     assert asteroid.rect == pg.Rect(width, asteroid.y, 90, 90)
-    # assert asteroid.target >= 0
-    # assert asteroid.target <= height
-    # assert asteroid.coeff == (asteroid.y-asteroid.target)/width
     assert asteroid.speed_x == -(sqrt(1/(1+asteroid.coeff**2))*asteroid.speed)
     assert asteroid.speed_y == asteroid.coeff*asteroid.speed_x
     assert asteroid in l_enemy
