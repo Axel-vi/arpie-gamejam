@@ -1,10 +1,16 @@
-# Projet R-Type
+"Projet R-Type"
 # -*- coding: utf-8 -*-
-from game.graphics import *
-from game.ship import *
-from game.sounds import *
-from game.game import *
-from game.enemy import *
+from game.ship import Vaisseau
+from game.game import gestion_event, detect_collision
+from game.graphics import afficher_ecran_demarrage, detect_control_demarrage, fenetre,\
+    defilement_decor_background, detect_control_game, afficher_vaisseau, \
+    afficher_et_update_enemy, afficher_et_update_tir, afficher_et_update_explosion, \
+    defilement_decor_foreground, afficher_ecran_fin, initialiser_decor
+from game.sounds import musique_jeu, son_game_over
+from game.enemy import destroy_old_enemy, l_enemy, l_explosion, l_missile_enemy, \
+    l_tir_enemy, l_tir_vaisseau, l_tir_tower
+from game.constant import state_trans, compt_trans, pg, black, clock, fps, cos, \
+    lire_niveau, liste_niveau, STATE, end_trans
 from carbonai import PowerMeter
 power_meter = PowerMeter(project_name="ARPIE")
 
@@ -15,58 +21,59 @@ with power_meter(
     comments="Un RType"
 ):
     while True:
-        while state == 0:
+        while STATE == 0:
             # Ecran de demarrage qui affiche le titre et le bouton play (Appuyer sur espace)
             afficher_ecran_demarrage(state_trans)
-            new_state = detect_control_demarrage()
-            compteur = 0
+            NEW_STATE = detect_control_demarrage()
+            COMPTEUR = 0
             id_niveau = 1
-            if new_state == 1:
-                state = 3
+            if NEW_STATE == 1:
+                STATE = 3
                 musique_jeu()
             pg.display.update()
             if compt_trans % 2 == 0:
                 state_trans += 1
             compt_trans += 1
 
-        while state == 1:
+        while STATE == 1:
             # Etat de jeu durant lequel l'utilisateur parcourt le niveau
             fenetre.fill(black)
             clock.tick(fps)
-            compteur += 1
-            gestion_event(niveau, compteur)
+            COMPTEUR += 1
+            gestion_event(niveau, COMPTEUR)
             defilement_decor_background()
             direction, touche = detect_control_game()
-            ship.move(direction)
-            afficher_vaisseau(ship)
-            ship.shoot(touche)
-            afficher_et_update_enemy(ship)
+            SHIP.move(direction)
+            afficher_vaisseau(SHIP)
+            SHIP.shoot(touche)
+            afficher_et_update_enemy(SHIP)
             afficher_et_update_tir()
             afficher_et_update_explosion()
             destroy_old_enemy()
             abs_decor = defilement_decor_foreground()
-            if detect_collision(ship, l_enemy, l_tir_enemy, l_tir_vaisseau, l_missile_enemy, abs_decor):
+            if detect_collision(SHIP, l_enemy, l_tir_enemy,
+                                l_tir_vaisseau, l_missile_enemy, abs_decor):
                 son_game_over()
-                state = 2
+                STATE = 2
             pg.display.update()
 
-        while state == 2:
+        while STATE == 2:
             # Etat de Game over
             end_trans += 1
             afficher_ecran_fin(int((1+cos(end_trans/150))/2*255))
-            new_state = detect_control_demarrage()
-            if new_state == 1:
+            NEW_STATE = detect_control_demarrage()
+            if NEW_STATE == 1:
                 end_trans = 1
-                state = 3
+                STATE = 3
             pg.display.update()
 
-        if state == 3:
+        if STATE == 3:
             # Initialisation du niveau
             niveau = [el for el in liste_niveau[id_niveau][2]]
-            compteur = 0
+            COMPTEUR = 0
             niveau_1 = lire_niveau(id_niveau)
             initialiser_decor()
-            ship = Vaisseau()
+            SHIP = Vaisseau()
             while len(l_enemy) != 0:
                 l_enemy.pop()
             while len(l_tir_enemy) != 0:
@@ -79,5 +86,5 @@ with power_meter(
                 l_explosion.pop()
             while len(l_tir_tower) != 0:
                 l_tir_tower.pop()
-            state = 1
+            STATE = 1
             musique_jeu()

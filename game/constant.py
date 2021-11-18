@@ -138,7 +138,7 @@ rect_crochets.center = (width/2, 2*height/3)
 rect_titre = titre_ecran_demarrage.get_rect()
 
 # Initialise l'état du jeu
-state = 0
+STATE = 0
 
 # Chargement des niveaux
 
