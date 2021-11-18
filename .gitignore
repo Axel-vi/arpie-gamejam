@@ -1,5 +1,6 @@
 bazar/
 __pycache__/
 .pytest_cache/
+.coverage
 game/__pycache__/
 gauthier_test.py
