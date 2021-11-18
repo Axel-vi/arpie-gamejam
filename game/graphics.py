@@ -348,6 +348,12 @@ masks = {"asteroide": maskAsteroid,
          'missile': maskMissile}
 
 
+def afficher_ecran_victoire() : 
+    fenetre.fill(black) 
+    fenetre.blit(titre_victory, rect_victory) 
+    fenetre.blit(next_level, rect_next_level) 
+    fenetre.blit(score,rect_score)
+
 class Explosion(pg.sprite.Sprite):
     def __init__(self, x, y):
         pg.sprite.Sprite.__init__(self)

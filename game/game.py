@@ -65,6 +65,7 @@ def gestion_event(niveau, compteur):
                 Chromius_fighter(liste_event[0][2], liste_event[0][3])
                 liste_event.pop(0)
             else:
+                print(liste_event[0])
                 Chromius_warrior(liste_event[0][2], liste_event[0][3])
                 liste_event.pop(0)
     else:
