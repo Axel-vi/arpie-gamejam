@@ -1,0 +1,11 @@
+# Documentation
+
+Documentation pygame:
+    https://www.pygame.org/docs/
+    Tutoriel basique : https://pub.phyks.me/sdz/sdz/interface-graphique-pygame-pour-python.html
+
+Documentation CarbonAI:</h3>
+    https://capgemini-invent-france.github.io/CarbonAI/
+
+Documentation matplotlib:</h3>
+    https://matplotlib.org/stable/index.html

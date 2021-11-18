@@ -1,10 +1,7 @@
 # Module graphics du projet R-Type
 # -*- coding: utf-8 -*-
 
-if __name__ == "__main__":
-    from constant import *
-else:
-    from game.constant import *
+from game.constant import *
 
 # Création de la fenêtre
 fenetre = pg.display.set_mode((width, height))
@@ -12,25 +9,14 @@ fenetre.fill(white)
 rectFenetre = fenetre.get_rect()
 
 # Réglage de la fenetre
-pg.display.set_caption("R-Type")
-# pg.display.set_icon(<icon>)
+pg.display.set_caption("ARPIE")
+pg.display.set_icon(image["chromius_lord"])
 
 
 def quitter():
     """Fonction qui ferme pygame et python."""
     pg.quit()
     quit()
-
-
-def detect_quitter():
-    """Fonction qui détecte l'ordre de fermeture de la fenêtre et quitte.
-    """
-    for event in pg.event.get():
-        if event.type == QUIT:
-            quitter()
-        elif event.type == KEYDOWN:
-            if event.key == K_ESCAPE:
-                quitter()
 
 
 def transition(fenetre, couleur=white):
@@ -42,7 +28,6 @@ def transition(fenetre, couleur=white):
         time_left -= 1
         fenetre.fill(couleur)
         pg.display.update()
-    # print("transition")
 
 
 def afficher_image(image, long, larg, x, y, anchor="ne"):
@@ -118,23 +103,14 @@ def detect_control_demarrage():
                 return 1
 
 
-# Initialisation du décor
-def initialiser_decor():
-    """Cette foncion initialise le décor
-    """
-    global foregrnd
-    global abs_decor
-    global l_star
-    abs_decor = 0
-    l_star = []
-    foregrnd = image["long_foreground_relief"].get_rect()
-    for i in range(nb_star):
-        l_star.append(Star())
-# Objets pour l'écran de démarrage
+# Etoiles pour l'écran de démarrage
 
 
 class Star():
+    """Classe pour gérer les étoiles du fond de l'écran de démarrage"""
+
     def __init__(self):
+        """Initialisation"""
         self.x = random()*width//2
         self.y = random()*height//2
         self.sx = self.x
@@ -147,12 +123,14 @@ class Star():
         self.z = 2 + random()*width
 
     def update(self):
+        """Met à jour la position des étoiles et réintialise celles en dehors de l'écran"""
         self.sx = (width//2)*(self.x/self.z)
         self.sy = (height//2)*(self.y/self.z)
         self.r = (self.max_radius)*(1-self.z/width)
         self.rect = pg.Rect(width//2 - self.sx*self.orient_x, height //
                             2 - self.sy*self.orient_y, self.r, self.r)
         self.z -= self.star_speed
+        # Reset de la position des étoiles lointaines
         if self.z < 2:
             self.x = random()*width//2
             self.y = random()*height//2
@@ -164,7 +142,27 @@ class Star():
             self.z = 2 + random()*width
 
     def show(self):
+        """Gère l'affichage des étoiles sur la surface starfield"""
         pg.draw.ellipse(starfield, white, self.rect)
+
+# Initialisation du décor
+
+
+def initialiser_decor():
+    """Fonction qui initialise le décor"""
+    global foregrnd
+    global abs_decor
+    global l_star
+    global foregrnd
+    global abs_decor
+    global backgrnd
+    abs_decor = 0
+    foregrnd = image["long_foreground_relief"].get_rect()
+    backgrnd = image["background"].get_rect()
+    l_star = []
+    foregrnd = image["long_foreground_relief"].get_rect()
+    for i in range(nb_star):
+        l_star.append(Star())
 
 
 # initialisation du décor pour la premiere partie
@@ -181,6 +179,7 @@ def afficher_ecran_demarrage(state_trans):
         star.show()
     fenetre.blit(starfield, (0, 0))
     fenetre.blit(titre_ecran_demarrage, rect_titre)
+    # Transparence du press start
     etape = (1-2*((state_trans//255) % 2))
     alpha = ((state_trans) % 255) * etape
     if etape == -1:
@@ -188,41 +187,56 @@ def afficher_ecran_demarrage(state_trans):
     fenetre.blit(transparent(press_start, alpha), rect_press_start)
 
 
-def defilement_decor():
+def defilement_decor_background():
     """Définition de la boucle qui va faire défiler le décor au premier plan.
     La vitesse de défilement est ajustable dans le fichier constant.py
     La fonction renvoie la valeur de abs_decor (l'entier relatif qui donne la position du bord de l'image de décor par rapport au bord de la fenetre visible)
     """
+    global backgrnd
+    global middlegrnd
+
+    if -backgrnd.topleft[0] >= x_bord_bg:
+        backgrnd = backgrnd.move(-backgrnd.topleft[0], 0)
+    else:
+        backgrnd = backgrnd.move(-vitesse_bg, 0)
+
+    if -middlegrnd.topleft[0] >= x_bord_decor:
+        middlegrnd = middlegrnd.move(-middlegrnd.topleft[0], 0)
+    else:
+        middlegrnd = middlegrnd.move(-vitesse_mg, 0)
+
+    fenetre.blit(image["background"], backgrnd)
+    fenetre.blit(image['long_middleground_relief'], middlegrnd)
+
+
+def defilement_decor_foreground():
     global foregrnd
     global abs_decor
     global backgrnd
-
     if -foregrnd.topleft[0] >= x_bord_decor:
         foregrnd = foregrnd.move(-foregrnd.topleft[0], 0)
         abs_decor = 0
     else:
         foregrnd = foregrnd.move(-vitesse_decor, 0)
         abs_decor -= vitesse_decor
-
-    if -backgrnd.topleft[0] >= x_bord_bg:
-        backgrnd = backgrnd.move(-backgrnd.topleft[0], 0)
-    else:
-        backgrnd = backgrnd.move(-vitesse_bg, 0)
-    fenetre.blit(image["background"], backgrnd)
     fenetre.blit(image["long_foreground_relief"], foregrnd)
     return abs_decor
-
-
 # Initialisation du décor
+
+
 def initialiser_decor():
     """Cette foncion initialise le décor
     """
     global foregrnd
+    global middlegrnd
     global backgrnd
     global abs_decor
+    global backgrnd
     abs_decor = 0
+    middlegrnd = image['long_middleground_relief'].get_rect()
     backgrnd = image['background'].get_rect()
     foregrnd = image["long_foreground_relief"].get_rect()
+    backgrnd = image["background"].get_rect()
 
 
 # initialisation du décor pour la premiere partie
@@ -244,22 +258,24 @@ def afficher_vaisseau(ship):
                        ship.size, ship.rect.left, ship.rect.top, anchor="nw")
 
 
-def afficher_ecran_fin():
+def afficher_ecran_fin(transparence):
     """Cette fonctin affiche l'ecran de fin de partie
     """
     fenetre.fill(black)
     fenetre.blit(titre_game_over, rect_game_over)
-    fenetre.blit(play_again, rect_play_again)
+    fenetre.blit(transparent(play_again, transparence), rect_play_again)
     fenetre.blit(crochets, rect_crochets)
 
 
-def afficher_et_update_enemy():
+def afficher_et_update_enemy(ship):
     """La fonction bouge et affiche les ennemis"""
     for enemy in l_enemy:
         enemy.move()
-        enemy.shoot()
-        afficher_image(image[enemy.type], enemy.size, enemy.size,
-                       enemy.rect.left, enemy.rect.top)
+        enemy.shoot(ship)
+        if enemy.type=='chromius_tower':
+            afficher_image(image[enemy.type],tower_width,tower_height,enemy.rect.left, enemy.rect.top)
+        else:
+            afficher_image(image[enemy.type], enemy.size, enemy.size,enemy.rect.left, enemy.rect.top)
 
 
 def afficher_et_update_tir():
@@ -279,6 +295,17 @@ def afficher_et_update_tir():
         l.update_duree()
         afficher_image(dico_image["missile_ennemi"],
                        tir_size, tir_size, l.rect.left, l.rect.top)
+    for l in l_tir_tower:
+        l.move()
+        l.update_duree()
+        afficher_image(dico_image["tir_tower"],
+                       tir_size, tir_size, l.rect.left, l.rect.top)
+
+
+def afficher_et_update_explosion():
+    for e in l_explosion:
+        e.update()
+        e.show()
 
 
 # Mise a jour de l'image de decor pour la rendre transparente
@@ -286,6 +313,8 @@ image['long_foreground_relief'] = pg.transform.scale(
     image['long_foreground_relief'].convert_alpha(), (width_fg*ratio_decor, height))
 image['background'] = pg.transform.scale(
     image['background'].convert_alpha(), (width_bg*ratio_bg, height))
+image['long_middleground_relief'] = pg.transform.scale(
+    image['long_middleground_relief'].convert_alpha(), (width_fg*ratio_decor, height))
 
 # Dictionnaire des masques pour gérer les collisions
 maskAsteroid = pg.mask.from_surface(pg.transform.scale(
@@ -303,13 +332,19 @@ maskChromiusWarrior = pg.mask.from_surface(pg.transform.scale(
     image["chromius_warrior"].convert_alpha(), (scale_size, scale_size)))
 maskMissile = pg.mask.from_surface(pg.transform.scale(
     image["missile_ennemi"].convert_alpha(), (tir_size, tir_size)))
+maskChromiusTower = pg.mask.from_surface(pg.transform.scale(
+    image["chromius_tower"].convert_alpha(), (tower_width, tower_height)))
+maskTirTower = pg.mask.from_surface(pg.transform.scale(
+    image["tir_tower"].convert_alpha(), (tir_size, tir_size)))
 masks = {"asteroide": maskAsteroid,
          "vaisseau": maskShip,
          "foregrnd": maskForegrnd,
          "chromius_fighter": maskChromiusFighter,
          "tir_enemy": maskTirEnemy,
          'tir_vaisseau': maskTirShip,
+         'tir_tower': maskTirTower,
          'chromius_warrior': maskChromiusWarrior,
+         'chromius_tower': maskChromiusTower,
          'missile': maskMissile}
 
 
@@ -319,3 +354,27 @@ def afficher_ecran_victoire() :
     fenetre.blit(next_level, rect_next_level) 
     fenetre.blit(score,rect_score)
 
+class Explosion(pg.sprite.Sprite):
+    def __init__(self, x, y):
+        pg.sprite.Sprite.__init__(self)
+        self.rect = pg.Rect(x, y, 16, 16)
+        self.num = 0
+        self.delta_time = 0
+        self.image = spriteSheetExplosion.subsurface(pg.Rect(0, 0, 16, 16))
+        self.numeroImage = 0
+        l_explosion.append(self)
+
+    def update(self):
+        self.delta_time += 1
+        if self.delta_time >= 3:
+            self.delta_time = 0
+            n = self.numeroImage
+            self.image = spriteSheetExplosion.subsurface(
+                pg.Rect(n*16, 0, 16, 16))
+            self.numeroImage = self.numeroImage+1
+            if self.numeroImage > 8:
+                l_explosion.remove(self)
+
+    def show(self):
+        afficher_image(self.image, scale_size, scale_size,
+                       self.rect.left, self.rect.top)
