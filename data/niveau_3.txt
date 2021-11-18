@@ -1,5 +1,5 @@
 Niveau 3: 
-50
+55
 1.2;chromius_warrior;300:6
 2;asteroide;
 2.9;asteroide;

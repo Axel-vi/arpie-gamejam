@@ -1,5 +1,5 @@
 Niveau 4: 
-52
+56
 1.2;chromius_warrior;300:1
 1.2;chromius_warrior;100:1
 2;asteroide;
@@ -50,9 +50,9 @@ Niveau 4:
 42;asteroide;
 43.2;chromius_fighter;190:4
 45;chromius_warrior;430:13
-22.3;chromius_fighter;250:4
-22.8;chromius_fighter;275:4
-22.8;chromius_fighter;225:4
-23.3;chromius_fighter;250:4
-23.8;chromius_warrior;300:4
-23.8;chromius_warrior;200:4
+47;chromius_fighter;250:4
+47.5;chromius_fighter;275:4
+47.5;chromius_fighter;225:4
+48;chromius_fighter;250:4
+48;chromius_warrior;300:4
+48;chromius_warrior;200:4

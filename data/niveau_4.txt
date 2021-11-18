@@ -1,5 +1,5 @@
 Niveau 4: 
-52
+53
 1.2;chromius_fighter;160:3
 2;asteroide;
 2.9;asteroide;

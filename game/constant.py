@@ -126,7 +126,7 @@ def lire_niveau(id_niveau):
             id_pattern = int(id_pattern)
             arg = [hauteur, id_pattern]
             liste_event.append([date]+[type]+arg)
-        else:
+        else :
             liste_event.append([date]+[type])
     return [nom_niveau, distance_totale, liste_event]
 
@@ -140,6 +140,7 @@ liste_niveau = [niveau_1, niveau_2, niveau_3, niveau_4, niveau_5]
 # Initialise l'état du jeu
 state = 0
 
+print(liste_niveau[3][1])
 def chargement_image(dico):
     """Fonction pour charger toutes les images d'un coup.
     Prend en entrée un dictionnaire avec le nom de chaque image et sa position.

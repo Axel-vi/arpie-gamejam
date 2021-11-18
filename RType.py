@@ -37,7 +37,7 @@ while True:
         destroy_old_enemy()
         if detect_collision(ship, l_enemy, l_tir_enemy, l_tir_vaisseau, l_missile_enemy, abs_decor):
             state = 2
-        if compteur > 60*liste_niveau[id_niveau][1] :
+        if compteur > 60*liste_niveau[id_niveau-1][1] :
             state = 4
         pg.display.update()
 
@@ -51,7 +51,7 @@ while True:
 
     if state == 3:
         # Initialisation du niveau
-        niveau = [el for el in liste_niveau[id_niveau][2]]
+        niveau = [el for el in liste_niveau[id_niveau-1][2]]
         compteur = 0
         initialiser_decor()
         ship = Vaisseau()
