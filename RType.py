@@ -6,7 +6,6 @@ from game.sounds import *
 from game.game import *
 from game.enemy import *
 
-
 while True:
     while state == 0:
         # Ecran de demarrage qui affiche le titre et le bouton play (Appuyer sur espace)
@@ -22,21 +21,21 @@ while True:
         compt_trans += 1
 
     while state == 1:
-        # Etat de jeu durant lequel l'utilisateur parcoure le niveau
+        # Etat de jeu durant lequel l'utilisateur parcourt le niveau
         fenetre.fill(black)
         clock.tick(fps)
-        abs_decor = defilement_decor()
         compteur += 1
         gestion_event(niveau, compteur)
+        defilement_decor_background()
         direction, touche = detect_control_game()
         ship.move(direction)
         afficher_vaisseau(ship)
         ship.shoot(touche)
-        # spawn_chromius_fighter()
-        afficher_et_update_enemy()
+        afficher_et_update_enemy(ship)
         afficher_et_update_tir()
         afficher_et_update_explosion()
         destroy_old_enemy()
+        abs_decor = defilement_decor_foreground()
         if detect_collision(ship, l_enemy, l_tir_enemy, l_tir_vaisseau, l_missile_enemy, abs_decor):
             state = 2
         pg.display.update()
@@ -68,4 +67,6 @@ while True:
             l_missile_enemy.pop()
         while len(l_explosion) != 0:
             l_explosion.pop()
+        while len(l_tir_tower) != 0:
+            l_tir_tower.pop()
         state = 1

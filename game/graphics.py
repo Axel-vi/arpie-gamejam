@@ -187,11 +187,29 @@ def afficher_ecran_demarrage(state_trans):
     fenetre.blit(transparent(press_start, alpha), rect_press_start)
 
 
-def defilement_decor():
+def defilement_decor_background():
     """Définition de la boucle qui va faire défiler le décor au premier plan.
     La vitesse de défilement est ajustable dans le fichier constant.py
     La fonction renvoie la valeur de abs_decor (l'entier relatif qui donne la position du bord de l'image de décor par rapport au bord de la fenetre visible)
     """
+    global backgrnd
+    global middlegrnd
+
+    if -backgrnd.topleft[0] >= x_bord_bg:
+        backgrnd = backgrnd.move(-backgrnd.topleft[0], 0)
+    else:
+        backgrnd = backgrnd.move(-vitesse_bg, 0)
+
+    if -middlegrnd.topleft[0] >= x_bord_decor:
+        middlegrnd = middlegrnd.move(-middlegrnd.topleft[0], 0)
+    else:
+        middlegrnd = middlegrnd.move(-vitesse_mg, 0)
+
+    fenetre.blit(image["background"], backgrnd)
+    fenetre.blit(image['long_middleground_relief'], middlegrnd)
+
+
+def defilement_decor_foreground():
     global foregrnd
     global abs_decor
     global backgrnd
@@ -201,14 +219,28 @@ def defilement_decor():
     else:
         foregrnd = foregrnd.move(-vitesse_decor, 0)
         abs_decor -= vitesse_decor
-
-    if -backgrnd.topleft[0] >= x_bord_bg:
-        backgrnd = backgrnd.move(-backgrnd.topleft[0], 0)
-    else:
-        backgrnd = backgrnd.move(-vitesse_bg, 0)
-    fenetre.blit(image["background"], backgrnd)
     fenetre.blit(image["long_foreground_relief"], foregrnd)
     return abs_decor
+# Initialisation du décor
+
+
+def initialiser_decor():
+    """Cette foncion initialise le décor
+    """
+    global foregrnd
+    global middlegrnd
+    global backgrnd
+    global abs_decor
+    global backgrnd
+    abs_decor = 0
+    middlegrnd = image['long_middleground_relief'].get_rect()
+    backgrnd = image['background'].get_rect()
+    foregrnd = image["long_foreground_relief"].get_rect()
+    backgrnd = image["background"].get_rect()
+
+
+# initialisation du décor pour la premiere partie
+initialiser_decor()
 
 
 def afficher_vaisseau(ship):
@@ -235,13 +267,15 @@ def afficher_ecran_fin(transparence):
     fenetre.blit(crochets, rect_crochets)
 
 
-def afficher_et_update_enemy():
+def afficher_et_update_enemy(ship):
     """La fonction bouge et affiche les ennemis"""
     for enemy in l_enemy:
         enemy.move()
-        enemy.shoot()
-        afficher_image(image[enemy.type], enemy.size, enemy.size,
-                       enemy.rect.left, enemy.rect.top)
+        enemy.shoot(ship)
+        if enemy.type=='chromius_tower':
+            afficher_image(image[enemy.type],tower_width,tower_height,enemy.rect.left, enemy.rect.top)
+        else:
+            afficher_image(image[enemy.type], enemy.size, enemy.size,enemy.rect.left, enemy.rect.top)
 
 
 def afficher_et_update_tir():
@@ -261,6 +295,11 @@ def afficher_et_update_tir():
         l.update_duree()
         afficher_image(dico_image["missile_ennemi"],
                        tir_size, tir_size, l.rect.left, l.rect.top)
+    for l in l_tir_tower:
+        l.move()
+        l.update_duree()
+        afficher_image(dico_image["tir_tower"],
+                       tir_size, tir_size, l.rect.left, l.rect.top)
 
 
 def afficher_et_update_explosion():
@@ -274,6 +313,8 @@ image['long_foreground_relief'] = pg.transform.scale(
     image['long_foreground_relief'].convert_alpha(), (width_fg*ratio_decor, height))
 image['background'] = pg.transform.scale(
     image['background'].convert_alpha(), (width_bg*ratio_bg, height))
+image['long_middleground_relief'] = pg.transform.scale(
+    image['long_middleground_relief'].convert_alpha(), (width_fg*ratio_decor, height))
 
 # Dictionnaire des masques pour gérer les collisions
 maskAsteroid = pg.mask.from_surface(pg.transform.scale(
@@ -291,13 +332,19 @@ maskChromiusWarrior = pg.mask.from_surface(pg.transform.scale(
     image["chromius_warrior"].convert_alpha(), (scale_size, scale_size)))
 maskMissile = pg.mask.from_surface(pg.transform.scale(
     image["missile_ennemi"].convert_alpha(), (tir_size, tir_size)))
+maskChromiusTower = pg.mask.from_surface(pg.transform.scale(
+    image["chromius_tower"].convert_alpha(), (tower_width, tower_height)))
+maskTirTower = pg.mask.from_surface(pg.transform.scale(
+    image["tir_tower"].convert_alpha(), (tir_size, tir_size)))
 masks = {"asteroide": maskAsteroid,
          "vaisseau": maskShip,
          "foregrnd": maskForegrnd,
          "chromius_fighter": maskChromiusFighter,
          "tir_enemy": maskTirEnemy,
          'tir_vaisseau': maskTirShip,
+         'tir_tower': maskTirTower,
          'chromius_warrior': maskChromiusWarrior,
+         'chromius_tower': maskChromiusTower,
          'missile': maskMissile}
 
 

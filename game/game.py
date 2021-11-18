@@ -1,7 +1,7 @@
 # Module game du projet R-Type
 # -*- coding: utf-8 -*-
 
-from game.enemy import Asteroide, Chromius_fighter, Chromius_warrior
+from game.enemy import Asteroide, Chromius_fighter, Chromius_warrior,Chromius_tower
 from game.graphics import *
 
 
@@ -21,12 +21,12 @@ def detect_collision(ship, l_enemy, l_tir_enemy, l_tir_vaisseau, l_missile_enemy
             if l_tir_vaisseau[i].rect.colliderect(l_enemy[j].rect):
                 # Calcul précis de la collision avec des masques
                 if masks['tir_vaisseau'].overlap(masks[str(l_enemy[j].type)], (l_enemy[j].rect.left - l_tir_vaisseau[i].rect.left, l_enemy[j].rect.top - l_tir_vaisseau[i].rect.top)) != None:
-                    if l_enemy[j].type != "asteroide":
+                    if l_enemy[j].type != "asteroide" and l_enemy[j].type != "chromius_tower":
                         index_enemy.append(l_enemy[j])
+
                     index_tir.append(l_tir_vaisseau[i])
     # Suppression des ennemis touchés et création des explosions
     for j in index_enemy:
-        Explosion(j.rect.left, j.rect.top)
         l_enemy.remove(j)
     # Suppression des tirs ayant touché des ennemis
     for j in index_tir:
@@ -44,7 +44,10 @@ def detect_collision(ship, l_enemy, l_tir_enemy, l_tir_vaisseau, l_missile_enemy
     for i in range(len(l_missile_enemy)):
         if ship.rect.colliderect(l_missile_enemy[i].rect):
             return masks['vaisseau'].overlap(masks['missile'], (l_missile_enemy[i].rect.left - ship.rect.left, l_missile_enemy[i].rect.top - ship.rect.top)) != None
-    # Collision vaisseau-décor
+    for i in range(len(l_tir_tower)):
+        if ship.rect.colliderect(l_tir_tower[i].rect):
+            return masks['vaisseau'].overlap(masks['tir_tower'], (l_tir_tower[i].rect.left - ship.rect.left, l_tir_tower[i].rect.top - ship.rect.top)) != None
+    
     return masks['vaisseau'].overlap(masks['foregrnd'], (abs_decor - ship.rect.left, foregrnd.top - ship.rect.top)) != None
 
 

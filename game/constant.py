@@ -37,6 +37,7 @@ l_tir_vaisseau = []
 l_tir_enemy = []
 l_missile_enemy = []
 l_explosion = []
+l_tir_tower = []
 
 # Taille du vaisseau et des ennemis
 scale_size = 75
@@ -95,14 +96,17 @@ delai_spawn_enemy = 120
 speed_tir_enemy = 20
 speed_missile_enemy = -30
 delai_tir_enemy = 60
-duree_tir = fps*1  # équivaut à 1 seconde
+duree_tir = fps*1  # équivaut à 1seconde
+
+# Tour
+tower_height = 300
+tower_width=150
+speed_tir_tower = 8
 
 # Initialise l'état du jeu
 state = 0
 
 # Chargement des niveaux
-
-
 def lire_niveau(id_niveau):
     fichier = open('./data/niveau_'+str(id_niveau)+'.txt', 'r')
     nom_niveau = fichier.readline()
@@ -174,7 +178,6 @@ def chargement_musique(dico):
     for nom_musique in dico:
         dico[nom_musique] = pg.mixer.Sound(dico[nom_musique])
     return dico
-
 
 # Chargement des images
 dico_image = {}

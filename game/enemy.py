@@ -24,7 +24,7 @@ class Asteroide:
         """Déplace l'astéroide selon sa vitesse horizontale et verticale"""
         self.rect = self.rect.move(self.speed_x, self.speed_y)
 
-    def shoot(self):
+    def shoot(self,ship):
         """Un asteroide ne tire pas"""
 
 
@@ -35,12 +35,13 @@ class tir_enemy:
         """Initialisation"""
         self.rect = pg.Rect(x, y, tir_size, tir_size)
         self.duree = duree_tir
-        self.angle = atan((ship.rect.centery-y) /
-                          (ship.rect.centerx-x))
+        """
+        self.angle = atan((ship.rect.centery-y)/(ship.rect.centerx-x))
         if ship.rect.centerx-x < 0:
             self.speed = -speed_tir_enemy
         else:
             self.speed = speed_tir_enemy
+        """
         l_tir_enemy.append(self)
 
     def move(self):
@@ -187,9 +188,49 @@ class Chromius_warrior():
         if self.cooldown > 0:
             self.cooldown -= 1
         else:
-            self.cooldown = delai_tir_enemy
+            self.cooldown =2*delai_tir_enemy
             missile_enemy(self.rect.left+self.size/5,
                           self.rect.top+self.size/3)
+
+
+class tir_tower:
+    def __init__(self, x, y,ship):
+        """Initialisation"""
+        self.rect = pg.Rect(x, y, tir_size, tir_size)
+        self.duree =2*duree_tir
+        self.angle = atan((ship.rect.centery-y) /
+                          (ship.rect.centerx-x))
+        if ship.rect.centerx-x < 0:
+            self.speed = -speed_tir_tower
+        else:
+            self.speed = speed_tir_tower
+        l_tir_tower.append(self)
+
+    def move(self):
+        # à changer pour que le missile suive le personnage
+        self.rect = self.rect.move(self.speed*cos(self.angle), self.speed*sin(self.angle))
+
+    def update_duree(self):
+        self.duree -= 1
+        if self.duree <= 0:
+            l_tir_tower.pop(0)
+
+class Chromius_tower:
+    def __init__(self):
+        self.type='chromius_tower'
+        self.cooldown=60
+        self.t=0
+        self.rect = pg.Rect(width,height-tower_height, tower_width,tower_height)
+        l_enemy.append(self)
+    def move(self):
+        self.rect = self.rect.move(-vitesse_decor, 0)
+    def shoot(self,ship):
+        # creer un tir à la position du vaisseau ennemi
+        if self.cooldown > 0:
+            self.cooldown -= 1
+        else:
+            self.cooldown = 60
+            tir_tower(self.rect.left+tower_width/5,self.rect.top,ship)
 
 
 def destroy_old_enemy():
