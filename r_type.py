@@ -2,14 +2,14 @@
 # -*- coding: utf-8 -*-
 from game.ship import Vaisseau, l_tir_vaisseau
 from game.game import gestion_event, detect_collision
-from game.graphics import afficher_ecran_demarrage, afficher_ecran_victoire, \
+from game.graphics import afficher_ecran_demarrage, afficher_ecran_victoire, afficher_et_update_chromius_lord, \
     afficher_niveau_en_cours, detect_control_demarrage, fenetre,\
     defilement_decor_background, detect_control_game, afficher_vaisseau, \
     afficher_et_update_enemy, afficher_et_update_tir, afficher_et_update_explosion, \
     defilement_decor_foreground, afficher_ecran_fin, initialiser_decor, l_explosion
 from game.sounds import musique_jeu, son_game_over
-from game.enemy import destroy_old_enemy, l_enemy, l_missile_enemy, \
-    l_tir_enemy, l_tir_tower
+from game.enemy import Chromius_lord, destroy_old_enemy, l_enemy, l_missile_enemy, \
+    l_tir_enemy, l_tir_tower, l_chromius_lord
 from game.constant import state_trans, compt_trans, pg, black, clock, fps, cos, \
     lire_niveau, liste_niveau, STATE, end_trans
 #from carbonai import PowerMeter
@@ -27,7 +27,7 @@ while True:
         afficher_ecran_demarrage(state_trans)
         NEW_STATE = detect_control_demarrage()
         COMPTEUR = 0
-        id_niveau = 1
+        id_niveau = 6
         if NEW_STATE == 1:
             STATE = 3
             musique_jeu()
@@ -50,6 +50,7 @@ while True:
         afficher_et_update_enemy(SHIP)
         afficher_et_update_tir()
         afficher_et_update_explosion()
+        afficher_et_update_chromius_lord(SHIP, l_tir_vaisseau)
         afficher_niveau_en_cours(id_niveau)
         destroy_old_enemy()
         abs_decor = defilement_decor_foreground()
@@ -58,6 +59,8 @@ while True:
             son_game_over()
             STATE = 2
         if COMPTEUR > 60*liste_niveau[id_niveau-1][1]:
+            STATE = 4
+        if id_niveau == 6 and len(l_chromius_lord) == 0 and COMPTEUR > 300:
             STATE = 4
         pg.display.update()
 
@@ -90,6 +93,8 @@ while True:
             l_explosion.pop()
         while len(l_tir_tower) != 0:
             l_tir_tower.pop()
+        while len(l_chromius_lord) != 0:
+            l_chromius_lord.pop()
         STATE = 1
         musique_jeu()
 

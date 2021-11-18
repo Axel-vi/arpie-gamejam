@@ -9,7 +9,8 @@ from game.constant import pg, white, width, height, image, clock, fps, BLEND_RGB
     tower_height, tower_width, l_missile_enemy, l_tir_enemy, l_tir_tower, l_tir_vaisseau, tir_size, \
     asteroid_size, scale_size, width_fg, width_bg, ratio_bg, ratio_decor, niveau1, niveau2, niveau3, niveau4, \
     niveau5, titre_victory, rect_next_level, rect_niveau1, rect_niveau2, rect_niveau3, rect_niveau4, \
-    rect_niveau5, rect_score, rect_victory, next_level, score
+    rect_niveau5, rect_score, rect_victory, next_level, score, niveau6, rect_niveau6, l_chromius_lord,\
+    size_chromius_lord
 
 # Création de la fenêtre
 fenetre = pg.display.set_mode((width, height))
@@ -318,6 +319,19 @@ def afficher_et_update_explosion():
         e.show()
 
 
+def afficher_et_update_chromius_lord(ship, l_tir_vaisseau):
+    for chromius_lord in l_chromius_lord:
+        chromius_lord.move()
+        chromius_lord.shoot(ship)
+        chromius_lord.detect_collision(l_tir_vaisseau, masks)
+        if chromius_lord.hitstun % 2 == 1:
+            afficher_image(image['chromius_lord_white'], chromius_lord.size,
+                           chromius_lord.size, chromius_lord.rect.left, chromius_lord.rect.top)
+        else:
+            afficher_image(image['chromius_lord'], chromius_lord.size,
+                           chromius_lord.size, chromius_lord.rect.left, chromius_lord.rect.top)
+
+
 # Mise a jour de l'image de decor pour la rendre transparente
 image['long_foreground_relief'] = pg.transform.scale(
     image['long_foreground_relief'].convert_alpha(), (width_fg*ratio_decor, height))
@@ -327,6 +341,7 @@ image['long_middleground_relief'] = pg.transform.scale(
     image['long_middleground_relief'].convert_alpha(), (width_fg*ratio_decor, height))
 
 # Dictionnaire des masques pour gérer les collisions
+# A CHANGER
 maskAsteroid = pg.mask.from_surface(pg.transform.scale(
     image["asteroide"].convert_alpha(), (asteroid_size, asteroid_size)))
 maskShip = pg.mask.from_surface(pg.transform.scale(
@@ -346,6 +361,8 @@ maskChromiusTower = pg.mask.from_surface(pg.transform.scale(
     image["chromius_tower"].convert_alpha(), (tower_width, tower_height)))
 maskTirTower = pg.mask.from_surface(pg.transform.scale(
     image["tir_tower"].convert_alpha(), (tir_size, tir_size)))
+maskChromiusLord = pg.mask.from_surface(pg.transform.scale(
+    image["chromius_lord"].convert_alpha(), (size_chromius_lord, size_chromius_lord)))
 masks = {"asteroide": maskAsteroid,
          "vaisseau": maskShip,
          "foregrnd": maskForegrnd,
@@ -355,7 +372,8 @@ masks = {"asteroide": maskAsteroid,
          'tir_tower': maskTirTower,
          'chromius_warrior': maskChromiusWarrior,
          'chromius_tower': maskChromiusTower,
-         'missile': maskMissile}
+         'missile': maskMissile,
+         'chromius_lord': maskChromiusLord}
 
 
 def afficher_niveau_en_cours(id_niveau):
@@ -369,6 +387,8 @@ def afficher_niveau_en_cours(id_niveau):
         fenetre.blit(niveau4, rect_niveau4)
     elif id_niveau == 5:
         fenetre.blit(niveau5, rect_niveau5)
+    elif id_niveau == 6:
+        fenetre.blit(niveau6, rect_niveau6)
 
 
 def afficher_ecran_victoire():

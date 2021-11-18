@@ -38,12 +38,14 @@ l_tir_enemy = []
 l_missile_enemy = []
 l_explosion = []
 l_tir_tower = []
+l_chromius_lord = []
 
 # Taille du vaisseau et des ennemis
 scale_size = 75
 asteroid_size = 90
 tir_size = 35
 speed_chromius_fighter = 10
+size_chromius_lord = 300
 
 # Taille générique des images utilisées:
 width_img = 32
@@ -161,12 +163,14 @@ def lire_niveau(id_niveau):
     return [nom_niveau, distance_totale, liste_event]
 
 
+# A CHANGER
 niveau_1 = lire_niveau(1)
 niveau_2 = lire_niveau(2)
 niveau_3 = lire_niveau(3)
 niveau_4 = lire_niveau(4)
 niveau_5 = lire_niveau(5)
-liste_niveau = [niveau_1, niveau_2, niveau_3, niveau_4, niveau_5]
+niveau_6 = lire_niveau(6)
+liste_niveau = [niveau_1, niveau_2, niveau_3, niveau_4, niveau_5, niveau_6]
 # Initialise l'état du jeu
 state = 0
 
@@ -242,7 +246,7 @@ bruitages = chargement_musique(dico_bruitages)
 spriteSheetExplosion = pg.image.load("resources/images/explosion_ss.png")
 
 # Chargement de l'affichage en jeu
-
+# A CHANGER
 niveau1 = police_press_start.render("Niveau 1", True, couleur_affichage_niveau)
 rect_niveau1 = niveau1.get_rect()
 niveau2 = police_press_start.render("Niveau 2", True, couleur_affichage_niveau)
@@ -253,3 +257,5 @@ niveau4 = police_press_start.render("Niveau 4", True, couleur_affichage_niveau)
 rect_niveau4 = niveau4.get_rect()
 niveau5 = police_press_start.render("Niveau 5", True, couleur_affichage_niveau)
 rect_niveau5 = niveau5.get_rect()
+niveau6 = police_press_start.render("Niveau 6", True, couleur_affichage_niveau)
+rect_niveau6 = niveau6.get_rect()
