@@ -1,0 +1,5 @@
+
+Le seul module utilisé est pygame.
+Documentation pygame:
+    https://www.pygame.org/docs/
+    Tutoriel basique : https://pub.phyks.me/sdz/sdz/interface-graphique-pygame-pour-python.html
