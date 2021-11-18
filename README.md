@@ -39,5 +39,5 @@ Les différentes étapes du projet sont disponibles dans le fichier TO_DO.txt <b
     -Le fichier sound.py contient les fonctions de son et de bruitages.
 -Le dossier data contient les éléments qui sont amenés à être stockés par le joueur (comme des scores/highscores).
 -Le dossier ressources contient les éléments annexes nécéssaires au jeu (images,niveaux,sons).
--Le fichier test.py contient les tests de différentes fonction du coverage.
+-Le fichier test_arpie.py contient les tests de différentes fonction du coverage.
 -Le fichier RType.py est le fichier principal qui permet de lancer le jeu et de gérer les différents états (écran d'accueil,jeu,écran de fin).
