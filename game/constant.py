@@ -48,8 +48,8 @@ tir_size = 35
 speed_chromius_fighter = 10
 
 # Volume des sons
-volume_musique = 0.2
-volume_bruitage = 0.5
+volume_musique = 0.7
+volume_bruitage = 0.3
 
 # Tirs
 l_tir_vaisseau = []
@@ -71,6 +71,14 @@ sq = sqrt(2)
 dico_image = {}
 for file in listdir("resources/images/"):
     dico_image[file[:-4]] = "resources/images/" + file
+
+dico_musique = {}
+for file in listdir("resources/sounds/musics/"):
+    dico_musique[file[:-4]] = "resources/sounds/musics/" + file
+
+dico_bruitages = {}
+for file in listdir("resources/sounds/sound_effects/"):
+    dico_bruitages[file[:-4]] = "resources/sounds/sound_effects/" + file
 
 # Chargement de la police du titre
 police_titre = pg.font.Font("resources/font/space_age.ttf", 150)
@@ -136,7 +144,6 @@ def chargement_image(dico):
         dico[nom_image] = pg.image.load(dico[nom_image])
     return dico
 
-
 def chargement_musique(dico):
     """Fonction pour charger toutes les musiques d'un coup.
     Prend en entrée un dictionnaire avec le nom de chaque musique et sa position.
@@ -149,6 +156,8 @@ def chargement_musique(dico):
 
 # Chargement des images
 image = chargement_image(dico_image)
+musique = chargement_musique(dico_musique)
+bruitages = chargement_musique(dico_bruitages)
 
 
 # Taille générique des images utilisées:

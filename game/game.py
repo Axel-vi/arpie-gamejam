@@ -25,6 +25,7 @@ def detect_collision(ship, l_enemy, l_tir_enemy, l_tir_vaisseau, l_missile_enemy
 
     for j in index_enemy:
         l_enemy.remove(j)
+        explosion()
     for j in index_tir:
         if j in l_tir_vaisseau:
             l_tir_vaisseau.remove(j)
@@ -93,17 +94,6 @@ def pattern(id_pattern, t, starting_height=0):
     else:
         raise NotImplementedError
 
-<<<<<<< HEAD
-def gestion_event(compteur, id_niveau=0): 
-    liste_event=liste_niveau[id_niveau][2] 
-    if len(liste_event) > 0 : 
-        if compteur > 60*liste_event[0][0] : 
-            Asteroide() 
-            liste_event.pop(0) 
-    else : 
-        you_won = True
-        musique_de_victoire()
-=======
 
 def gestion_event(niveau, compteur):
     liste_event = niveau
@@ -120,4 +110,3 @@ def gestion_event(niveau, compteur):
                 liste_event.pop(0)
     else:
         you_won = True
->>>>>>> 8b05faf3b4c45738eb8853a890b3dbefb0253bf1

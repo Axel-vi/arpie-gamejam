@@ -3,7 +3,7 @@
 
 # Imports spécifiques
 from game.graphics import afficher_image
-
+from game.sounds import *
 
 if __name__ == "__main__":
     from constant import *
@@ -78,9 +78,11 @@ class Vaisseau:
             if touche:
                 tir_vaisseau(self.rect.left+self.size/2,
                              self.rect.top+self.size/2)
+                tir_laser()
         # cooldown de 30 frames
         elif touche and delai_tir - l_tir_vaisseau[-1].duree >= 0:
             tir_vaisseau(self.rect.left+self.size/2, self.rect.top+self.size/2)
+            tir_laser()
 
 
 # Initialisation du vaisseau pour la premiere partie
