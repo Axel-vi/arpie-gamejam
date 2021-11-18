@@ -1,4 +1,4 @@
-Niveau 2: 
+Niveau 4: 
 52
 1.2;chromius_fighter;160:3
 2;asteroide;
@@ -44,22 +44,8 @@ Niveau 2:
 42;asteroide;
 43.2;chromius_fighter;190:4
 45;chromius_warrior;430:13
-46.2;asteroide;
-46.3;asteroide;
-46.4;asteroide;
-46.5;asteroide;
-46.6;asteroide;
-46.7;asteroide;
-46.8;asteroide;
-46.9;asteroide;
-47;asteroide;
-47.1;asteroide;
-47.2;asteroide;
-47.3;asteroide;
-47.4;asteroide;
-47.5;asteroide;
-47.6;asteroide;
-47.7;asteroide;
-47.8;asteroide;
-47.9;asteroide;
-
+47;chromius_fighter;100:5
+47;chromius_fighter;200:5
+47;chromius_fighter;300:5
+47;chromius_fighter;400:5
+47;chromius_fighter;500:5

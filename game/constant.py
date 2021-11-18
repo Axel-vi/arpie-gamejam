@@ -134,10 +134,11 @@ def lire_niveau(id_niveau):
 niveau_1 = lire_niveau(1)
 niveau_2 = lire_niveau(2)
 niveau_3 = lire_niveau(3)
-liste_niveau = [niveau_1, niveau_2, niveau_3]
+niveau_4 = lire_niveau(4)
+niveau_5 = lire_niveau(5)
+liste_niveau = [niveau_1, niveau_2, niveau_3, niveau_4, niveau_5]
 # Initialise l'état du jeu
 state = 0
-
 
 def chargement_image(dico):
     """Fonction pour charger toutes les images d'un coup.
