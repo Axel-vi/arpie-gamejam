@@ -75,6 +75,7 @@ x_bord_bg = (width_bg-bord_fenetre_bg)*ratio_bg
 # Déplacement à chaque avancée du décor (en unité d'abscisse pygame)
 vitesse_decor = 5
 vitesse_bg = 1
+vitesse_mg = 3
 
 # Nombre d'étoiles dans l'écran de démarrage
 nb_star = 100
@@ -100,13 +101,15 @@ duree_tir = fps*1  # équivaut à 1seconde
 
 # Tour
 tower_height = 300
-tower_width=150
+tower_width = 150
 speed_tir_tower = 8
 
 # Initialise l'état du jeu
 state = 0
 
 # Chargement des niveaux
+
+
 def lire_niveau(id_niveau):
     fichier = open('./data/niveau_'+str(id_niveau)+'.txt', 'r')
     nom_niveau = fichier.readline()
@@ -178,6 +181,7 @@ def chargement_musique(dico):
     for nom_musique in dico:
         dico[nom_musique] = pg.mixer.Sound(dico[nom_musique])
     return dico
+
 
 # Chargement des images
 dico_image = {}
