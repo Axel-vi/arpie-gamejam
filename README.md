@@ -20,7 +20,7 @@ Les différentes étapes du projet sont disponibles dans le fichier TO_DO.txt <b
         Pour lancer le jeu: -Exécutez le script python RType.py
 
         Pour jouer: - Un écran de démarrage apparait, pour jouer presser la barre espace.
-                    - Déplacer le vaisseau en utilisant les flèches directionnelles ( ↑, ↓, ← ou →) ou les touches "z,,q,s,d".
+                    - Déplacer le vaisseau en utilisant les flèches directionnelles ( ↑, ↓, ← ou →) ou les touches "z,q,s,d".
                     - Vous pouvez tirer en appuyant sur la barre espace.
                     - Pour survivre : évitez les collisions avec les éléments du décor et les ennemis (autres vaisseaux,astéroides,tours) et évitez les tirs des ennemis. Vous pouvez détruire les vaisseaux ennemis avec vos tirs mais pas les astéroides et éléments du décor.
                     -Si vous survivez assez longtemps vous passez au niveau suivant.
@@ -37,5 +37,5 @@ Les différentes étapes du projet sont disponibles dans le fichier TO_DO.txt <b
     -Le fichier sound.py contient les fonctions de son et de bruitages.
 -Le dossier data contient les éléments qui sont amenés à être stockés par le joueur (comme des scores/highscores).
 -Le dossier ressources contient les éléments annexes nécéssaires au jeu (images,niveaux,sons).
--Le dossier test contient des fichiers python qui peuvent d'autres fonctions python.
+-Le fichier test.py contient des fichiers python qui peuvent d'autres fonctions python.
 -Le fichier RType.py est le fichier principal qui permet de lancer le jeu et de gérer les différents états (écran d'accueil,jeu,écran de fin).
