@@ -1,7 +1,7 @@
 # Module graphics du projet R-Type
 # -*- coding: utf-8 -*-
 
-from game.constant import *
+from game.constant import pg, white, width, height, image, clock, fps, BLEND_RGBA_MULT, QUIT, KEYDOWN, K_ESCAPE, K_UP, K_DOWN, K_LEFT, K_RIGHT, K_z, K_q, K_d, K_s, K_SPACE, random, randint, nb_star, starfield, black, titre_ecran_demarrage, press_start, rect_press_start, rect_titre, rect_crochets, rect_game_over, rect_play_again, x_bord_bg, vitesse_decor, l_enemy, x_bord_decor, vitesse_bg, vitesse_mg
 
 # Création de la fenêtre
 fenetre = pg.display.set_mode((width, height))
@@ -272,10 +272,12 @@ def afficher_et_update_enemy(ship):
     for enemy in l_enemy:
         enemy.move()
         enemy.shoot(ship)
-        if enemy.type=='chromius_tower':
-            afficher_image(image[enemy.type],tower_width,tower_height,enemy.rect.left, enemy.rect.top)
+        if enemy.type == 'chromius_tower':
+            afficher_image(image[enemy.type], tower_width,
+                           tower_height, enemy.rect.left, enemy.rect.top)
         else:
-            afficher_image(image[enemy.type], enemy.size, enemy.size,enemy.rect.left, enemy.rect.top)
+            afficher_image(image[enemy.type], enemy.size,
+                           enemy.size, enemy.rect.left, enemy.rect.top)
 
 
 def afficher_et_update_tir():

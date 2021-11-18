@@ -92,7 +92,7 @@ volume_bruitage = 0.3
 # Tirs
 speed_tir = 30
 delai_tir = 45
-delai_spawn_enemy = 120
+#delai_spawn_enemy = 120
 speed_tir_enemy = 20
 speed_missile_enemy = -30
 delai_tir_enemy = 60

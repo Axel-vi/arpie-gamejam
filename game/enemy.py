@@ -1,8 +1,9 @@
 # Module enemy du projet R-Type
 # -*- coding: utf-8 -*-
 
-from game.constant import *
-from game.ship import ship
+from game.constant import l_tir_tower, l_enemy, l_missile_enemy, randint, play_height, asteroid_size,  \
+    width, height, pg, sqrt, tir_size, duree_tir, l_tir_enemy, speed_missile_enemy, speed_tir_enemy, \
+    speed_tir_tower, sq, sin, pi, scale_size, delai_tir_enemy, cos, atan, vitesse_decor, tower_height, tower_width
 
 
 class Asteroide:

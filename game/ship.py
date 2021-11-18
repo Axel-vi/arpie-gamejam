@@ -1,14 +1,8 @@
 # Module ship du projet R-Type
 # -*- coding: utf-8 -*-
 
-# Imports spécifiques
-from game.graphics import afficher_image
 from game.sounds import *
-
-if __name__ == "__main__":
-    from constant import *
-else:
-    from game.constant import *
+from game.constant import *
 
 
 class Vaisseau:
