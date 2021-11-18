@@ -15,6 +15,7 @@ while True:
         id_niveau = 1
         if new_state == 1:
             state = 3
+            musique_jeu()
         pg.display.update()
         if compt_trans % 2 == 0:
             state_trans += 1
@@ -37,6 +38,7 @@ while True:
         destroy_old_enemy()
         abs_decor = defilement_decor_foreground()
         if detect_collision(ship, l_enemy, l_tir_enemy, l_tir_vaisseau, l_missile_enemy, abs_decor):
+            son_game_over()
             state = 2
         pg.display.update()
 
@@ -70,3 +72,4 @@ while True:
         while len(l_tir_tower) != 0:
             l_tir_tower.pop()
         state = 1
+        musique_jeu()
