@@ -1,7 +1,13 @@
-# Module graphics du projet R-Type
+"Module graphics du projet R-Type"
 # -*- coding: utf-8 -*-
 
-from game.constant import pg, white, width, height, image, clock, fps, BLEND_RGBA_MULT, QUIT, KEYDOWN, K_ESCAPE, K_UP, K_DOWN, K_LEFT, K_RIGHT, K_z, K_q, K_d, K_s, K_SPACE, random, randint, nb_star, starfield, black, titre_ecran_demarrage, press_start, rect_press_start, rect_titre, rect_crochets, rect_game_over, rect_play_again, x_bord_bg, vitesse_decor, l_enemy, x_bord_decor, vitesse_bg, vitesse_mg
+from game.constant import pg, white, width, height, image, clock, fps, BLEND_RGBA_MULT, QUIT, \
+    KEYDOWN, K_ESCAPE, K_UP, K_DOWN, K_LEFT, K_RIGHT, K_z, K_q, K_d, K_s, K_SPACE, random, randint, \
+    nb_star, starfield, black, titre_ecran_demarrage, press_start, rect_press_start, rect_titre, \
+    rect_crochets, rect_game_over, rect_play_again, x_bord_bg, vitesse_decor, l_enemy, x_bord_decor, \
+    vitesse_bg, vitesse_mg, spriteSheetExplosion, l_explosion, titre_game_over, play_again, crochets, \
+    tower_height, tower_width, l_missile_enemy, l_tir_enemy, l_tir_tower, l_tir_vaisseau, tir_size, \
+    asteroid_size, scale_size, width_fg, width_bg, ratio_bg, ratio_decor
 
 # Création de la fenêtre
 fenetre = pg.display.set_mode((width, height))
@@ -285,22 +291,22 @@ def afficher_et_update_tir():
     for l in l_tir_vaisseau:
         l.move()
         l.update_duree()
-        afficher_image(dico_image['tir_vaisseau'],
+        afficher_image(image['tir_vaisseau'],
                        tir_size, tir_size, l.rect.left, l.rect.top)
     for l in l_tir_enemy:
         l.move()
         l.update_duree()
-        afficher_image(dico_image['tir_ennemi'],
+        afficher_image(image['tir_ennemi'],
                        tir_size, tir_size, l.rect.left, l.rect.top)
     for l in l_missile_enemy:
         l.move()
         l.update_duree()
-        afficher_image(dico_image["missile_ennemi"],
+        afficher_image(image["missile_ennemi"],
                        tir_size, tir_size, l.rect.left, l.rect.top)
     for l in l_tir_tower:
         l.move()
         l.update_duree()
-        afficher_image(dico_image["tir_tower"],
+        afficher_image(image["tir_tower"],
                        tir_size, tir_size, l.rect.left, l.rect.top)
 
 

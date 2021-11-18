@@ -1,8 +1,9 @@
-# Module ship du projet R-Type
+"Module ship du projet R-Type"
 # -*- coding: utf-8 -*-
 
-from game.sounds import *
-from game.constant import *
+from game.sounds import tir_laser
+from game.constant import scale_size, width, height, pg, sq, l_tir_vaisseau, delai_tir, duree_tir, \
+    speed_tir, tir_size
 
 
 class Vaisseau:

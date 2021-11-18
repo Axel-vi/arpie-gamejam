@@ -1,12 +1,12 @@
-# Module game du projet R-Type
+"Module game du projet R-Type"
 # -*- coding: utf-8 -*-
 
 from game.enemy import Asteroide, Chromius_fighter, Chromius_warrior, Chromius_tower
-from game.graphics import *
-from game.sounds import *
+from game.graphics import masks, Explosion, foregrnd
+from game.sounds import explosion
 
 
-def detect_collision(ship, l_enemy, l_tir_enemy, l_tir_vaisseau, l_missile_enemy, abs_decor):
+def detect_collision(ship, l_enemy, l_tir_enemy, l_tir_vaisseau, l_missile_enemy, l_tir_tower, abs_decor):
     """ Cette fonction detecte les collisions entre des objets. Elle prend en argument :
     - ship qui est un objet de la classe "Vaisseau" (doit avoir un attribut '.rect' !)
     - l_enemy qui est une liste d'ennemis : objets de la classe "Asteroide" ou "Chromius fighter" (doit avoir un attribut '.rect' !)
@@ -21,7 +21,8 @@ def detect_collision(ship, l_enemy, l_tir_enemy, l_tir_vaisseau, l_missile_enemy
             # Calcul rapide de la collision avec des rectangles
             if l_tir_vaisseau[i].rect.colliderect(l_enemy[j].rect):
                 # Calcul précis de la collision avec des masques
-                if masks['tir_vaisseau'].overlap(masks[str(l_enemy[j].type)], (l_enemy[j].rect.left - l_tir_vaisseau[i].rect.left, l_enemy[j].rect.top - l_tir_vaisseau[i].rect.top)) != None:
+                if masks['tir_vaisseau'].overlap(masks[str(l_enemy[j].type)],
+                                                 (l_enemy[j].rect.left - l_tir_vaisseau[i].rect.left, l_enemy[j].rect.top - l_tir_vaisseau[i].rect.top)) != None:
                     if l_enemy[j].type != "asteroide" and l_enemy[j].type != "chromius_tower":
                         index_enemy.append(l_enemy[j])
 

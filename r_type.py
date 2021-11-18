@@ -1,14 +1,14 @@
 "Projet R-Type"
 # -*- coding: utf-8 -*-
-from game.ship import Vaisseau
+from game.ship import Vaisseau, l_tir_vaisseau
 from game.game import gestion_event, detect_collision
 from game.graphics import afficher_ecran_demarrage, detect_control_demarrage, fenetre,\
     defilement_decor_background, detect_control_game, afficher_vaisseau, \
     afficher_et_update_enemy, afficher_et_update_tir, afficher_et_update_explosion, \
-    defilement_decor_foreground, afficher_ecran_fin, initialiser_decor
+    defilement_decor_foreground, afficher_ecran_fin, initialiser_decor, l_explosion
 from game.sounds import musique_jeu, son_game_over
-from game.enemy import destroy_old_enemy, l_enemy, l_explosion, l_missile_enemy, \
-    l_tir_enemy, l_tir_vaisseau, l_tir_tower
+from game.enemy import destroy_old_enemy, l_enemy, l_missile_enemy, \
+    l_tir_enemy, l_tir_tower
 from game.constant import state_trans, compt_trans, pg, black, clock, fps, cos, \
     lire_niveau, liste_niveau, STATE, end_trans
 #from carbonai import PowerMeter
@@ -52,7 +52,7 @@ while True:
         destroy_old_enemy()
         abs_decor = defilement_decor_foreground()
         if detect_collision(SHIP, l_enemy, l_tir_enemy,
-                            l_tir_vaisseau, l_missile_enemy, abs_decor):
+                            l_tir_vaisseau, l_missile_enemy, l_tir_tower, abs_decor):
             son_game_over()
             STATE = 2
         pg.display.update()
