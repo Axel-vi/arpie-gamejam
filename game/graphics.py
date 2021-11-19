@@ -342,7 +342,7 @@ image['long_middleground_relief'] = pg.transform.scale(
     image['long_middleground_relief'].convert_alpha(), (width_fg*ratio_decor, height))
 
 # Dictionnaire des masques pour gérer les collisions
-# A CHANGER
+
 maskAsteroid = pg.mask.from_surface(pg.transform.scale(
     image["asteroide"].convert_alpha(), (asteroid_size, asteroid_size)))
 maskShip = pg.mask.from_surface(pg.transform.scale(
