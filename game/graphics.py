@@ -7,9 +7,8 @@ from game.constant import pg, white, width, height, image, clock, fps, BLEND_RGB
     rect_crochets, rect_game_over, rect_play_again, x_bord_bg, vitesse_decor, l_enemy, x_bord_decor, \
     vitesse_bg, vitesse_mg, spriteSheetExplosion, l_explosion, titre_game_over, play_again, crochets, \
     tower_height, tower_width, l_missile_enemy, l_tir_enemy, l_tir_tower, l_tir_vaisseau, tir_size, \
-    asteroid_size, scale_size, width_fg, width_bg, ratio_bg, ratio_decor, niveau1, niveau2, niveau3, niveau4, \
-    niveau5, titre_victory, rect_next_level, rect_niveau1, rect_niveau2, rect_niveau3, rect_niveau4, \
-    rect_niveau5, rect_score, rect_victory, next_level, score, niveau6, rect_niveau6, l_chromius_lord,\
+    asteroid_size, scale_size, width_fg, width_bg, ratio_bg, ratio_decor, l_aff_niveau, l_rect_niveau, titre_victory, rect_next_level, \
+    rect_score, rect_victory, next_level, score, l_chromius_lord,\
     size_chromius_lord
 
 # Création de la fenêtre
@@ -377,18 +376,7 @@ masks = {"asteroide": maskAsteroid,
 
 
 def afficher_niveau_en_cours(id_niveau):
-    if id_niveau == 1:
-        fenetre.blit(niveau1, rect_niveau1)
-    elif id_niveau == 2:
-        fenetre.blit(niveau2, rect_niveau2)
-    elif id_niveau == 3:
-        fenetre.blit(niveau3, rect_niveau3)
-    elif id_niveau == 4:
-        fenetre.blit(niveau4, rect_niveau4)
-    elif id_niveau == 5:
-        fenetre.blit(niveau5, rect_niveau5)
-    elif id_niveau == 6:
-        fenetre.blit(niveau6, rect_niveau6)
+    fenetre.blit(l_aff_niveau[id_niveau-1], l_rect_niveau[id_niveau-1])
 
 
 def afficher_ecran_victoire():

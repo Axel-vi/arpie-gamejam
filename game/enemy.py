@@ -272,12 +272,16 @@ class Chromius_lord:
         self.amplitude = 200
         self.pv = 100
         self.hitstun = 0
-        self.l_pos = [(self.rect.centerx - self.size/4, self.rect.centery - self.size*6/8),
-                      (self.rect.centerx - self.size*6/8,
-                       self.rect.centery - self.size/4),
-                      (self.rect.centerx - self.size*6/8,
-                       self.rect.centery + self.size/8),
-                      (self.rect.centerx - self.size/4, self.rect.centery - self.size*6/8)]
+        self.offsetx1 = self.size/5
+        self.offsetx2 = 0
+        self.offsety1 = self.size/4
+        self.offsety2 = self.size/8
+        self.l_pos = [(self.rect.centerx - self.offsetx1, self.rect.centery - self.offsety1),
+                      (self.rect.centerx - self.offsetx2,
+                       self.rect.centery - self.offsety2),
+                      (self.rect.centerx - self.offsetx1,
+                       self.rect.centery + self.offsety1),
+                      (self.rect.centerx - self.offsetx2, self.rect.centery + self.offsety2)]
         l_chromius_lord.append(self)
 
     def move(self):
@@ -287,14 +291,14 @@ class Chromius_lord:
         x = width - 2*self.t
         if x < width//2:
             x = width // 2
-        self.rect = pg.Rect(x, height//2 - self.size +
+        self.rect = pg.Rect(x, height//2 - self.size//2 +
                             cos(self.t/60)*self.amplitude, self.size, self.size)
-        self.l_pos = [(self.rect.centerx - self.size/4, self.rect.centery - self.size*6/8),
-                      (self.rect.centerx - self.size*6/8,
-                       self.rect.centery - self.size/4),
-                      (self.rect.centerx - self.size*6/8,
-                       self.rect.centery + self.size/8),
-                      (self.rect.centerx - self.size/4, self.rect.centery - self.size*6/8)]
+        self.l_pos = [(self.rect.centerx - self.offsetx1, self.rect.centery - self.offsety1),
+                      (self.rect.centerx - self.offsetx2,
+                       self.rect.centery - self.offsety2),
+                      (self.rect.centerx - self.offsetx1,
+                       self.rect.centery + self.offsety1),
+                      (self.rect.centerx - self.offsetx2, self.rect.centery + self.offsety2)]
 
     def shoot(self, ship):
         for i in range(len(self.l_cooldown)):
