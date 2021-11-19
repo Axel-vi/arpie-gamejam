@@ -162,7 +162,7 @@ def test_shoot_chromius_warrior():
 def test_tir_tower():
     self = tir_tower(3, 4, ship)
     assert self.rect == pg.Rect(3, 4, tir_size, tir_size)
-    assert self.duree == duree_tir*2
+    assert self.duree == duree_tir*3
     assert self.angle == atan((ship.rect.centery-4) / (ship.rect.centerx-3))
 
     if ship.rect.centerx-3 < 0:

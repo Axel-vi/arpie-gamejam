@@ -164,13 +164,9 @@ def lire_niveau(id_niveau):
 
 
 # A CHANGER
-niveau_1 = lire_niveau(1)
-niveau_2 = lire_niveau(2)
-niveau_3 = lire_niveau(3)
-niveau_4 = lire_niveau(4)
-niveau_5 = lire_niveau(5)
-niveau_6 = lire_niveau(6)
-liste_niveau = [niveau_1, niveau_2, niveau_3, niveau_4, niveau_5, niveau_6]
+liste_niveau = []
+for i in range(1, 7):
+    liste_niveau.append(lire_niveau(i))
 # Initialise l'état du jeu
 state = 0
 
@@ -246,16 +242,9 @@ bruitages = chargement_musique(dico_bruitages)
 spriteSheetExplosion = pg.image.load("resources/images/explosion_ss.png")
 
 # Chargement de l'affichage en jeu
-# A CHANGER
-niveau1 = police_press_start.render("Niveau 1", True, couleur_affichage_niveau)
-rect_niveau1 = niveau1.get_rect()
-niveau2 = police_press_start.render("Niveau 2", True, couleur_affichage_niveau)
-rect_niveau2 = niveau2.get_rect()
-niveau3 = police_press_start.render("Niveau 3", True, couleur_affichage_niveau)
-rect_niveau3 = niveau3.get_rect()
-niveau4 = police_press_start.render("Niveau 4", True, couleur_affichage_niveau)
-rect_niveau4 = niveau4.get_rect()
-niveau5 = police_press_start.render("Niveau 5", True, couleur_affichage_niveau)
-rect_niveau5 = niveau5.get_rect()
-niveau6 = police_press_start.render("Niveau 6", True, couleur_affichage_niveau)
-rect_niveau6 = niveau6.get_rect()
+l_aff_niveau = []
+l_rect_niveau = []
+for i in range(1, 7):
+    l_aff_niveau.append(police_press_start.render(
+        "Niveau " + str(i), True, couleur_affichage_niveau))
+    l_rect_niveau.append(l_aff_niveau[i-1].get_rect())
