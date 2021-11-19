@@ -422,3 +422,5 @@ class Explosion(pg.sprite.Sprite):
     def show(self):
         afficher_image(self.image, scale_size, scale_size,
                        self.rect.left, self.rect.top)
+
+

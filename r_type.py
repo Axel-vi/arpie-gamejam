@@ -26,8 +26,7 @@ while True:
         # Ecran de demarrage qui affiche le titre et le bouton play (Appuyer sur espace)
         afficher_ecran_demarrage(state_trans)
         NEW_STATE = detect_control_demarrage()
-        COMPTEUR = 0
-        id_niveau = 6
+        id_niveau = 5
         if NEW_STATE == 1:
             STATE = 3
             musique_jeu()
@@ -99,9 +98,13 @@ while True:
         musique_jeu()
 
     while STATE == 4:
+        # Etat d'écran de victoire pour passer au prochain niveau
         afficher_ecran_victoire()
         new_state = detect_control_demarrage()
         if new_state == 1:
             id_niveau += 1
-            STATE = 3
+            if id_niveau == 7 :
+                STATE =0
+            else :
+                STATE = 3
         pg.display.update()

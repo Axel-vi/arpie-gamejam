@@ -144,6 +144,9 @@ STATE = 0
 
 
 def lire_niveau(id_niveau):
+    """Tous les niveaux sont écrits avec une première ligne avec le niveau, 
+    une deuxième ligne avec le temps total du niveau et la suite des lignes 
+    est la succession des évenements avec son type et sa date"""
     fichier = open('./data/niveau_'+str(id_niveau)+'.txt', 'r')
     nom_niveau = fichier.readline()
     distance_totale = int(fichier.readline().replace("\n", ""))
@@ -249,13 +252,19 @@ spriteSheetExplosion = pg.image.load("resources/images/explosion_ss.png")
 # A CHANGER
 niveau1 = police_press_start.render("Niveau 1", True, couleur_affichage_niveau)
 rect_niveau1 = niveau1.get_rect()
+rect_niveau1.center = (width/8, height/12)
 niveau2 = police_press_start.render("Niveau 2", True, couleur_affichage_niveau)
 rect_niveau2 = niveau2.get_rect()
+rect_niveau2.center = (width/8, height/12)
 niveau3 = police_press_start.render("Niveau 3", True, couleur_affichage_niveau)
 rect_niveau3 = niveau3.get_rect()
+rect_niveau3.center = (width/8, height/12)
 niveau4 = police_press_start.render("Niveau 4", True, couleur_affichage_niveau)
 rect_niveau4 = niveau4.get_rect()
+rect_niveau4.center = (width/8, height/12)
 niveau5 = police_press_start.render("Niveau 5", True, couleur_affichage_niveau)
 rect_niveau5 = niveau5.get_rect()
+rect_niveau5.center = (width/8, height/12)
 niveau6 = police_press_start.render("Niveau 6", True, couleur_affichage_niveau)
 rect_niveau6 = niveau6.get_rect()
+rect_niveau6.center = (width/8, height/12)
