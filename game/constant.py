@@ -147,7 +147,7 @@ def lire_niveau(id_niveau):
     """Tous les niveaux sont écrits avec une première ligne avec le niveau, 
     une deuxième ligne avec le temps total du niveau et la suite des lignes 
     est la succession des évenements avec son type et sa date"""
-    fichier = open('./data/niveau_'+str(id_niveau)+'.txt', 'r')
+    fichier = open('./resources/levels/niveau_'+str(id_niveau)+'.txt', 'r')
     nom_niveau = fichier.readline()
     distance_totale = int(fichier.readline().replace("\n", ""))
     liste_event = []
