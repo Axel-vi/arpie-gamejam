@@ -262,7 +262,10 @@ def destroy_old_enemy():
 
 
 class Chromius_lord:
+    """Classe pour generer le boss : le Chromius Lord"""
+
     def __init__(self):
+        """Initialisation"""
         self.size = size_chromius_lord
         self.rect = pg.Rect(width, height//2 - self.size, self.size, self.size)
         self.type = "chromius_lord"
@@ -285,6 +288,7 @@ class Chromius_lord:
         l_chromius_lord.append(self)
 
     def move(self):
+        """Deplace le Chromius Lord"""
         self.t += 1
         if self.hitstun > 0:
             self.hitstun -= 1
@@ -301,6 +305,7 @@ class Chromius_lord:
                       (self.rect.centerx - self.offsetx2, self.rect.centery + self.offsety2)]
 
     def shoot(self, ship):
+        """Fait tirer le Chromius Lord"""
         for i in range(len(self.l_cooldown)):
             self.l_cooldown[i] -= 1
             if self.l_cooldown[i] < 1:
@@ -308,6 +313,7 @@ class Chromius_lord:
                 tir_tower(self.l_pos[i][0], self.l_pos[i][1], ship)
 
     def detect_collision(self, l_tir_vaisseau, masks):
+        """Detecte les collisions, met a jour la vie du boss"""
         to_remove = []
         for tir in l_tir_vaisseau:
             if masks["tir_vaisseau"].overlap(masks["chromius_lord"], (self.rect.left - tir.rect.left, self.rect.top - tir.rect.top)) != None:

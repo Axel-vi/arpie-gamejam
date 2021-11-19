@@ -11,21 +11,26 @@ canal_son.set_volume(volume_bruitage)
 
 
 def son_game_over():
+    """Fonction pour jouer le son de 'game over'"""
     canal_musique.stop()
     canal_musique.play(dico_musique['son_game_over'])
 
 
 def musique_victoire():
+    """Fonction pour jouer le son de victoire"""
     canal_musique.play(dico_musique['musique_victoire'])
 
 
 def tir_laser():
+    """Fonction pour jouer le bruitage de tir"""
     canal_son.play(dico_bruitages['tir_laser'])
 
 
 def explosion():
+    """Fonction pour jouer le bruitage d'explosion"""
     canal_son.play(dico_bruitages['explosion'])
 
 
 def musique_jeu():
+    """Fonction pour jouer la musique de fond en cours de partie"""
     canal_musique.play(dico_musique['musique_jeu'], 1)
