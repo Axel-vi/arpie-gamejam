@@ -144,6 +144,9 @@ STATE = 0
 
 
 def lire_niveau(id_niveau):
+    """Tous les niveaux sont écrits avec une première ligne avec le niveau, 
+    une deuxième ligne avec le temps total du niveau et la suite des lignes 
+    est la succession des évenements avec son type et sa date"""
     fichier = open('./data/niveau_'+str(id_niveau)+'.txt', 'r')
     nom_niveau = fichier.readline()
     distance_totale = int(fichier.readline().replace("\n", ""))
@@ -247,4 +250,6 @@ l_rect_niveau = []
 for i in range(1, 7):
     l_aff_niveau.append(police_press_start.render(
         "Niveau " + str(i), True, couleur_affichage_niveau))
-    l_rect_niveau.append(l_aff_niveau[i-1].get_rect())
+    rect = l_aff_niveau[i-1].get_rect()
+    rect.center = (width/8, height/12)
+    l_rect_niveau.append(rect)

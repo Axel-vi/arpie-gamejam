@@ -58,7 +58,7 @@ def gestion_event(niveau, compteur):
     """Fonction qui lance les apparitions d'ennemis programmées dans les fichiers niveau"""
     liste_event = niveau
     if len(liste_event) > 0:
-        if compteur > 60*liste_event[0][0]:
+        if compteur > 60*liste_event[0][0]: 
             if liste_event[0][1] == 'asteroide':
                 Asteroide()
                 liste_event.pop(0)
