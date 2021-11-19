@@ -38,12 +38,14 @@ l_tir_enemy = []
 l_missile_enemy = []
 l_explosion = []
 l_tir_tower = []
+l_chromius_lord = []
 
 # Taille du vaisseau et des ennemis
 scale_size = 75
 asteroid_size = 90
 tir_size = 35
 speed_chromius_fighter = 10
+size_chromius_lord = 300
 
 # Taille générique des images utilisées:
 width_img = 32
@@ -142,6 +144,9 @@ STATE = 0
 
 
 def lire_niveau(id_niveau):
+    """Tous les niveaux sont écrits avec une première ligne avec le niveau, 
+    une deuxième ligne avec le temps total du niveau et la suite des lignes 
+    est la succession des évenements avec son type et sa date"""
     fichier = open('./data/niveau_'+str(id_niveau)+'.txt', 'r')
     nom_niveau = fichier.readline()
     distance_totale = int(fichier.readline().replace("\n", ""))
@@ -161,12 +166,10 @@ def lire_niveau(id_niveau):
     return [nom_niveau, distance_totale, liste_event]
 
 
-niveau_1 = lire_niveau(1)
-niveau_2 = lire_niveau(2)
-niveau_3 = lire_niveau(3)
-niveau_4 = lire_niveau(4)
-niveau_5 = lire_niveau(5)
-liste_niveau = [niveau_1, niveau_2, niveau_3, niveau_4, niveau_5]
+# A CHANGER
+liste_niveau = []
+for i in range(1, 7):
+    liste_niveau.append(lire_niveau(i))
 # Initialise l'état du jeu
 state = 0
 
@@ -242,14 +245,11 @@ bruitages = chargement_musique(dico_bruitages)
 spriteSheetExplosion = pg.image.load("resources/images/explosion_ss.png")
 
 # Chargement de l'affichage en jeu
-
-niveau1 = police_press_start.render("Niveau 1", True, couleur_affichage_niveau)
-rect_niveau1 = niveau1.get_rect()
-niveau2 = police_press_start.render("Niveau 2", True, couleur_affichage_niveau)
-rect_niveau2 = niveau2.get_rect()
-niveau3 = police_press_start.render("Niveau 3", True, couleur_affichage_niveau)
-rect_niveau3 = niveau3.get_rect()
-niveau4 = police_press_start.render("Niveau 4", True, couleur_affichage_niveau)
-rect_niveau4 = niveau4.get_rect()
-niveau5 = police_press_start.render("Niveau 5", True, couleur_affichage_niveau)
-rect_niveau5 = niveau5.get_rect()
+l_aff_niveau = []
+l_rect_niveau = []
+for i in range(1, 7):
+    l_aff_niveau.append(police_press_start.render(
+        "Niveau " + str(i), True, couleur_affichage_niveau))
+    rect = l_aff_niveau[i-1].get_rect()
+    rect.center = (width/8, height/12)
+    l_rect_niveau.append(rect)

@@ -1,7 +1,7 @@
 "Module game du projet R-Type"
 # -*- coding: utf-8 -*-
 
-from game.enemy import Asteroide, Chromius_fighter, Chromius_warrior, Chromius_tower
+from game.enemy import Asteroide, Chromius_fighter, Chromius_lord, Chromius_warrior, Chromius_tower
 from game.graphics import masks, Explosion, foregrnd
 from game.sounds import explosion
 
@@ -58,7 +58,7 @@ def gestion_event(niveau, compteur):
     """Fonction qui lance les apparitions d'ennemis programmées dans les fichiers niveau"""
     liste_event = niveau
     if len(liste_event) > 0:
-        if compteur > 60*liste_event[0][0]:
+        if compteur > 60*liste_event[0][0]: 
             if liste_event[0][1] == 'asteroide':
                 Asteroide()
                 liste_event.pop(0)
@@ -68,8 +68,9 @@ def gestion_event(niveau, compteur):
             elif liste_event[0][1] == 'chromius_warrior':
                 Chromius_warrior(liste_event[0][2], liste_event[0][3])
                 liste_event.pop(0)
-            else :
+            elif liste_event[0][1] == 'chromius_tower':
                 Chromius_tower()
                 liste_event.pop(0)
-    else:
-        you_won = True
+            else:
+                Chromius_lord()
+                liste_event.pop(0)

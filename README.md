@@ -30,7 +30,7 @@ Les différentes étapes du projet sont disponibles dans le fichier TO_DO.txt </
 <li>Vous pouvez tirer en appuyant sur la barre espace.</li>
 <li>Pour survivre : évitez les collisions avec les éléments du décor et les ennemis (autres vaisseaux,astéroides,tours) et évitez les tirs des ennemis. Vous pouvez détruire les vaisseaux ennemis avec vos tirs mais pas les astéroides et éléments du décor.</li>
 <li>Si vous survivez assez longtemps vous passez au niveau suivant.</li>
-<li>Pour gagner : Atteignez la fin du niveau 5, puis terrassez le Chromius Lord.</li>
+<li>Pour gagner : Atteignez la fin du niveau 5 puis terrassez le Boss : Le Chromius Lord.</li>
 <li>En cas de mort : un écran "game over" s'affiche, vous pouvez reprendre au début de votre niveau en appuyant sur la barre espace ou quitter en appuyant sur la touche "échap" (ou en fermant la fenêtre de jeu).</li>
 </ul></p>
 

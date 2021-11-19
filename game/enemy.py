@@ -3,7 +3,8 @@
 
 from game.constant import l_tir_tower, l_enemy, l_missile_enemy, randint, play_height, asteroid_size,  \
     width, height, pg, sqrt, tir_size, duree_tir, l_tir_enemy, speed_missile_enemy, speed_tir_enemy, \
-    speed_tir_tower, sq, sin, pi, scale_size, delai_tir_enemy, cos, atan, vitesse_decor, tower_height, tower_width
+    speed_tir_tower, sq, sin, pi, scale_size, delai_tir_enemy, cos, atan, vitesse_decor, tower_height, tower_width,\
+    size_chromius_lord, l_chromius_lord
 
 
 class Asteroide:
@@ -198,9 +199,12 @@ class tir_tower:
     def __init__(self, x, y, ship):
         """Initialisation"""
         self.rect = pg.Rect(x, y, tir_size, tir_size)
-        self.duree = 2*duree_tir
+        self.duree = 3*duree_tir
+        diff_x = ship.rect.centerx-x
+        if diff_x == 0:
+            diff_x = 1
         self.angle = atan((ship.rect.centery-y) /
-                          (ship.rect.centerx-x))
+                          (diff_x))
         if ship.rect.centerx-x < 0:
             self.speed = -speed_tir_tower
         else:
@@ -255,3 +259,62 @@ def destroy_old_enemy():
     for e in to_delete:
         if e in l_enemy:
             l_enemy.remove(e)
+
+
+class Chromius_lord:
+    def __init__(self):
+        self.size = size_chromius_lord
+        self.rect = pg.Rect(width, height//2 - self.size, self.size, self.size)
+        self.type = "chromius_lord"
+        self.l_cooldown = [0, 20, 40, 60]
+        self.t = 0
+        self.speed_x = 2
+        self.amplitude = 200
+        self.pv = 100
+        self.hitstun = 0
+        self.offsetx1 = self.size/5
+        self.offsetx2 = 0
+        self.offsety1 = self.size/4
+        self.offsety2 = self.size/8
+        self.l_pos = [(self.rect.centerx - self.offsetx1, self.rect.centery - self.offsety1),
+                      (self.rect.centerx - self.offsetx2,
+                       self.rect.centery - self.offsety2),
+                      (self.rect.centerx - self.offsetx1,
+                       self.rect.centery + self.offsety1),
+                      (self.rect.centerx - self.offsetx2, self.rect.centery + self.offsety2)]
+        l_chromius_lord.append(self)
+
+    def move(self):
+        self.t += 1
+        if self.hitstun > 0:
+            self.hitstun -= 1
+        x = width - 2*self.t
+        if x < width//2:
+            x = width // 2
+        self.rect = pg.Rect(x, height//2 - self.size//2 +
+                            cos(self.t/60)*self.amplitude, self.size, self.size)
+        self.l_pos = [(self.rect.centerx - self.offsetx1, self.rect.centery - self.offsety1),
+                      (self.rect.centerx - self.offsetx2,
+                       self.rect.centery - self.offsety2),
+                      (self.rect.centerx - self.offsetx1,
+                       self.rect.centery + self.offsety1),
+                      (self.rect.centerx - self.offsetx2, self.rect.centery + self.offsety2)]
+
+    def shoot(self, ship):
+        for i in range(len(self.l_cooldown)):
+            self.l_cooldown[i] -= 1
+            if self.l_cooldown[i] < 1:
+                self.l_cooldown[i] = randint(100, 140)
+                tir_tower(self.l_pos[i][0], self.l_pos[i][1], ship)
+
+    def detect_collision(self, l_tir_vaisseau, masks):
+        to_remove = []
+        for tir in l_tir_vaisseau:
+            if masks["tir_vaisseau"].overlap(masks["chromius_lord"], (self.rect.left - tir.rect.left, self.rect.top - tir.rect.top)) != None:
+                self.pv -= 1
+                self.hitstun = 6
+                to_remove.append(tir)
+        for tir in to_remove:
+            l_tir_vaisseau.remove(tir)
+        if self.pv < 1:
+            l_chromius_lord.remove(self)
