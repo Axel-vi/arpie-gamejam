@@ -196,9 +196,8 @@ def afficher_ecran_demarrage(state_trans):
 
 
 def defilement_decor_background():
-    """Définition de la boucle qui va faire défiler le décor au premier plan.
-    La vitesse de défilement est ajustable dans le fichier constant.py
-    La fonction renvoie la valeur de abs_decor (l'entier relatif qui donne la position du bord de l'image de décor par rapport au bord de la fenetre visible)
+    """Définition de la boucle qui va faire défiler les décors aux dernier plan.
+    Les vitesses de défilement sont ajustables dans le fichier constant.py
     """
     global backgrnd
     global middlegrnd
@@ -218,9 +217,12 @@ def defilement_decor_background():
 
 
 def defilement_decor_foreground():
+    """Définition de la boucle qui va faire défiler le décor au premier plan.
+    La vitesse de défilement est ajustable dans le fichier constant.py
+    La fonction renvoie la valeur de abs_decor (l'entier relatif qui donne la position du bord de l'image de décor par rapport au bord de la fenetre visible)
+    """
     global foregrnd
     global abs_decor
-    global backgrnd
     if -foregrnd.topleft[0] >= x_bord_decor:
         foregrnd = foregrnd.move(-foregrnd.topleft[0], 0)
         abs_decor = 0
@@ -239,12 +241,10 @@ def initialiser_decor():
     global middlegrnd
     global backgrnd
     global abs_decor
-    global backgrnd
     abs_decor = 0
     middlegrnd = image['long_middleground_relief'].get_rect()
     backgrnd = image['background'].get_rect()
     foregrnd = image["long_foreground_relief"].get_rect()
-    backgrnd = image["background"].get_rect()
 
 
 # initialisation du décor pour la premiere partie
@@ -313,12 +313,14 @@ def afficher_et_update_tir():
 
 
 def afficher_et_update_explosion():
+    """Cette fonction affiche les explosions"""
     for e in l_explosion:
         e.update()
         e.show()
 
 
 def afficher_et_update_chromius_lord(ship, l_tir_vaisseau):
+    """Cette fonctin affiche le Chromius Lord et le fait clignoter lorsqu'il prend des dégats"""
     for chromius_lord in l_chromius_lord:
         chromius_lord.move()
         chromius_lord.shoot(ship)
@@ -331,7 +333,7 @@ def afficher_et_update_chromius_lord(ship, l_tir_vaisseau):
                            chromius_lord.size, chromius_lord.rect.left, chromius_lord.rect.top)
 
 
-# Mise a jour de l'image de decor pour la rendre transparente
+# Mise a jour des images de decor pour les rendre transparentes
 image['long_foreground_relief'] = pg.transform.scale(
     image['long_foreground_relief'].convert_alpha(), (width_fg*ratio_decor, height))
 image['background'] = pg.transform.scale(
@@ -340,7 +342,7 @@ image['long_middleground_relief'] = pg.transform.scale(
     image['long_middleground_relief'].convert_alpha(), (width_fg*ratio_decor, height))
 
 # Dictionnaire des masques pour gérer les collisions
-# A CHANGER
+
 maskAsteroid = pg.mask.from_surface(pg.transform.scale(
     image["asteroide"].convert_alpha(), (asteroid_size, asteroid_size)))
 maskShip = pg.mask.from_surface(pg.transform.scale(
@@ -376,10 +378,12 @@ masks = {"asteroide": maskAsteroid,
 
 
 def afficher_niveau_en_cours(id_niveau):
+    """Fonction qui affiche le nveau dans lequel le joueur se trouve"""
     fenetre.blit(l_aff_niveau[id_niveau-1], l_rect_niveau[id_niveau-1])
 
 
 def afficher_ecran_victoire():
+    """Fonction qui affiche l'ecran de fin de jeu en cas de victoire"""
     fenetre.fill(black)
     fenetre.blit(titre_victory, rect_victory)
     fenetre.blit(next_level, rect_next_level)
@@ -387,7 +391,10 @@ def afficher_ecran_victoire():
 
 
 class Explosion(pg.sprite.Sprite):
+    """Classe pour definir les explosions"""
+
     def __init__(self, x, y):
+        """Initialisation"""
         pg.sprite.Sprite.__init__(self)
         self.rect = pg.Rect(x, y, 16, 16)
         self.num = 0
@@ -397,6 +404,7 @@ class Explosion(pg.sprite.Sprite):
         l_explosion.append(self)
 
     def update(self):
+        """Mise a jour de l'explosion"""
         self.delta_time += 1
         if self.delta_time >= 3:
             self.delta_time = 0
@@ -408,7 +416,6 @@ class Explosion(pg.sprite.Sprite):
                 l_explosion.remove(self)
 
     def show(self):
+        """Affichage de l'explosion"""
         afficher_image(self.image, scale_size, scale_size,
                        self.rect.left, self.rect.top)
-
-

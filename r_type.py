@@ -7,7 +7,7 @@ from game.graphics import afficher_ecran_demarrage, afficher_ecran_victoire, aff
     defilement_decor_background, detect_control_game, afficher_vaisseau, \
     afficher_et_update_enemy, afficher_et_update_tir, afficher_et_update_explosion, \
     defilement_decor_foreground, afficher_ecran_fin, initialiser_decor, l_explosion
-from game.sounds import musique_jeu, son_game_over
+from game.sounds import musique_jeu, musique_victoire, son_game_over
 from game.enemy import Chromius_lord, destroy_old_enemy, l_enemy, l_missile_enemy, \
     l_tir_enemy, l_tir_tower, l_chromius_lord
 from game.constant import state_trans, compt_trans, pg, black, clock, fps, cos, \
@@ -26,7 +26,7 @@ while True:
         # Ecran de demarrage qui affiche le titre et le bouton play (Appuyer sur espace)
         afficher_ecran_demarrage(state_trans)
         NEW_STATE = detect_control_demarrage()
-        id_niveau = 5
+        id_niveau = 1
         if NEW_STATE == 1:
             STATE = 3
             musique_jeu()
@@ -59,8 +59,10 @@ while True:
             STATE = 2
         if COMPTEUR > 60*liste_niveau[id_niveau-1][1]:
             STATE = 4
+            musique_victoire()
         if id_niveau == 6 and len(l_chromius_lord) == 0 and COMPTEUR > 300:
             STATE = 4
+            musique_victoire()
         pg.display.update()
 
     while STATE == 2:
@@ -103,8 +105,8 @@ while True:
         new_state = detect_control_demarrage()
         if new_state == 1:
             id_niveau += 1
-            if id_niveau == 7 :
-                STATE =0
-            else :
+            if id_niveau == 7:
+                STATE = 0
+            else:
                 STATE = 3
         pg.display.update()
